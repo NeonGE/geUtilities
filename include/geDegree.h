@@ -58,7 +58,7 @@ namespace geEngineSDK {
       return m_degree;
     }
 
-    FORCEINLINE float
+    float
     valueRadians() const;
 
     /**

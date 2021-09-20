@@ -52,7 +52,7 @@ namespace geEngineSDK {
   {
    public:
 #if GE_PLATFORM == GE_PLATFORM_LINUX
-    static  const char* EXTENSION = "so";
+    static CONSTEXPR const char* EXTENSION = "so";
     static CONSTEXPR const char* PREFIX = "lib";
 #elif GE_PLATFORM == GE_PLATFORM_OSX
     static CONSTEXPR const char* EXTENSION = "dylib";

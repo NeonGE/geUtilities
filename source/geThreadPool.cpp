@@ -149,7 +149,7 @@ namespace geEngineSDK {
     }
 #else
     worker();
-    LOGWRN("Starting a thread with no error handling.");
+    GE_LOG(kWarning, Generic, "Starting a thread with no error handling.");
 #endif
   }
 

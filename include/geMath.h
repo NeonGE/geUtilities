@@ -37,7 +37,7 @@ namespace geEngineSDK {
   template<>
   FORCEINLINE float
   abs<float>(const float A) {
-    return static_cast<float>(std::fabsf(A));
+    return static_cast<float>(std::fabs(A));
   }
 
   namespace Implementation {
@@ -111,12 +111,12 @@ namespace geEngineSDK {
 
     GE_NODISCARD static FORCEINLINE int32
     floor(float F) {
-      return trunc(std::floorf(F));
+      return trunc(std::floor(F));
     }
 
     GE_NODISCARD static FORCEINLINE float
     floorFloat(float F) {
-      return std::floorf(F);
+      return std::floor(F);
     }
 
     GE_NODISCARD static FORCEINLINE double
@@ -141,12 +141,12 @@ namespace geEngineSDK {
     
     GE_NODISCARD static FORCEINLINE int32
     ceil(float F) {
-      return trunc(std::ceilf(F));
+      return trunc(std::ceil(F));
     }
 
     GE_NODISCARD static FORCEINLINE float
     ceilFloat(float F) {
-      return std::ceilf(F);
+      return std::ceil(F);
     }
 
     GE_NODISCARD static FORCEINLINE double
@@ -161,27 +161,27 @@ namespace geEngineSDK {
 
     GE_NODISCARD static FORCEINLINE float
     fmod(float X, float Y) {
-      return std::fmodf(X, Y);
+      return std::fmod(X, Y);
     }
 
     GE_NODISCARD static FORCEINLINE float
     pow(float Base, float Exponent) {
-      return std::powf(Base, Exponent);
+      return std::pow(Base, Exponent);
     }
 
     GE_NODISCARD static FORCEINLINE float
     exp(float Value) {
-      return std::expf(Value);
+      return std::exp(Value);
     }
 
     GE_NODISCARD static FORCEINLINE float
     logE(float Value) {
-      return std::logf(Value);
+      return std::log(Value);
     }
     
     GE_NODISCARD static FORCEINLINE float
     log2(float Value) {
-      return std::logf(Value) / LOG2;
+      return std::log(Value) / LOG2;
     }
 
     GE_NODISCARD static FORCEINLINE float
@@ -191,7 +191,7 @@ namespace geEngineSDK {
 
     GE_NODISCARD static FORCEINLINE float
     sqrt(float Value) {
-      return std::sqrtf(Value);
+      return std::sqrt(Value);
     }
 
     GE_NODISCARD static FORCEINLINE Radian
@@ -206,7 +206,7 @@ namespace geEngineSDK {
 
     GE_NODISCARD static FORCEINLINE float
     invSqrt(float F) {
-      return 1.0f / std::sqrtf(F);
+      return 1.0f / std::sqrt(F);
     }
 
     GE_NODISCARD static FORCEINLINE float
@@ -236,7 +236,7 @@ namespace geEngineSDK {
 
     GE_NODISCARD static FORCEINLINE float
     cos(float Value) {
-      return std::cosf(Value);
+      return std::cos(Value);
     }
 
     GE_NODISCARD static FORCEINLINE float
@@ -246,17 +246,17 @@ namespace geEngineSDK {
 
     GE_NODISCARD static FORCEINLINE float
     tan(float Value) {
-      return std::tanf(Value);
+      return std::tan(Value);
     }
 
     GE_NODISCARD static FORCEINLINE float
     cos(const Radian& Value) {
-      return std::cosf(Value.valueRadians());
+      return std::cos(Value.valueRadians());
     }
 
     GE_NODISCARD static FORCEINLINE float
     sin(const Radian& Value) {
-      return std::sinf(Value.valueRadians());
+      return std::sin(Value.valueRadians());
     }
 
     GE_NODISCARD static FORCEINLINE float
@@ -266,7 +266,7 @@ namespace geEngineSDK {
 
     GE_NODISCARD static FORCEINLINE float
     cosh(float Value) {
-      return std::coshf(Value);
+      return std::cosh(Value);
     }
 
     GE_NODISCARD static FORCEINLINE float
@@ -276,7 +276,7 @@ namespace geEngineSDK {
 
     GE_NODISCARD static FORCEINLINE float
       tanh(float Value) {
-      return std::tanhf(Value);
+      return std::tanh(Value);
     }
 
     GE_NODISCARD static Radian
@@ -287,12 +287,12 @@ namespace geEngineSDK {
 
     GE_NODISCARD static FORCEINLINE Radian
     atan(float Value) {
-      return Radian(std::atanf(Value));
+      return Radian(std::atan(Value));
     }
 
     GE_NODISCARD static FORCEINLINE Radian
     atan2(float Y, float X) {
-      return Radian(std::atan2f(Y, X));
+      return Radian(std::atan2(Y, X));
     }
 
     /**

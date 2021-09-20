@@ -54,7 +54,7 @@ namespace geEngineSDK {
     Radian&
     operator=(const Degree& d);
 
-    FORCEINLINE float
+    float
     valueDegrees() const;
 
     FORCEINLINE float

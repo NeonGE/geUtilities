@@ -18,7 +18,7 @@
 /*****************************************************************************/
 #include "geTriangulation.h"
 #include "geVector3.h"
-#include "Externals/TetGen/tetgen.h"
+#include "externals/tetgen.h"
 
 namespace geEngineSDK {
   TetrahedronVolume

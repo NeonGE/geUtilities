@@ -52,12 +52,12 @@ namespace geEngineSDK {
     return *this;
   }
 
-  inline float
+  float
   Degree::valueRadians() const {
     return m_degree * Math::DEG2RAD;
   }
 
-  inline void
+  void
   Degree::unwindDegrees() {
     m_degree = Math::unwindDegrees(m_degree);
   }

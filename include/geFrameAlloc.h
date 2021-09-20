@@ -18,11 +18,11 @@
  * Includes
  */
 /*****************************************************************************/
-#include <limits>
 #include <new>
 
 #include "gePlatformDefines.h"
 #include "gePlatformTypes.h"
+#include "geNumericLimits.h"
 #include "geStdHeaders.h"
 #include "geThreading.h"
 

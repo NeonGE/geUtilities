@@ -130,7 +130,7 @@ namespace geEngineSDK {
      * @brief Overriden std::exception::what. Returns the same value as "getFullDescription".
      */
     const char*
-    what() const override {
+    what() const _NOEXCEPT {
       return getFullDescription().c_str();
     }
 
