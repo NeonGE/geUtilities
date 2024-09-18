@@ -31,7 +31,7 @@
  * Includes
  */
 /*****************************************************************************/
-#include "gePrerequisitesUtil.h"
+#include "gePrerequisitesUtilities.h"
 #include "geSerializedObject.h"
 #include "geRTTIField.h"
 
@@ -43,7 +43,7 @@ namespace geEngineSDK {
   struct RTTIReflectablePtrFieldBase;
   struct SerializationContext;
 
-  class GE_UTILITY_EXPORT BinarySerializer
+  class GE_UTILITIES_EXPORT BinarySerializer
   {
   public:
     BinarySerializer();
@@ -246,7 +246,7 @@ namespace geEngineSDK {
     Vector<ObjectToEncode> m_objectsToEncode;
     UnorderedMap<void*, uint32> m_objectAddrToId;
     uint32 m_lastUsedObjectId = 1;
-    uint32 m_totalBytesWritten;
+    uint32 m_totalBytesWritten = 0;
     uint32 m_totalBytesRead = 0;
     uint32 m_totalBytesToRead = 0;
     uint32 m_nextProgressReport = REPORT_AFTER_BYTES;

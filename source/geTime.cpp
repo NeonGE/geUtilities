@@ -37,7 +37,7 @@ namespace geEngineSDK {
     m_timer = ge_new<Timer>();
     m_appStartTime = m_timer->getStartMs();
     m_lastFrameTime = m_timer->getMicroseconds();
-    m_appStartUpDate = std::time(nullptr);
+    m_appStartUpDate = time(nullptr);
   }
 
   Time::~Time() {

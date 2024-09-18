@@ -17,7 +17,7 @@
  * Includes
  */
 /*****************************************************************************/
-#include "gePrerequisitesUtil.h"
+#include "gePrerequisitesUtilities.h"
 #include "geVector4.h"
 #include "geBox.h"
 #include "geSphere.h"
@@ -47,12 +47,12 @@ namespace geEngineSDK {
      */
     struct AABox
     {
-      AABox() {}
+      AABox() = default;
 
       /**
        * @brief Initializes bounds from an AABox.
        */
-      AABox(const geEngineSDK::AABox& box) {
+      explicit AABox(const geEngineSDK::AABox& box) {
         Vector3 bC, bE;
         box.getCenterAndExtents(bC, bE);
         m_center = bC;
@@ -62,8 +62,8 @@ namespace geEngineSDK {
       /**
        * @brief Initializes bounds from a Sphere.
        */
-      AABox(const Sphere& sphere) {
-        m_center = sphere.m_center;
+      explicit AABox(const Sphere& sphere)
+        : m_center(sphere.m_center) {
         float radius = sphere.m_radius;
         m_extents = Vector4(radius, radius, radius, 0.0f);
       }
@@ -72,8 +72,8 @@ namespace geEngineSDK {
        * @brief Initializes bounds from a vector representing the center and
        *        equal extents in all directions.
        */
-      AABox(const Vector3& center, float extent) {
-        m_center = center;
+      AABox(const Vector3& center, float extent)
+        : m_center(center) {
         m_extents = Vector4(extent, extent, extent, 0.0f);
       }
 
@@ -127,7 +127,7 @@ namespace geEngineSDK {
       /**
        * @brief Initializes bounds from an Rect2.
        */
-      Rect2(const geEngineSDK::Rect2& rect) {
+      explicit Rect2(const geEngineSDK::Rect2& rect) {
         center = Vector4(rect.getCenter().x, rect.getCenter().y, 0.0f, 0.0f);
         extents = Vector4(rect.getHalfSize().x, rect.getHalfSize().y, 0.0f, 0.0f);
       }

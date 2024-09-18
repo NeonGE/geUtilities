@@ -39,7 +39,7 @@ namespace geEngineSDK {
    *        (\ or / depending on platform). System won't fail if you don't
    *        but it will be easier to misuse.
    */
-  class GE_UTILITY_EXPORT Path
+  class GE_UTILITIES_EXPORT Path
   {
    public:
     Path() = default;
@@ -657,7 +657,7 @@ namespace std {
       geEngineSDK::ge_hash_combine(hash, path.m_device);
       geEngineSDK::ge_hash_combine(hash, path.m_node);
 
-      for (auto& dir : path.m_directories) {
+      for (const auto& dir : path.m_directories) {
         geEngineSDK::ge_hash_combine(hash, dir);
       }
 

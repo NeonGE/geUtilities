@@ -18,13 +18,13 @@
  */
 /*****************************************************************************/
 #include "Win32/geMinWindows.h"
-#include "gePrerequisitesUtil.h"
+#include "gePrerequisitesUtilities.h"
 
 namespace geEngineSDK {
   /**
    * @brief Provides access to various Windows specific utility functions.
    */
-  class GE_UTILITY_EXPORT Win32PlatformUtility
+  class GE_UTILITIES_EXPORT Win32PlatformUtility
   {
    public:
     /**

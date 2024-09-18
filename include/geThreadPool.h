@@ -18,7 +18,7 @@
  * Includes
  */
 /*****************************************************************************/
-#include "gePrerequisitesUtil.h"
+#include "gePrerequisitesUtilities.h"
 #include "geModule.h"
 
 namespace geEngineSDK {
@@ -30,7 +30,7 @@ namespace geEngineSDK {
   /**
    * @brief Handle to a thread managed by ThreadPool.
    */
-  class GE_UTILITY_EXPORT HThread
+  class GE_UTILITIES_EXPORT HThread
   {
    public:
     HThread() = default;
@@ -50,7 +50,7 @@ namespace geEngineSDK {
   /**
    * @brief Wrapper around a thread that is used within ThreadPool.
    */
-  class GE_UTILITY_EXPORT PooledThread
+  class GE_UTILITIES_EXPORT PooledThread
   {
    public:
     PooledThread(const String& name) : m_name(name) {}
@@ -192,7 +192,7 @@ namespace geEngineSDK {
    * @brief Class that maintains a pool of threads we can easily retrieve and use
    *        for any task. This saves on the cost of creating and destroying threads.
    */
-  class GE_UTILITY_EXPORT ThreadPool : public Module<ThreadPool>
+  class GE_UTILITIES_EXPORT ThreadPool : public Module<ThreadPool>
   {
    public:
     /**

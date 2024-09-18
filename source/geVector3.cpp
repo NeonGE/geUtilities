@@ -260,7 +260,7 @@ namespace geEngineSDK {
 
     //So now after we have possible cluster centers we want to remove the ones
     //that are outliers and not part of the main cluster
-    for (SIZE_T i = ClusterData.size(); i >= 0 ; --i) {
+    for (int32 i = static_cast<int32>(ClusterData.size()-1); i >= 0; --i) {
       if (ClusterData[i].clusterSize < NumConnectionsToBeValid) {
         Vector<Vector3>::iterator nth = Clusters.begin() + i;
         Clusters.erase(nth);

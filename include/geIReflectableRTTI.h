@@ -17,11 +17,11 @@
  * Includes
  */
 /*****************************************************************************/
-#include "gePrerequisitesUtil.h"
+#include "gePrerequisitesUtilities.h"
 #include "geRTTIType.h"
 
 namespace geEngineSDK {
-  class GE_UTILITY_EXPORT IReflectableRTTI
+  class GE_UTILITIES_EXPORT IReflectableRTTI
     : public RTTIType<IReflectable, IReflectable, IReflectableRTTI>
   {
    public:

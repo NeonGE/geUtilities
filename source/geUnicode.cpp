@@ -64,12 +64,12 @@ namespace geEngineSDK {
     output = 0;
     switch (numBytes)
     {
-      case 6: output += static_cast<uint8>(*begin); ++begin; output <<= 6; GE_FALLTHROUGH;
-      case 5: output += static_cast<uint8>(*begin); ++begin; output <<= 6; GE_FALLTHROUGH;
-      case 4: output += static_cast<uint8>(*begin); ++begin; output <<= 6; GE_FALLTHROUGH;
-      case 3: output += static_cast<uint8>(*begin); ++begin; output <<= 6; GE_FALLTHROUGH;
-      case 2: output += static_cast<uint8>(*begin); ++begin; output <<= 6; GE_FALLTHROUGH;
-      case 1: output += static_cast<uint8>(*begin); ++begin; GE_FALLTHROUGH;
+      case 6: output += static_cast<uint8>(*begin); ++begin; output <<= 6; GE_FALLTHROUGH; break;
+      case 5: output += static_cast<uint8>(*begin); ++begin; output <<= 6; GE_FALLTHROUGH; break;
+      case 4: output += static_cast<uint8>(*begin); ++begin; output <<= 6; GE_FALLTHROUGH; break;
+      case 3: output += static_cast<uint8>(*begin); ++begin; output <<= 6; GE_FALLTHROUGH; break;
+      case 2: output += static_cast<uint8>(*begin); ++begin; output <<= 6; GE_FALLTHROUGH; break;
+      case 1: output += static_cast<uint8>(*begin); ++begin; GE_FALLTHROUGH; break;
       default: break;
     }
 
@@ -131,12 +131,16 @@ namespace geEngineSDK {
     {
       case 4:
         bytes[3] = static_cast<char>((input | 0x80) & 0xBF); input >>= 6; GE_FALLTHROUGH;
+        break;
       case 3:
         bytes[2] = static_cast<char>((input | 0x80) & 0xBF); input >>= 6; GE_FALLTHROUGH;
+        break;
       case 2:
         bytes[1] = static_cast<char>((input | 0x80) & 0xBF); input >>= 6; GE_FALLTHROUGH;
+        break;
       case 1:
         bytes[0] = static_cast<char>(input | headers[numBytes]); GE_FALLTHROUGH;
+        break;
       default:
         break;
     }
@@ -450,14 +454,14 @@ namespace geEngineSDK {
   UTF8::charByteCount(const String& input, SIZE_T charIdx) {
     const SIZE_T byteIdx = charToByteIndex(input, charIdx);
 
-    SIZE_T count = 1;
+    SIZE_T countBytes = 1;
     for (auto i = byteIdx + 1; i < input.size(); ++i) {
       if ((i & 0xc0) != 0x80) {
         break;
       }
-      ++count;
+      ++countBytes;
     }
-    return count;
+    return countBytes;
   }
 
   String

@@ -18,7 +18,7 @@
 * Includes
 */
 /*****************************************************************************/
-#include "gePrerequisitesUtil.h"
+#include "gePrerequisitesUtilities.h"
 #include "geException.h"
 #include "geDebug.h"
 #include "geUnicode.h"

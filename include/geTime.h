@@ -17,7 +17,7 @@
  * Includes
  */
 /*****************************************************************************/
-#include "gePrerequisitesUtil.h"
+#include "gePrerequisitesUtilities.h"
 #include "geModule.h"
 
 namespace geEngineSDK {
@@ -28,7 +28,7 @@ namespace geEngineSDK {
    * @brief Manages all time related functionality.
    * @note  Sim thread only unless where specified otherwise.
    */
-  class GE_UTILITY_EXPORT Time : public Module<Time>
+  class GE_UTILITIES_EXPORT Time : public Module<Time>
   {
    public:
     Time();
@@ -218,6 +218,6 @@ namespace geEngineSDK {
   /**
    * @brief Easier way to access the Time module.
    */
-  GE_UTILITY_EXPORT Time&
+  GE_UTILITIES_EXPORT Time&
   g_time();
 }

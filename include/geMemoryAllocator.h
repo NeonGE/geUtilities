@@ -118,12 +118,12 @@ namespace geEngineSDK {
   class MemoryCounter
   {
    public:
-    static GE_UTILITY_EXPORT uint64_t
+    static GE_UTILITIES_EXPORT uint64_t
     getNumAllocs() { 
       return m_allocs;
     }
     
-    static GE_UTILITY_EXPORT uint64_t
+    static GE_UTILITIES_EXPORT uint64_t
     getNumFrees() {
       return m_frees;
     }
@@ -135,12 +135,12 @@ namespace geEngineSDK {
      * Thread local data can't be exported, so some magic to make it accessible
      * from MemoryAllocator
      */
-    static GE_UTILITY_EXPORT void
+    static GE_UTILITIES_EXPORT void
     incAllocCount() {
       ++m_allocs;
     }
     
-    static GE_UTILITY_EXPORT void
+    static GE_UTILITIES_EXPORT void
     incFreeCount() {
       ++m_frees;
     }
@@ -479,7 +479,7 @@ namespace geEngineSDK {
     CONSTEXPR StdAlloc(const StdAlloc&) = default;
 
     template<class U, class Alloc2>
-    CONSTEXPR StdAlloc(const StdAlloc<U, Alloc2>&) {};
+    explicit CONSTEXPR StdAlloc(const StdAlloc<U, Alloc2>&) {}
 
     template<class U, class Alloc2>
     CONSTEXPR bool

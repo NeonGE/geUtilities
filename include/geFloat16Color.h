@@ -26,7 +26,7 @@ namespace geEngineSDK {
   /**
    * @brief RGBA Color made up of Float16.
    */
-  class GE_UTILITY_EXPORT Float16Color
+  class GE_UTILITIES_EXPORT Float16Color
   {
    public:
     Float16Color() {}

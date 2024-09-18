@@ -17,7 +17,7 @@
  * Includes
  */
 /*****************************************************************************/
-#include "gePrerequisitesUtil.h"
+#include "gePrerequisitesUtilities.h"
 #include "geVector2.h"
 
 namespace geEngineSDK {
@@ -57,13 +57,13 @@ namespace geEngineSDK {
      * @param Points Array of Points to create for the bounding volume.
      * @param Count The number of points.
      */
-    GE_UTILITY_EXPORT Box2D(const Vector2* Points, const SIZE_T Count);
+    GE_UTILITIES_EXPORT Box2D(const Vector2* Points, const SIZE_T Count);
 
     /**
      * @brief Creates and initializes a new box from an array of points.
      * @param Points Array of Points to create for the bounding volume.
      */
-    explicit GE_UTILITY_EXPORT Box2D(const Vector<Vector2>& Points);
+    explicit GE_UTILITIES_EXPORT Box2D(const Vector<Vector2>& Points);
 
    public:
     /**
@@ -288,7 +288,7 @@ namespace geEngineSDK {
     /**
      * @brief Holds a flag indicating whether this box is valid.
      */
-    bool m_bIsValid;
+    bool m_bIsValid = false;
   };
 
   /***************************************************************************/

@@ -18,7 +18,7 @@
  * Includes
  */
 /*****************************************************************************/
-#include "gePrerequisitesUtil.h"
+#include "gePrerequisitesUtilities.h"
 #include "geBox.h"
 #include "geVector4.h"
 #include "geMatrix4.h"
@@ -53,7 +53,7 @@ namespace geEngineSDK {
     : m_min(0, 0, 0),
       m_max(0, 0, 0),
       m_isValid(0) {
-    for (auto& Point : Points) {
+    for (const auto& Point : Points) {
       *this += Point;
     }
   }
@@ -70,26 +70,19 @@ namespace geEngineSDK {
     const Vector4 VecMin(m_min.x, m_min.y, m_min.z, 0.0f);
     const Vector4 VecMax(m_max.x, m_max.y, m_max.z, 0.0f);
 
-    auto myExtents = load<float32x4>(&VecMin);
-
-    const Vector4 m0(M.m[0][0], M.m[0][1], M.m[0][2], M.m[0][3]);
-    const Vector4 m1(M.m[1][0], M.m[1][1], M.m[1][2], M.m[1][3]);
-    const Vector4 m2(M.m[2][0], M.m[2][1], M.m[2][2], M.m[2][3]);
-    const Vector4 m3(M.m[3][0], M.m[3][1], M.m[3][2], M.m[3][3]);
-
     const Vector4 Half(0.5f, 0.5f, 0.5f, 0.0f);
-    const Vector4 Origin = (VecMax + VecMin) * Half;
-    const Vector4 Extent = (VecMax - VecMin) * Half;
+    const Vector4 Origin = (VecMax + VecMin) * Half;  // Center of the box
+    const Vector4 Extent = (VecMax - VecMin) * Half;  // Half-extents of the box
 
-    Vector4 NewOrigin = Vector4(Origin.x, Origin.x, Origin.x, Origin.x) * m0;
-    NewOrigin = (Vector4(Origin.y, Origin.y, Origin.y, Origin.y) * m1) + NewOrigin;
-    NewOrigin = (Vector4(Origin.z, Origin.z, Origin.z, Origin.z) * m2) + NewOrigin;
-    NewOrigin += m3;
+    // Transform the origin (center) of the box
+    Vector4 NewOrigin = M.transformPosition(Origin);  // Assuming transformPosition applies the full matrix including translation
 
-    Vector4 NewExtent = (Vector4(Extent.x, Extent.x, Extent.x, Extent.x) * m0).vectorAbs();
-    NewExtent = (Vector4(Extent.y, Extent.y, Extent.y, Extent.y) * m1).vectorAbs() + NewExtent;
-    NewExtent = (Vector4(Extent.z, Extent.z, Extent.z, Extent.z) * m2).vectorAbs() + NewExtent;
+    // Transform the extents of the box
+    Vector4 NewExtent = (M.transformVector(Vector4(Extent.x, 0, 0, 0)).vectorAbs() +
+      M.transformVector(Vector4(0, Extent.y, 0, 0)).vectorAbs() +
+      M.transformVector(Vector4(0, 0, Extent.z, 0)).vectorAbs());
 
+    // Compute the new AABB
     const Vector4 NewVecMin = NewOrigin - NewExtent;
     const Vector4 NewVecMax = NewOrigin + NewExtent;
 
@@ -107,7 +100,7 @@ namespace geEngineSDK {
 
   AABox
   AABox::inverseTransformBy(const Transform& M) const {
-    Vector3 Vertices[8] =
+    const Vector3 Vertices[8] =
     {
       Vector3(m_min),
       Vector3(m_min.x, m_min.y, m_max.z),
@@ -121,7 +114,7 @@ namespace geEngineSDK {
 
     AABox NewBox(FORCE_INIT::kForceInit);
 
-    for (auto& Vertice : Vertices) {
+    for (const auto& Vertice : Vertices) {
       Vector4 ProjectedVertex = M.inverseTransformPosition(Vertice);
       NewBox += ProjectedVertex;
     }
@@ -131,7 +124,7 @@ namespace geEngineSDK {
 
   AABox
   AABox::transformProjectBy(const Matrix4& ProjM) const {
-    Vector3 Vertices[8] =
+    const Vector3 Vertices[8] =
     {
       Vector3(m_min),
       Vector3(m_min.x, m_min.y, m_max.z),

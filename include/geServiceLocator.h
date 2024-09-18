@@ -16,7 +16,7 @@
  * Includes
  */
 /*****************************************************************************/
-#include "gePrerequisitesUtil.h"
+#include "gePrerequisitesUtilities.h"
 #include "geException.h"
 
 namespace geEngineSDK {

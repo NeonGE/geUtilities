@@ -17,10 +17,10 @@
  * Includes
  */
 /*****************************************************************************/
-#include "gePrerequisitesUtil.h"
+#include "gePrerequisitesUtilities.h"
 
 namespace geEngineSDK {
-  class GE_UTILITY_EXPORT BinaryCloner
+  class GE_UTILITIES_EXPORT BinaryCloner
   {
    public:
     /**

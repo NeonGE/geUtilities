@@ -59,6 +59,8 @@
 #include <queue>
 #include <bitset>
 #include <array>
+#include <variant>
+#include <optional>
 
 #include <unordered_map>
 #include <unordered_set>
@@ -251,7 +253,7 @@ namespace geEngineSDK {
   using UnorderedSet = std::unordered_set<T, H, C, A>;
 
   /**
-   * @brief An associative container containing an ordered set of key-value
+   * @brief An associative container containing an unordered set of key-value
    *        pairs. Usually faster than Map for larger data sets.
    */
   template<typename K, 
@@ -272,6 +274,28 @@ namespace geEngineSDK {
            typename C = std::equal_to<K>, 
            typename A = StdAlloc<std::pair<const K, V>>>
   using UnorderedMultimap = std::unordered_multimap<K, V, H, C, A>;
+  
+  /**
+   * @brief Fixed size array.
+   */
+  template<typename T, size_t N>
+  using Array = std::array<T, N>;
+
+  /**
+   * @brief Bitset that stores bits in a fixed size array.
+   */
+  template<size_t N>
+  using Bitset = std::bitset<N>;
+  /**
+   * @brief Optional object that may or may not contain a value.
+   */
+  template<typename T>
+  using Optional = std::optional<T>;
+  /**
+   * @brief Variant object that may hold any of the specified
+   */
+  template<class... T>
+  using Variant = std::variant<T...>;
 
   /***************************************************************************/
   /**
@@ -355,7 +379,7 @@ namespace geEngineSDK {
   template<typename T>
   struct NativePtr
   {
-    CONSTEXPR NativePtr(T* p = nullptr) : m_ptr(p) {}
+    explicit CONSTEXPR NativePtr(T* p = nullptr) : m_ptr(p) {}
     
     CONSTEXPR T& operator*() const {
       return *m_ptr;

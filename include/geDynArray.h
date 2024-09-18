@@ -18,7 +18,7 @@
  */
 /*****************************************************************************/
 
-#include "gePrerequisitesUtil.h"
+#include "gePrerequisitesUtilities.h"
 
 namespace geEngineSDK {
   using std::copy;
@@ -51,7 +51,7 @@ namespace geEngineSDK {
 
     DynArray() = default;
 
-    DynArray(uint32 size, const ValueType& value = ValueType()) {
+    explicit DynArray(uint32 size, const ValueType& value = ValueType()) {
       append(size, value);
     }
 
@@ -76,7 +76,7 @@ namespace geEngineSDK {
     }
 
     ~DynArray() {
-      for (auto& entry : *this) {
+      for (const auto& entry : *this) {
         entry.~Type();
       }
       ge_free(m_elements);
@@ -137,7 +137,7 @@ namespace geEngineSDK {
       }
 
       //Just steal the buffer
-      for (auto& entry : *this) {
+      for (const auto& entry : *this) {
         entry.~Type();
       }
 
@@ -665,7 +665,7 @@ namespace geEngineSDK {
                              make_move_iterator(end()),
                                                 buffer);
 
-        for (auto& entry : *this) {
+        for (const auto& entry : *this) {
           entry.~Type();
         }
 

@@ -18,7 +18,7 @@
  * Includes
  */
 /*****************************************************************************/
-#include "gePrerequisitesUtil.h"
+#include "gePrerequisitesUtilities.h"
 #include "geNumericLimits.h"
 #include "geColorGradient.h"
 #include "geException.h"
@@ -81,11 +81,11 @@ namespace geEngineSDK {
 
     static uint32
     getDynamicSize(const ColorGradient& data) {
-      const uint64 dataSize =
+      const uint64 dataSize = static_cast<uint64>(
         rttiGetElementSize(data.m_colors[0]) * ColorGradient::MAX_KEYS +
         rttiGetElementSize(data.m_times[0]) * ColorGradient::MAX_KEYS +
         rttiGetElementSize(data.m_numKeys) +
-        rttiGetElementSize(data.m_duration) + sizeof(uint32) * 2;
+        rttiGetElementSize(data.m_duration) + sizeof(uint32) * 2);
 
 #if GE_DEBUG_MODE
       if (NumLimit::MAX_UINT32 < dataSize) {

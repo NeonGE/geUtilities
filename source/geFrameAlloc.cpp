@@ -17,14 +17,14 @@
  * Includes
  */
 /*****************************************************************************/
-#include "gePrerequisitesUtil.h"
+#include "gePrerequisitesUtilities.h"
 #include "geFrameAlloc.h"
 #include "geException.h"
 
 namespace geEngineSDK {
-  uint8*
+  byte*
   FrameAlloc::MemBlock::alloc(SIZE_T amount) {
-    uint8* freePtr = &m_data[m_freePtr];
+    byte* freePtr = &m_data[m_freePtr];
     m_freePtr += amount;
     return freePtr;
   }
@@ -58,7 +58,7 @@ namespace geEngineSDK {
     }
   }
 
-  uint8*
+  byte*
   FrameAlloc::alloc(SIZE_T amount) {
 #if GE_DEBUG_MODE
     amount += sizeof(SIZE_T);
@@ -72,7 +72,7 @@ namespace geEngineSDK {
       allocBlock(amount);
     }
 
-    uint8* data = m_freeBlock->alloc(amount);
+    byte* data = m_freeBlock->alloc(amount);
 
 #if GE_DEBUG_MODE
     m_totalAllocBytes += amount;
@@ -86,7 +86,7 @@ namespace geEngineSDK {
 #endif
   }
 
-  uint8*
+  byte*
   FrameAlloc::allocAligned(SIZE_T amount, SIZE_T alignment) {
 #if GE_DEBUG_MODE
     amount += sizeof(SIZE_T);
@@ -121,7 +121,7 @@ namespace geEngineSDK {
     }
 
     amount += alignOffset;
-    uint8* data = m_freeBlock->alloc(amount);
+    byte* data = m_freeBlock->alloc(amount);
 
 #if GE_DEBUG_MODE
     m_totalAllocBytes += amount;
@@ -136,7 +136,7 @@ namespace geEngineSDK {
   }
 
   void
-  FrameAlloc::free(uint8* data) {
+  FrameAlloc::free(byte* data) {
     //Dealloc is only used for debug and can be removed if needed.
     //All the actual deallocation happens in clear()
 #if GE_DEBUG_MODE
@@ -162,9 +162,9 @@ namespace geEngineSDK {
     if (nullptr != m_lastFrame) {
       GE_ASSERT(m_blocks.size() > 0 && 0 < m_nextBlockIdx);
 
-      free(reinterpret_cast<uint8*>(m_lastFrame));
+      free(reinterpret_cast<byte*>(m_lastFrame));
 
-      auto framePtr = reinterpret_cast<uint8*>(m_lastFrame);
+      auto framePtr = reinterpret_cast<byte*>(m_lastFrame);
       m_lastFrame = *reinterpret_cast<void**>(m_lastFrame);
 
 #if GE_DEBUG_MODE
@@ -175,9 +175,9 @@ namespace geEngineSDK {
       uint32 numFreedBlocks = 0;
       for (int32 i = startBlockIdx; i >= 0; --i) {
         MemBlock* curBlock = m_blocks[i];
-        uint8* blockEnd = curBlock->m_data + curBlock->m_size;
+        byte* blockEnd = curBlock->m_data + curBlock->m_size;
         if (framePtr >= curBlock->m_data && framePtr < blockEnd) {
-          uint8* dataEnd = curBlock->m_data + curBlock->m_freePtr;
+          byte* dataEnd = curBlock->m_data + curBlock->m_freePtr;
           auto sizeInBlock = static_cast<SIZE_T>(dataEnd - framePtr);
           GE_ASSERT(sizeInBlock <= curBlock->m_freePtr);
 
@@ -274,7 +274,7 @@ namespace geEngineSDK {
     if (nullptr == newBlock) {
       SIZE_T alignOffset = 16 - (sizeof(MemBlock) & (16 - 1));
 
-      auto data = reinterpret_cast<uint8*>(ge_alloc_aligned16(blockSize +
+      auto data = reinterpret_cast<byte*>(ge_alloc_aligned16(blockSize +
                                                               sizeof(MemBlock) +
                                                               alignOffset));
       newBlock = new (data) MemBlock(blockSize);
@@ -314,24 +314,24 @@ namespace geEngineSDK {
     return *_globalFrameAlloc;
   }
 
-  uint8*
+  byte*
   ge_frame_alloc(SIZE_T numBytes) {
     return g_frameAlloc().alloc(numBytes);
   }
 
-  uint8*
+  byte*
   ge_frame_alloc_aligned(SIZE_T count, SIZE_T align) {
     return g_frameAlloc().allocAligned(count, align);
   }
 
   void
   ge_frame_free(void* data) {
-    g_frameAlloc().free(reinterpret_cast<uint8*>(data));
+    g_frameAlloc().free(reinterpret_cast<byte*>(data));
   }
 
   void
   ge_frame_free_aligned(void* data) {
-    g_frameAlloc().free(reinterpret_cast<uint8*>(data));
+    g_frameAlloc().free(reinterpret_cast<byte*>(data));
   }
 
   void

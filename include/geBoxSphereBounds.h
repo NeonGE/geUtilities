@@ -18,7 +18,7 @@
  * Includes
  */
 /*****************************************************************************/
-#include "gePrerequisitesUtil.h"
+#include "gePrerequisitesUtilities.h"
 #include "geVector3.h"
 #include "geSphere.h"
 #include "geBox.h"
@@ -78,7 +78,7 @@ namespace geEngineSDK {
      * The sphere radius is taken from the extent of the box.
      * @param Box The bounding box.
      */
-    BoxSphereBounds(const AABox& Box) {
+    explicit BoxSphereBounds(const AABox& Box) {
       Box.getCenterAndExtents(m_origin, m_boxExtent);
       m_sphereRadius = m_boxExtent.size();
       diagnosticCheckNaN();
@@ -87,7 +87,7 @@ namespace geEngineSDK {
     /**
      * @brief Creates and initializes a new instance for the given sphere.
      */
-    BoxSphereBounds(const Sphere& sphere)
+    explicit BoxSphereBounds(const Sphere& sphere)
 	    : m_origin(sphere.m_center),
         m_boxExtent(Vector3(sphere.m_radius)),
         m_sphereRadius(sphere.m_radius) {
@@ -214,7 +214,7 @@ namespace geEngineSDK {
      * @param M The matrix.
      * @return The transformed volume.
      */
-    GE_UTILITY_EXPORT BoxSphereBounds
+    GE_UTILITIES_EXPORT BoxSphereBounds
     transformBy(const Matrix4& M) const;
 
     /**
@@ -222,7 +222,7 @@ namespace geEngineSDK {
      * @param M The Transform object.
      * @return The transformed volume.
      */
-    GE_UTILITY_EXPORT BoxSphereBounds
+    GE_UTILITIES_EXPORT BoxSphereBounds
     transformBy(const Transform& M) const;
 
     /**
@@ -293,7 +293,7 @@ namespace geEngineSDK {
 
     /**
     * @brief Holds the radius of the bounding sphere. */
-    float m_sphereRadius;
+    float m_sphereRadius = 0.f;
   };
 
   /***************************************************************************/

@@ -18,7 +18,7 @@
  * Includes
  */
 /*****************************************************************************/
-#include "gePrerequisitesUtil.h"
+#include "gePrerequisitesUtilities.h"
 #include "geModule.h"
 #include "geDynLib.h"
 
@@ -28,7 +28,7 @@ namespace geEngineSDK {
    *        opens them and returns references to already-open libraries.
    * @note  Not thread safe.
    */
-  class GE_UTILITY_EXPORT DynLibManager : public Module<DynLibManager>
+  class GE_UTILITIES_EXPORT DynLibManager : public Module<DynLibManager>
   {
    public:
     /**
@@ -49,6 +49,6 @@ namespace geEngineSDK {
   };
 
   /** Easy way of accessing DynLibManager. */
-  GE_UTILITY_EXPORT DynLibManager&
+  GE_UTILITIES_EXPORT DynLibManager&
   g_dynLibManager();
 }

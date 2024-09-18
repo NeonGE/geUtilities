@@ -17,14 +17,14 @@
  * Includes
  */
 /*****************************************************************************/
-#include "gePrerequisitesUtil.h"
+#include "gePrerequisitesUtilities.h"
 
 namespace geEngineSDK {
   struct SerializationContext;
 
   using std::ofstream;
 
-  class GE_UTILITY_EXPORT FileEncoder
+  class GE_UTILITIES_EXPORT FileEncoder
   {
    public:
     FileEncoder(const Path& fileLocation);
@@ -57,7 +57,7 @@ namespace geEngineSDK {
   /**
    * @brief Decodes objects from the specified file using the RTTI system.\
    */
-  class GE_UTILITY_EXPORT FileDecoder
+  class GE_UTILITIES_EXPORT FileDecoder
   {
    public:
     FileDecoder(const Path& fileLocation);

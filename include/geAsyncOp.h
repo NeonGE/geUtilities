@@ -17,7 +17,7 @@
  * Includes
  */
 /*****************************************************************************/
-#include "gePrerequisitesUtil.h"
+#include "gePrerequisitesUtilities.h"
 #include "geException.h"
 #include "geAny.h"
 
@@ -28,7 +28,7 @@ namespace geEngineSDK {
   /**
    * @brief Thread synchronization primitives used by AsyncOps and their callers.
    */
-  class GE_UTILITY_EXPORT AsyncOpSyncData
+  class GE_UTILITIES_EXPORT AsyncOpSyncData
   {
    public:
     Mutex m_mutex;
@@ -39,7 +39,7 @@ namespace geEngineSDK {
    * @brief Flag used for creating async operations signaling that we want to
    *        create an empty AsyncOp with no internal memory storage.
    */
-  struct GE_UTILITY_EXPORT AsyncOpEmpty {};
+  struct GE_UTILITIES_EXPORT AsyncOpEmpty {};
 
   /**
    * @brief Object you may use to check on the results of an asynchronous operation.
@@ -51,7 +51,7 @@ namespace geEngineSDK {
    *        you will usually use some kind of synchronization primitive that includes a
    *        memory barrier anyway.
    */
-  class GE_UTILITY_EXPORT AsyncOp
+  class GE_UTILITIES_EXPORT AsyncOp
   {
    private:
     struct AsyncOpData

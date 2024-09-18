@@ -21,7 +21,7 @@
 #include <algorithm>
 #include <typeinfo>
 
-#include "gePrerequisitesUtil.h"
+#include "gePrerequisitesUtilities.h"
 #include "geDebug.h"
 
 namespace geEngineSDK {
@@ -44,7 +44,7 @@ namespace geEngineSDK {
     class Data : public DataBase
     {
      public:
-      Data(const ValueType& value) : m_value(value) {}
+       explicit Data(const ValueType& value) : m_value(value) {}
 
       DataBase*
       clone() const override {
@@ -58,8 +58,8 @@ namespace geEngineSDK {
     Any() = default;
 
     template<typename ValueType>
-    Any(const ValueType& value) : m_data(ge_new<Data<ValueType>>(value)) {}
-    Any(std::nullptr_t) : m_data(nullptr) {}
+    explicit Any(const ValueType& value) : m_data(ge_new<Data<ValueType>>(value)) {}
+    explicit Any(std::nullptr_t) : m_data(nullptr) {}
     Any(const Any& other) 
       : m_data(nullptr != other.m_data ? other.m_data->clone() : nullptr) {}
 

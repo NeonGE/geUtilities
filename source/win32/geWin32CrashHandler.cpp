@@ -25,7 +25,7 @@
 # include "geUnicode.h"
 #pragma warning(default : 4091)
 
-#include "gePrerequisitesUtil.h"
+#include "gePrerequisitesUtilities.h"
 #include "geDebug.h"
 #include "geDynLib.h"
 #include "geFileSystem.h"
@@ -35,7 +35,7 @@ namespace geEngineSDK {
   using std::endl;
   using std::ios;
 
-  static const char* s_MiniDumpName = "MiniDump.dmp";
+  static const ANSICHAR* s_MiniDumpName = "MiniDump.dmp";
 
   /**
    * @brief Returns the raw stack trace using the provided context.
@@ -145,7 +145,7 @@ namespace geEngineSDK {
 
       DWORD column;
       if (SymGetLineFromAddr64(hProcess, funcAddress, &column, &lineData)) {
-        Path filePath = lineData.FileName;
+        Path filePath(lineData.FileName);
         outputStream << StringUtil::format("0x{0} File[{1}:{2} ({3})]",
                                            addressString,
                                            filePath.getFilename(),
@@ -161,7 +161,7 @@ namespace geEngineSDK {
       moduleData.SizeOfStruct = sizeof(moduleData);
 
       if (SymGetModuleInfo64(hProcess, funcAddress, &moduleData)) {
-        Path filePath = moduleData.ImageName;
+        Path filePath(moduleData.ImageName);
         outputStream << StringUtil::format(" Module[{0}]", filePath.getFilename());
       }
     }
@@ -536,8 +536,10 @@ namespace geEngineSDK {
                                   0,
                                   &threadId);
 
-    WaitForSingleObject(hThread, INFINITE);
-    CloseHandle(hThread);
+    if (nullptr != hThread) {
+      WaitForSingleObject(hThread, INFINITE);
+      CloseHandle(hThread);
+    }
   }
 
   void
@@ -574,7 +576,7 @@ namespace geEngineSDK {
     logErrorAndStackTrace(type, strDescription, strFunction, strFile, nLine);
     saveCrashLog();
 
-    win32_writeMiniDump(getCrashFolder() + String(s_MiniDumpName), nullptr);
+    win32_writeMiniDump(getCrashFolder() + Path(s_MiniDumpName), nullptr);
     win32_popupErrorMessageBox(toWString(s_fatalErrorMsg), getCrashFolder());
     
     //Note: Potentially also log Windows Error Report and/or send crash data to server
@@ -594,7 +596,7 @@ namespace geEngineSDK {
                           win32_getStackTrace(*exceptionData->ContextRecord, 0));
     saveCrashLog();
 
-    win32_writeMiniDump(getCrashFolder() + String(s_MiniDumpName), exceptionData);
+    win32_writeMiniDump(getCrashFolder() + Path(s_MiniDumpName), exceptionData);
     win32_popupErrorMessageBox(toWString(s_fatalErrorMsg), getCrashFolder());
 
     //Note: Potentially also log Windows Error Report and/or send crash data to server

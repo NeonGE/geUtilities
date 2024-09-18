@@ -23,7 +23,7 @@ namespace geEngineSDK {
   /**
    * @brief Saves crash data and notifies the user when a crash occurs.
    */
-  class GE_UTILITY_EXPORT CrashHandler
+  class GE_UTILITIES_EXPORT CrashHandler
   {
    public:
     CrashHandler();
@@ -148,5 +148,5 @@ namespace geEngineSDK {
 #endif
   };
 
-  GE_UTILITY_EXPORT CrashHandler& g_crashHandler();
+  GE_UTILITIES_EXPORT CrashHandler& g_crashHandler();
 }

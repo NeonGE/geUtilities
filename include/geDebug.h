@@ -17,7 +17,7 @@
  * Includes
  */
 /*****************************************************************************/
-#include "gePrerequisitesUtil.h"
+#include "gePrerequisitesUtilities.h"
 #include "geLog.h"
 
 namespace geEngineSDK {
@@ -36,7 +36,7 @@ namespace geEngineSDK {
    * @brief Utility class providing various debug functionality.
    * @note  Thread safe.
    */
-  class GE_UTILITY_EXPORT Debug
+  class GE_UTILITIES_EXPORT Debug
   {
    public:
      Debug() = default;
@@ -109,6 +109,13 @@ namespace geEngineSDK {
      */
     Event<void()> onLogModified;
 
+    void
+    setLogCallback(function<bool(const String& message,
+                                 LogVerbosity verbosity,
+                                 uint32 category)> callback) {
+      m_customLogCallback = callback;
+    }
+
     /**
      * @brief Triggers callbacks that notify external code that a log entry was added.
      * @note  Internal method. Sim thread only.
@@ -119,12 +126,15 @@ namespace geEngineSDK {
    private:
     uint64 m_logHash = 0;
     Log m_log;
+    function<bool(const String& message,
+                  LogVerbosity verbosity,
+                  uint32 category)> m_customLogCallback;
   };
 
   /**
    * @brief A simpler way of accessing the Debug module.
    */
-  GE_UTILITY_EXPORT Debug&
+  GE_UTILITIES_EXPORT Debug&
   g_debug();
 
 #ifndef GE_LOG_VERBOSITY
@@ -161,8 +171,9 @@ bool LogCategory##name::s_registered = Log::_registerCategory(LogCategory##name:
     g_debug().log(StringUtil::format(message, ##__VA_ARGS__) +                \
                           String("\n\t\t in ") +                              \
                           __PRETTY_FUNCTION__ +                               \
-                          " [" + __FILE__ + ":" + toString(__LINE__) + "]\n", \
-                  LogVerbosity::verbosity, LogCategory##category::_id);        \
+                          " [" + __FILE__ + ":" +                             \
+                          toString(static_cast<int32>(__LINE__)) + "]\n",     \
+                  LogVerbosity::verbosity, LogCategory##category::_id);       \
   }} while (0)
 
   GE_LOG_CATEGORY(Uncategorized, 0);
@@ -170,4 +181,5 @@ bool LogCategory##name::s_registered = Log::_registerCategory(LogCategory##name:
   GE_LOG_CATEGORY(RTTI, 2);
   GE_LOG_CATEGORY(Generic, 3);
   GE_LOG_CATEGORY(Platform, 4);
+  GE_LOG_CATEGORY(Serialization, 5);
 }

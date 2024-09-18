@@ -16,7 +16,7 @@
  * Includes
  */
 /*****************************************************************************/
-#include "gePrerequisitesUtil.h"
+#include "gePrerequisitesUtilities.h"
 #include "geUUID.h"
 #include "gePlatformUtility.h"
 
@@ -193,7 +193,7 @@ namespace geEngineSDK {
       output[idx++] = HEX_TO_LITERAL[hexVal];
     }
 
-    return String((const ANSICHAR*)output, 36);
+    return String(reinterpret_cast<const ANSICHAR*>(output), 36);
   }
 
   UUID

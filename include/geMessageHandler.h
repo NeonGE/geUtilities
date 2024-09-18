@@ -18,7 +18,7 @@
  * Includes
  */
 /*****************************************************************************/
-#include "gePrerequisitesUtil.h"
+#include "gePrerequisitesUtilities.h"
 #include "geModule.h"
 
 namespace geEngineSDK {
@@ -28,7 +28,7 @@ namespace geEngineSDK {
    * @brief Allows you to transparently pass messages between different systems.
    * @note  Sim thread only.
    */
-  class GE_UTILITY_EXPORT MessageHandler : public Module<MessageHandler>
+  class GE_UTILITIES_EXPORT MessageHandler : public Module<MessageHandler>
   {
    private:
     friend class HMessage;

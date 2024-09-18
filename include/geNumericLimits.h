@@ -24,7 +24,7 @@
 namespace geEngineSDK {
   using std::numeric_limits;
 
-  struct GE_UTILITY_EXPORT NumLimit
+  struct GE_UTILITIES_EXPORT NumLimit
   {
     static CONSTEXPR uint8  MIN_UINT8  = numeric_limits<uint8 >::min();
     static CONSTEXPR uint16 MIN_UINT16 = numeric_limits<uint16>::min();

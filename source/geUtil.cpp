@@ -16,7 +16,7 @@
  * Includes
  */
 /*****************************************************************************/
-#include "gePrerequisitesUtil.h"
+#include "gePrerequisitesUtilities.h"
 #include "Externals/md5.h"
 
 namespace geEngineSDK {

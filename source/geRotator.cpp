@@ -30,12 +30,12 @@ namespace geEngineSDK {
 
   Vector3
   Rotator::euler() const {
-    return Vector3(roll, pitch, yaw);
+    return Vector3(pitch, yaw, roll);
   }
 
   Rotator
   Rotator::makeFromEuler(const Vector3& Euler) {
-    return Rotator(Euler.y, Euler.z, Euler.x);
+    return Rotator(Euler.x, Euler.y, Euler.z);
   }
 
   Vector3
@@ -80,10 +80,10 @@ namespace geEngineSDK {
     Math::sin_cos(&SR, &CR, roll * DIVIDE_BY_2);
 
     Quaternion RotationQuat;
-    RotationQuat.x = CR * SP * SY - SR * CP * CY;
-    RotationQuat.y =-CR * SP * CY - SR * CP * SY;
-    RotationQuat.z = CR * CP * SY - SR * SP * CY;
-    RotationQuat.w = CR * CP * CY + SR * SP * SY;
+    RotationQuat.w = CR * CP * CY + SR * SP * SY;  
+    RotationQuat.x = CR * SP * CY + SR * CP * SY;
+    RotationQuat.y = CR * CP * SY - SR * SP * CY;
+    RotationQuat.z = SR * CP * CY - CR * SP * SY;
 
 # if GE_DEBUG_MODE
     //Very large inputs can cause NaN's. Want to catch this here

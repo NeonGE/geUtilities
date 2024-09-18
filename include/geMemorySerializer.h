@@ -17,14 +17,14 @@
  * Includes
  */
 /*****************************************************************************/
-#include "gePrerequisitesUtil.h"
+#include "gePrerequisitesUtilities.h"
 
 namespace geEngineSDK {
   struct SerializationContext;
 
   using std::function;
 
-  class GE_UTILITY_EXPORT MemorySerializer
+  class GE_UTILITIES_EXPORT MemorySerializer
   {
     struct BufferPiece
     {

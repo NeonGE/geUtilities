@@ -85,3 +85,5 @@
  */
 /*****************************************************************************/
 #include <Windows.h>
+#include <windowsx.h>
+#include <shellapi.h> //Support for HDROP

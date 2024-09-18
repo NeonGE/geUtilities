@@ -60,8 +60,8 @@ namespace geEngineSDK {
     const uint32 leftIdx = Math::min(index, m_numSamples - 1);
     const uint32 rightIdx = Math::min(index + 1, m_numSamples - 1);
 
-    left = &m_values[leftIdx * m_sampleSize];
-    right = &m_values[rightIdx * m_sampleSize];
+    left = &m_values[static_cast<SIZE_T>(leftIdx) * m_sampleSize];
+    right = &m_values[static_cast<SIZE_T>(rightIdx) * m_sampleSize];
   }
 
   const float*
@@ -71,6 +71,6 @@ namespace geEngineSDK {
     }
 
     idx = Math::min(idx, m_numSamples - 1);
-    return &m_values[idx * m_sampleSize];
+    return &m_values[static_cast<SIZE_T>(idx) * m_sampleSize];
   }
 }

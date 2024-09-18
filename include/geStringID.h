@@ -17,7 +17,7 @@
  * Includes
  */
 /*****************************************************************************/
-#include "gePrerequisitesUtil.h"
+#include "gePrerequisitesUtilities.h"
 #include "geSpinLock.h"
 
 namespace geEngineSDK {
@@ -30,7 +30,7 @@ namespace geEngineSDK {
    * @note  Thread safe.
    */
   /***************************************************************************/
-  class GE_UTILITY_EXPORT StringID
+  class GE_UTILITIES_EXPORT StringID
   {
    public:
     static const StringID NONE;

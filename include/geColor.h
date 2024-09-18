@@ -22,7 +22,7 @@
 * Includes
 */
 /*****************************************************************************/
-#include "gePrerequisitesUtil.h"
+#include "gePrerequisitesUtilities.h"
 #include "geMath.h"
 
 namespace geEngineSDK {
@@ -43,7 +43,7 @@ namespace geEngineSDK {
    *        value ranging from 0 to 1.
    *        Color components are Red, Green, Blue and Alpha.
    */
-  class GE_UTILITY_EXPORT LinearColor
+  class GE_UTILITIES_EXPORT LinearColor
   {
    public:
     LinearColor() = default;
@@ -442,7 +442,7 @@ namespace geEngineSDK {
    *        value ranging from 0 to 1.
    *        Color components are Red, Green, Blue and Alpha.
    */
-  class GE_UTILITY_EXPORT Color
+  class GE_UTILITIES_EXPORT Color
   {
    public:
     Color() = default;
@@ -618,7 +618,7 @@ namespace geEngineSDK {
   };
 
   /** Computes a brightness and a fixed point color from a floating point color. */
-  extern GE_UTILITY_EXPORT void
+  extern GE_UTILITIES_EXPORT void
   computeAndFixedColorAndIntensity(const LinearColor& InLinearColor,
                                    Color& OutColor,
                                    float& OutIntensity);

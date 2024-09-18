@@ -23,11 +23,11 @@
  * Includes
  */
 /*****************************************************************************/
-#include "gePrerequisitesUtil.h"
+#include "gePrerequisitesUtilities.h"
 #include "geAny.h"
 
 namespace geEngineSDK {
-  class GE_UTILITY_EXPORT IReflectable
+  class GE_UTILITIES_EXPORT IReflectable
   {
    public:
     virtual ~IReflectable() = default;

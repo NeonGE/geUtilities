@@ -18,7 +18,7 @@
  * Includes
  */
 /*****************************************************************************/
-#include "gePrerequisitesUtil.h"
+#include "gePrerequisitesUtilities.h"
 #include "geVector2.h"
 #include "geNumericLimits.h"
 
@@ -27,7 +27,7 @@ namespace geEngineSDK {
    * @brief Organizes a set of textures into a single larger texture (an atlas)
    *        by minimizing empty space.
    */
-  class GE_UTILITY_EXPORT TextureAtlasLayout
+  class GE_UTILITIES_EXPORT TextureAtlasLayout
   {
     /**
      * @brief Represent a single node in the texture atlas binary tree.
@@ -158,7 +158,7 @@ namespace geEngineSDK {
   /**
    * @brief Utility class used for texture atlas layouts.
    */
-  class GE_UTILITY_EXPORT TextureAtlasUtility
+  class GE_UTILITIES_EXPORT TextureAtlasUtility
   {
    public:
     /**

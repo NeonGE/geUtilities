@@ -19,7 +19,7 @@
  * Includes
  */
 /*****************************************************************************/
-#include "gePrerequisitesUtil.h"
+#include "gePrerequisitesUtilities.h"
 #include "geDegree.h"
 #include "geRadian.h"
 
@@ -96,7 +96,7 @@ namespace geEngineSDK {
   /**
    * @brief Utility class providing common scalar math operations.
    */
-  class GE_UTILITY_EXPORT Math
+  class GE_UTILITIES_EXPORT Math
   {
    public:
     GE_NODISCARD static FORCEINLINE int32

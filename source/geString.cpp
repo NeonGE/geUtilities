@@ -516,14 +516,14 @@ namespace geEngineSDK {
   String
   toString(const LinearColor& val) {
     StringStream stream;
-    stream << L"R=" << val.r << L" G=" << val.g << L" B=" << val.b << L" A=" << val.a;
+    stream << "R=" << val.r << " G=" << val.g << " B=" << val.b << " A=" << val.a;
     return stream.str();
   }
 
   String
   toString(const Color& val) {
     StringStream stream;
-    stream << L"R=" << val.r << L" G=" << val.g << L" B=" << val.b << L" A=" << val.a;
+    stream << "R=" << val.r << " G=" << val.g << " B=" << val.b << " A=" << val.a;
     return stream.str();
   }
 #endif // _INC_COLOR_H_

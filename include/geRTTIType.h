@@ -34,7 +34,7 @@
 #include <algorithm>
 #include <unordered_map>
 
-#include "gePrerequisitesUtil.h"
+#include "gePrerequisitesUtilities.h"
 #include "geRTTIField.h"
 #include "geRTTIPlainField.h"
 #include "geRTTIReflectableField.h"
@@ -53,7 +53,7 @@ namespace geEngineSDK {
   /***************************************************************************/
   /**
    * @brief Starts definitions for member fields within a RTTI type. Follow
-   *        this with calls to GE_RTTI_MEMBER* calls, and finish by calling
+   *        this with calls to GE_RTTI_MEMBER calls, and finish by calling
    *        GE_END_RTTI_MEMBERS. You must also initialize m_initMembers field
    *        in the parent class's constructor.
    */
@@ -70,7 +70,7 @@ namespace geEngineSDK {
 
   /***************************************************************************/
   /**
-   * @brief Same as BS_RTTI_MEMBER_PLAIN, but allows you to specify separate
+   * @brief Same as GE_RTTI_MEMBER_PLAIN, but allows you to specify separate
    *        names for the field name and the member variable, as well as an
    *        optional info structure further describing the field.
    */
@@ -92,7 +92,11 @@ namespace geEngineSDK {
   void                                                                        \
   META_InitPrevEntry(META_NextEntry_##name typeId) {                          \
     GE_UNREFERENCED_PARAMETER(typeId);                                        \
-    addPlainField(#name, id, &MyType::get##name, &MyType::set##name, info);   \
+    addPlainField(String(#name),                                              \
+                  id,                                                         \
+                  &MyType::get##name,                                         \
+                  &MyType::set##name,                                         \
+                  info);                                                      \
     META_InitPrevEntry(META_Entry_##name());                                  \
   }                                                                           \
                                                                               \
@@ -516,7 +520,7 @@ namespace geEngineSDK {
                                                                               \
   struct META_InitAllMembers                                                  \
   {                                                                           \
-    META_InitAllMembers(MyType* owner) {                                      \
+    explicit META_InitAllMembers(MyType* owner) {                             \
       static bool s_membersInitialized = false;                               \
       if(!s_membersInitialized) {                                             \
         owner->META_InitPrevEntry(META_LastEntry());                          \
@@ -548,7 +552,7 @@ namespace geEngineSDK {
    *
    * - Data blocks - A managed or unmanaged block of data. See ManagedDataBlock
    */
-  class GE_UTILITY_EXPORT RTTITypeBase
+  class GE_UTILITIES_EXPORT RTTITypeBase
   {
    public:
     RTTITypeBase() = default;
@@ -1179,7 +1183,7 @@ namespace geEngineSDK {
    * @brief Extendable class to be used by the user to provide extra
    *        information to RTTIType objects during serialization.
    */
-  struct GE_UTILITY_EXPORT SerializationContext : IReflectable
+  struct GE_UTILITIES_EXPORT SerializationContext : IReflectable
   {
     uint32 flags = 0;
 
@@ -1219,7 +1223,7 @@ namespace geEngineSDK {
   /**
    * @brief Creates a new object just from its type ID.
    */
-  GE_UTILITY_EXPORT SPtr<IReflectable>
+  GE_UTILITIES_EXPORT SPtr<IReflectable>
   rtti_create(uint32 rttiId);
 
   /**

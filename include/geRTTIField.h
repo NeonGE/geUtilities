@@ -19,7 +19,7 @@
  * Includes
  */
 /*****************************************************************************/
-#include "gePrerequisitesUtil.h"
+#include "gePrerequisitesUtilities.h"
 #include "geAny.h"
 
 namespace geEngineSDK {
@@ -100,7 +100,7 @@ namespace geEngineSDK {
   /**
    * @brief Provides various optional information regarding a RTTI field.
    */
-  struct GE_UTILITY_EXPORT RTTIFieldInfo
+  struct GE_UTILITIES_EXPORT RTTIFieldInfo
   {
     RTTIFieldInfo() = default;
     RTTIFieldInfo(RTTIFieldFlags _flags) : flags(_flags) {}
@@ -122,7 +122,7 @@ namespace geEngineSDK {
    *        data and the owning class instance. It is up to the caller to ensure that pointer
    *        is of proper type.
    */
-  struct GE_UTILITY_EXPORT RTTIField
+  struct GE_UTILITIES_EXPORT RTTIField
   {
     virtual ~RTTIField() = default;
 

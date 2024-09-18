@@ -29,9 +29,9 @@ namespace geEngineSDK {
     /**
      * @brief Allocates memory.
      */
-    uint8*
+    byte*
     alloc(SIZE_T amount) {
-      return reinterpret_cast<uint8*>(malloc(amount));
+      return reinterpret_cast<byte*>(malloc(amount));
     }
 
     /**

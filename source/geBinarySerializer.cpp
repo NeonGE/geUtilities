@@ -61,14 +61,14 @@ namespace geEngineSDK {
  */
 #define COPY_TO_BUFFER(dataIter, size)                                        \
 if((*bytesWritten + size) > bufferLength) {                                   \
-	m_totalBytesWritten += *bytesWritten;                                       \
-	buffer = flushBufferCallback(buffer - *bytesWritten,                        \
+	m_totalBytesWritten += *bytesWritten;                                     \
+	buffer = flushBufferCallback(buffer - *bytesWritten,                      \
                                *bytesWritten,                                 \
                                bufferLength);                                 \
   if (nullptr == buffer || bufferLength < size) {                             \
     return nullptr;                                                           \
   }                                                                           \
-	*bytesWritten = 0;                                                          \
+	*bytesWritten = 0;                                                        \
 }                                                                             \
                                                                               \
 memcpy(buffer, dataIter, size);                                               \
@@ -668,7 +668,7 @@ m_totalBytesRead -= size;                                                     \
           rttiInstance = nullptr;
 
           if (rtti) {
-            rttiInstance = rttiInstances[rttiInstanceIdx + 1];
+            rttiInstance = rttiInstances[rttiInstanceIdx + 1u];
             rttiInstanceIdx++;
           }
 

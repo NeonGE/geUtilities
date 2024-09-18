@@ -20,7 +20,7 @@
  * Includes
  */
 /*****************************************************************************/
-#include "gePrerequisitesUtil.h"
+#include "gePrerequisitesUtilities.h"
 #include "geMath.h"
 #include "geSIMD.h"
 #include "gePoolAlloc.h"
@@ -286,7 +286,8 @@ namespace geEngineSDK {
        * @brief Initializes a new bounds object using the provided node bounds.
        */
       NodeBounds(const simd::AABox& bounds) : m_bounds(bounds) {
-        static CONSTEXPR float childExtentScl = 0.5f * (1.0f + 1.0f / Options::loosePadding);
+        static CONSTEXPR float childExtentScl = 0.5f * (1.0f +
+          1.0f / static_cast<float>(Options::loosePadding));
         m_childExtent = bounds.m_extents.x * childExtentScl;
         m_childOffset = bounds.m_extents.x - m_childExtent;
       }
@@ -688,7 +689,8 @@ namespace geEngineSDK {
      */
     Octree(const Vector3& center, float extent, void* context = nullptr)
       : m_rootBounds(simd::AABox(center, extent)),
-        m_minNodeExtent(extent * std::pow(0.5f * (1.0f + 1.0f / Options::loosePadding),
+        m_minNodeExtent(extent * std::pow(0.5f * (1.0f +
+                                          1.0f / static_cast<float>(Options::loosePadding)),
                                           Options::maxDepth)),
         m_context(context)
     {}

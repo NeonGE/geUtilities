@@ -32,7 +32,7 @@
  * Includes
  */
 /*****************************************************************************/
-#include "gePrerequisitesUtil.h"
+#include "gePrerequisitesUtilities.h"
 #include "geMath.h"
 #include "geVector3.h"
 #include "geRotator.h"
@@ -70,13 +70,13 @@ namespace geEngineSDK {
      * @brief Creates and initializes a new quaternion from the given matrix.
      * @param M The rotation matrix to initialize from.
      */
-    explicit GE_UTILITY_EXPORT Quaternion(const Matrix4& M);
+    explicit GE_UTILITIES_EXPORT Quaternion(const Matrix4& M);
 
     /**
      * @brief Creates and initializes a new quaternion from the given rotator.
      * @param R The rotator to initialize from.
      */
-    explicit GE_UTILITY_EXPORT Quaternion(const Rotator& R);
+    explicit GE_UTILITIES_EXPORT Quaternion(const Rotator& R);
 
     /**
      * @brief Creates and initializes a new quaternion from the a rotation
@@ -173,7 +173,7 @@ namespace geEngineSDK {
      * @return vector after rotation
      * @see RotateVector
      */
-    GE_UTILITY_EXPORT Vector3
+    GE_UTILITIES_EXPORT Vector3
     operator*(const Vector3& V) const;
 
     /**
@@ -181,7 +181,7 @@ namespace geEngineSDK {
      * @param M Matrix to multiply by.
      * @return Matrix result after multiplication.
      */
-    GE_UTILITY_EXPORT Matrix4
+    GE_UTILITIES_EXPORT Matrix4
     operator*(const Matrix4& M) const;
 
     /**
@@ -250,13 +250,13 @@ namespace geEngineSDK {
      * @param Euler the Euler angles
      * @return constructed Quaternion
      */
-    static GE_UTILITY_EXPORT Quaternion
+    static GE_UTILITIES_EXPORT Quaternion
     makeFromEuler(const Vector3& Euler);
 
     /**
      * @brief Convert a Quaternion into floating-point Euler angles (in degrees).
      */
-    GE_UTILITY_EXPORT Vector3
+    GE_UTILITIES_EXPORT Vector3
     euler() const;
 
     /**
@@ -311,7 +311,7 @@ namespace geEngineSDK {
      * @param OutTwist Twist component quaternion
      * @warning assumes normalised quaternion and twist axis
      */
-    GE_UTILITY_EXPORT void
+    GE_UTILITIES_EXPORT void
     toSwingTwist(const Vector3& InTwistAxis,
                  Quaternion& OutSwing,
                  Quaternion& OutTwist) const;
@@ -335,7 +335,7 @@ namespace geEngineSDK {
     /**
      * @return quaternion with W=0 and V=theta*v.
      */
-    GE_UTILITY_EXPORT Quaternion
+    GE_UTILITIES_EXPORT Quaternion
     log() const;
 
     /**
@@ -343,7 +343,7 @@ namespace geEngineSDK {
      * Assumes a quaternion with w=0 and v=theta*v (where |v| = 1).
      * exp(q) = (sin(theta)*v, cos(theta))
      */
-    GE_UTILITY_EXPORT Quaternion
+    GE_UTILITIES_EXPORT Quaternion
     exp() const;
 
     /**
@@ -405,7 +405,7 @@ namespace geEngineSDK {
     /**
      * @brief Get the Rotator representation of this Quaternion.
      */
-    GE_UTILITY_EXPORT Rotator
+    GE_UTILITIES_EXPORT Rotator
     rotator() const;
 
     /**
@@ -435,7 +435,7 @@ namespace geEngineSDK {
     *        provided direction.
     * @param[in] forwardDir  Direction to orient towards.
     */
-    GE_UTILITY_EXPORT void
+    GE_UTILITIES_EXPORT void
     lookRotation(const Vector3& forwardDir);
 
     /**
@@ -446,7 +446,7 @@ namespace geEngineSDK {
     *            vector lies on. This rule might be broken if forward and up
     *            direction are nearly parallel.
     */
-    GE_UTILITY_EXPORT void
+    GE_UTILITIES_EXPORT void
     lookRotation(const Vector3& forwardDir, const Vector3& upDir);
 
     static FORCEINLINE void
@@ -497,14 +497,14 @@ namespace geEngineSDK {
      * @brief Generates the 'smallest' (geodesic) rotation between two normals
      *        (assumed to be unit length).
      */
-    static GE_UTILITY_EXPORT Quaternion
+    static GE_UTILITIES_EXPORT Quaternion
     findBetweenNormals(const Vector3& Normal1, const Vector3& Normal2);
 
     /**
      * @brief Generates the 'smallest' (geodesic) rotation between two vectors
      *        of arbitrary length.
      */
-    static GE_UTILITY_EXPORT Quaternion
+    static GE_UTILITIES_EXPORT Quaternion
     findBetweenVectors(const Vector3& vector1, const Vector3& vector2);
 
     /**
@@ -544,7 +544,7 @@ namespace geEngineSDK {
     /**
      * @brief Spherical interpolation. Will correct alignment. Result is NOT normalized.
      */
-    static GE_UTILITY_EXPORT Quaternion
+    static GE_UTILITIES_EXPORT Quaternion
     slerp_NotNormalized(const Quaternion &Quat1, const Quaternion &Quat2, float Slerp);
 
     /**
@@ -561,7 +561,7 @@ namespace geEngineSDK {
      *        multiple Slerps dont go in different directions.
      * Result is NOT normalized.
      */
-    static GE_UTILITY_EXPORT Quaternion
+    static GE_UTILITIES_EXPORT Quaternion
     slerpFullPath_NotNormalized(const Quaternion &quat1,
                                 const Quaternion &quat2,
                                 float Alpha);
@@ -583,7 +583,7 @@ namespace geEngineSDK {
      *        (between 0 and 1) between them. Result is normalized.
      * This will correct alignment by ensuring that the shortest path is taken.
      */
-    static GE_UTILITY_EXPORT Quaternion
+    static GE_UTILITIES_EXPORT Quaternion
     squad(const Quaternion& quat1,
           const Quaternion& tang1,
           const Quaternion& quat2,
@@ -596,7 +596,7 @@ namespace geEngineSDK {
      *        tangents at those points tang1 and tang2, calculate the point at
      *        Alpha (between 0 and 1) between them. Result is normalized.
      */
-    static GE_UTILITY_EXPORT Quaternion
+    static GE_UTILITIES_EXPORT Quaternion
     squadFullPath(const Quaternion& quat1,
                   const Quaternion& tang1,
                   const Quaternion& quat2,
@@ -611,7 +611,7 @@ namespace geEngineSDK {
     * @param Tension @todo document
     * @param OutTan Out control point
     */
-    static GE_UTILITY_EXPORT void
+    static GE_UTILITIES_EXPORT void
     calcTangents(const Quaternion& PrevP,
                  const Quaternion& P,
                  const Quaternion& NextP,
@@ -622,7 +622,7 @@ namespace geEngineSDK {
     /**
      * @brief Identity quaternion.
      */
-    static GE_UTILITY_EXPORT const Quaternion IDENTITY;
+    static GE_UTILITIES_EXPORT const Quaternion IDENTITY;
 
    public:
     /**

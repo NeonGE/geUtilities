@@ -18,7 +18,7 @@
  * Includes
  */
 /*****************************************************************************/
-#include "gePrerequisitesUtil.h"
+#include "gePrerequisitesUtilities.h"
 #include "geTime.h"
 
 namespace geEngineSDK {
@@ -84,7 +84,7 @@ namespace geEngineSDK {
    * @brief A single log entry, containing a message and a channel the message
    *        was recorded on.
    */
-  class GE_UTILITY_EXPORT LogEntry
+  class GE_UTILITIES_EXPORT LogEntry
   {
    public:
     LogEntry() = default;
@@ -141,7 +141,7 @@ namespace geEngineSDK {
    *        message is added.
    * @note  Thread safe.
    */
-  class GE_UTILITY_EXPORT Log
+  class GE_UTILITIES_EXPORT Log
   {
    public:
     Log() = default;

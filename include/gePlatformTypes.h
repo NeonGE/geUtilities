@@ -36,6 +36,7 @@ namespace geEngineSDK {
   using std::int16_t;
   using std::int32_t;
   using std::int64_t;
+  using std::byte;
 
   /***************************************************************************/
   /**
@@ -112,7 +113,7 @@ namespace geEngineSDK {
   using ANSICHAR = char;  //ANSI character type
   using UNICHAR = WCHAR;  //UNICODE character type
 
-  using byte = char;
+  //using byte = char;
 
   /***************************************************************************/
   /**

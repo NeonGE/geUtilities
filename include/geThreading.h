@@ -124,12 +124,12 @@ namespace geEngineSDK {
 
     void
     lock() {
-      m_lock.lock();
+      this->m_lock.lock();
     };
 
     void
     unlock() {
-      m_lock.unlock();
+      this->m_lock.unlock();
     }
 
    private:
@@ -147,7 +147,7 @@ namespace geEngineSDK {
   class ScopedLock<false>
   {
    public:
-    ScopedLock(LockingPolicy<false>& /*policy*/) {}
+     explicit ScopedLock(LockingPolicy<false>& /*policy*/) {}
   };
 
   /**
@@ -157,9 +157,9 @@ namespace geEngineSDK {
   class ScopedLock<true>
   {
    public:
-    ScopedLock(LockingPolicy<true>& policy) : m_lockGuard(policy.m_mutex) {}
+    explicit ScopedLock(LockingPolicy<true>& policy) : m_lockGuard(policy.m_mutex) {}
 
-    ScopedLock(Mutex& mutex) : m_lockGuard(mutex) {}
+    explicit ScopedLock(Mutex& mutex) : m_lockGuard(mutex) {}
 
    private:
     std::lock_guard<Mutex> m_lockGuard;

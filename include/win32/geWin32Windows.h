@@ -17,14 +17,14 @@
  * Includes
  */
 /*****************************************************************************/
-#include "gePrerequisitesUtil.h"
+#include "gePrerequisitesUtilities.h"
 #include "Win32/geMinWindows.h"
 
 namespace geEngineSDK {
   /**
    * @brief Descriptor used for creating a platform specific native window.
    */
-  struct GE_UTILITY_EXPORT WINDOW_DESC
+  struct GE_UTILITIES_EXPORT WINDOW_DESC
   {
     WINDOW_DESC() = default;
 
@@ -159,7 +159,7 @@ namespace geEngineSDK {
   /**
    * @brief Represents a Windows native window.
    */
-  class GE_UTILITY_EXPORT Win32Window
+  class GE_UTILITIES_EXPORT Win32Window
   {
    public:
     explicit Win32Window(const WINDOW_DESC& desc);
@@ -289,7 +289,7 @@ namespace geEngineSDK {
     friend class Win32WindowManager;
 
     struct Pimpl;
-    Pimpl* m_windowData;
+    Pimpl* m_windowData = nullptr;
 
     static Vector<Win32Window*> s_allWindows;
     static Vector<Win32Window*> s_modalWindowStack;

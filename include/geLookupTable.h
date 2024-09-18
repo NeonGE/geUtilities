@@ -20,10 +20,10 @@
  * Includes
  */
 /*****************************************************************************/
-#include "gePrerequisitesUtil.h"
+#include "gePrerequisitesUtilities.h"
 
 namespace geEngineSDK {
-  class GE_UTILITY_EXPORT LookupTable
+  class GE_UTILITIES_EXPORT LookupTable
   {
    public:
     /**
@@ -74,8 +74,8 @@ namespace geEngineSDK {
 
    private:
     Vector<float> m_values;
-    uint32_t m_sampleSize;
-    uint32_t m_numSamples;
+    uint32 m_sampleSize;
+    uint32 m_numSamples;
     float m_timeStart;
     float m_timeScale;
   };

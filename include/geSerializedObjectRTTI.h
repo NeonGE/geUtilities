@@ -17,13 +17,13 @@
  * Includes
  */
 /*****************************************************************************/
-#include "gePrerequisitesUtil.h"
+#include "gePrerequisitesUtilities.h"
 #include "geRTTIType.h"
 #include "geSerializedObject.h"
 #include "geDataStream.h"
 
 namespace geEngineSDK {
-  class GE_UTILITY_EXPORT SerializedInstanceRTTI
+  class GE_UTILITIES_EXPORT SerializedInstanceRTTI
     : public RTTIType<SerializedInstance, IReflectable, SerializedInstanceRTTI>
   {
    public:
@@ -44,7 +44,7 @@ namespace geEngineSDK {
     }
   };
 
-  class GE_UTILITY_EXPORT SerializedFieldRTTI
+  class GE_UTILITIES_EXPORT SerializedFieldRTTI
     : public RTTIType<SerializedField, SerializedInstance, SerializedFieldRTTI>
   {
    private:
@@ -89,7 +89,7 @@ namespace geEngineSDK {
     }
   };
 
-  class GE_UTILITY_EXPORT SerializedDataBlockRTTI
+  class GE_UTILITIES_EXPORT SerializedDataBlockRTTI
     : public RTTIType<SerializedDataBlock, SerializedInstance, SerializedDataBlockRTTI>
   {
    private:
@@ -137,7 +137,7 @@ namespace geEngineSDK {
     }
   };
 
-  class GE_UTILITY_EXPORT SerializedObjectRTTI
+  class GE_UTILITIES_EXPORT SerializedObjectRTTI
     : public RTTIType<SerializedObject, SerializedInstance, SerializedObjectRTTI>
   {
    private:
@@ -187,7 +187,7 @@ namespace geEngineSDK {
     }
   };
 
-  class GE_UTILITY_EXPORT SerializedArrayRTTI
+  class GE_UTILITIES_EXPORT SerializedArrayRTTI
     : public RTTIType<SerializedArray, SerializedInstance, SerializedArrayRTTI>
   {
    private:
@@ -266,7 +266,7 @@ namespace geEngineSDK {
     Vector<SerializedArrayEntry> m_sequentialEntries;
   };
 
-  class GE_UTILITY_EXPORT SerializedSubObjectRTTI
+  class GE_UTILITIES_EXPORT SerializedSubObjectRTTI
     : public RTTIType<SerializedSubObject, IReflectable, SerializedSubObjectRTTI>
   {
    private:
@@ -345,7 +345,7 @@ namespace geEngineSDK {
     Vector<SerializedEntry> m_sequentialEntries;
   };
 
-  class GE_UTILITY_EXPORT SerializedEntryRTTI
+  class GE_UTILITIES_EXPORT SerializedEntryRTTI
     : public RTTIType<SerializedEntry, IReflectable, SerializedEntryRTTI>
   {
    private:
@@ -400,7 +400,7 @@ namespace geEngineSDK {
     }
   };
 
-  class GE_UTILITY_EXPORT SerializedArrayEntryRTTI
+  class GE_UTILITIES_EXPORT SerializedArrayEntryRTTI
     : public RTTIType<SerializedArrayEntry, IReflectable, SerializedArrayEntryRTTI>
   {
    private:

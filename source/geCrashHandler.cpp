@@ -16,14 +16,14 @@
  * Includes
  */
 /*****************************************************************************/
-#include "gePrerequisitesUtil.h"
+#include "gePrerequisitesUtilities.h"
 #include "geDebug.h"
 #include "geFileSystem.h"
 #include "gePath.h"
 
 namespace geEngineSDK {
   const String CrashHandler::s_crashReportFolder = "Reports";
-  const String CrashHandler::s_crashLogName = u8"geEngine_Log.html";
+  const String CrashHandler::s_crashLogName = U8STRING("geEngine_Log.html");
   const String CrashHandler::s_fatalErrorMsg = 
     "A fatal error occurred and the program has to terminate!";
 
@@ -74,6 +74,6 @@ namespace geEngineSDK {
 
   void
   CrashHandler::saveCrashLog() const {
-    g_debug().saveLog(getCrashFolder() + s_crashLogName, SAVED_LOG_TYPE::kHTML);
+    g_debug().saveLog(getCrashFolder() + Path(s_crashLogName), SAVED_LOG_TYPE::kHTML);
   }
 }

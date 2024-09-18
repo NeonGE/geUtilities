@@ -30,7 +30,7 @@ namespace geEngineSDK {
      * @brief Helper class for performing SerializedObject <-> IReflectable
      *        encoding & decoding.
      */
-    class GE_UTILITY_EXPORT IntermediateSerializer
+    class GE_UTILITIES_EXPORT IntermediateSerializer
     {
      public:
       IntermediateSerializer();

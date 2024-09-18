@@ -312,7 +312,7 @@ namespace geEngineSDK {
     }
 
     for (SIZE_T i = parentPath.getNumDirectories(); i < fullPath.getNumDirectories(); ++i) {
-      parentPath.append(fullPath[i]);
+      parentPath.append(Path(fullPath[i]));
       win32_createDirectory(UTF8::toWide(parentPath.toString()));
     }
 
@@ -353,10 +353,12 @@ namespace geEngineSDK {
       if (L"." != tempName && L".." != tempName) {
         Path fullPath = dirPath;
         if ((findData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) != 0) {
-          directories.push_back(fullPath.append(UTF8::fromWide(tempName) + u8"/"));
+          directories.push_back(
+            fullPath.append(Path(UTF8::fromWide(tempName) + U8STRING("/")))
+          );
         }
         else {
-          files.push_back(fullPath.append(UTF8::fromWide(tempName)));
+          files.push_back(fullPath.append(Path(UTF8::fromWide(tempName))));
         }
       }
 
@@ -404,7 +406,7 @@ namespace geEngineSDK {
       if (L"." != tempName && L".." != tempName) {
         Path fullPath = dirPath;
         if ((findData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) != 0) {
-          Path childDir = fullPath.append(UTF8::fromWide(tempName) + u8"/");
+          Path childDir(fullPath.append(Path(UTF8::fromWide(tempName) + U8STRING("/"))));
           if (nullptr != dirCallback) {
             if (!dirCallback(childDir)) {
               FindClose(fileHandle);
@@ -420,7 +422,7 @@ namespace geEngineSDK {
           }
         }
         else {
-          Path filePath = fullPath.append(UTF8::fromWide(tempName));
+          Path filePath(fullPath.append(Path(UTF8::fromWide(tempName))));
           if (nullptr != fileCallback) {
             if (!fileCallback(filePath)) {
               FindClose(fileHandle);

@@ -30,7 +30,7 @@ namespace geEngineSDK {
 
     Flags() = default;
 
-    Flags(Enum value) : m_bits(static_cast<Storage>(value)) {}
+    explicit Flags(Enum value) : m_bits(static_cast<Storage>(value)) {}
     Flags(const Flags<Enum, Storage>& value) : m_bits(value.m_bits) {}
     explicit Flags(Storage bits) : m_bits(bits) {}
 

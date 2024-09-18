@@ -17,12 +17,12 @@
  * Includes
  */
 /*****************************************************************************/
-#include "gePrerequisitesUtil.h"
+#include "gePrerequisitesUtilities.h"
 
 namespace geEngineSDK {
   using std::function;
 
-  class GE_UTILITY_EXPORT Compression
+  class GE_UTILITIES_EXPORT Compression
   {
    public:
     /**

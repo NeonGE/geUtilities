@@ -29,11 +29,11 @@ namespace geEngineSDK {
    * @note  This class is not thread safe and should only be used on the
    *        simulation thread.
    */
-  class GE_UTILITY_EXPORT MessageId
+  class GE_UTILITIES_EXPORT MessageId
   {
    public:
     MessageId() = default;
-    MessageId(const String& name);
+    explicit MessageId(const String& name);
 
     bool
     operator==(const MessageId& rhs) const {
@@ -52,7 +52,7 @@ namespace geEngineSDK {
   /**
    * @brief Handle to a subscription for a specific message in the global messaging system.
    */
-  class GE_UTILITY_EXPORT HMessage
+  class GE_UTILITIES_EXPORT HMessage
   {
    public:
     HMessage() = default;
@@ -76,7 +76,7 @@ namespace geEngineSDK {
    * @brief Sends a message using the global messaging system.
    * @note  Simulation thread only.
    */
-  void GE_UTILITY_EXPORT
+  void GE_UTILITIES_EXPORT
   sendMessage(MessageId message);
 
   class MessageHandler;

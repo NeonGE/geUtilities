@@ -17,12 +17,12 @@
  * Includes
  */
 /*****************************************************************************/
-#include "gePrerequisitesUtil.h"
+#include "gePrerequisitesUtilities.h"
 #include "geRTTIType.h"
 #include "geTransform.h"
 
 namespace geEngineSDK {
-  class GE_UTILITY_EXPORT TransformRTTI
+  class GE_UTILITIES_EXPORT TransformRTTI
     : public RTTIType<Transform, IReflectable, TransformRTTI>
   {
    private:

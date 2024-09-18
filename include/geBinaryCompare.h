@@ -19,7 +19,7 @@
  * Includes
  */
  /*****************************************************************************/
-#include "gePrerequisitesUtil.h"
+#include "gePrerequisitesUtilities.h"
 
 namespace geEngineSDK {
   struct SerializationContext;
@@ -28,7 +28,7 @@ namespace geEngineSDK {
    * @brief Represents an interface RTTI objects need to implement if they want
    *        to provide custom method of comparing their objects for equality.
    */
-  class GE_UTILITY_EXPORT ICompare
+  class GE_UTILITIES_EXPORT ICompare
   {
    public:
     virtual ~ICompare() = default;
@@ -43,7 +43,7 @@ namespace geEngineSDK {
   /**
    * @brief Compares native IReflectable objects for equality.
    */
-  class GE_UTILITY_EXPORT BinaryCompare : public ICompare
+  class GE_UTILITIES_EXPORT BinaryCompare : public ICompare
   {
    public:
     BinaryCompare();

@@ -6,7 +6,7 @@
  * @brief   Utility header that makes forward declarations
  *
  * This header makes forward declarations for all the needed types
- * of the geUtility library
+ * of the geUtilities library
  *
  * @bug	    No known bugs.
  */

@@ -33,7 +33,7 @@ namespace geEngineSDK {
    * @note  Degree values are interchangeable with Radian values, and
    *        conversions will be done automatically between them.
    */
-  class GE_UTILITY_EXPORT Degree
+  class GE_UTILITIES_EXPORT Degree
   {
    public:
     Degree() = default;

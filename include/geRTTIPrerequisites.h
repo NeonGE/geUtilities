@@ -694,8 +694,6 @@ namespace geEngineSDK {
 
       uint32 secondSize = rttiGetElementSize(data.second);
       RTTIPlainType<B>::toMemory(data.second, memory);
-
-      memory += secondSize;
       size += secondSize;
 
       memcpy(memoryStart, &size, sizeof(uint32));
@@ -714,7 +712,6 @@ namespace geEngineSDK {
       memory += firstSize;
 
       uint32 secondSize = RTTIPlainType<B>::fromMemory(data.second, memory);
-      memory += secondSize;
 
       return size;
     }

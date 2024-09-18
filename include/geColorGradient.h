@@ -17,7 +17,7 @@
  * Includes
  */
 /*****************************************************************************/
-#include "gePrerequisitesUtil.h"
+#include "gePrerequisitesUtilities.h"
 #include "geColor.h"
 #include "gePoolAlloc.h"
 
@@ -34,7 +34,7 @@ namespace geEngineSDK {
     float time = 0.0f;
   };
 
-  class GE_UTILITY_EXPORT GE_SCRIPT_EXPORT(m:Image) ColorGradient final
+  class GE_UTILITIES_EXPORT GE_SCRIPT_EXPORT(m:Image) ColorGradient final
   {
     CONSTEXPR static uint32 MAX_KEYS = 8;
    public:

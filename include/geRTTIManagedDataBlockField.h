@@ -20,7 +20,7 @@
  * Includes
  */
 /*****************************************************************************/
-#include "gePrerequisitesUtil.h"
+#include "gePrerequisitesUtilities.h"
 #include "geRTTIField.h"
 
 namespace geEngineSDK {

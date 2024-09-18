@@ -1,0 +1,5 @@
+// Hint files help the Visual Studio IDE interpret Visual C++ identifiers
+// such as names of functions and macros.
+// For more information see https://go.microsoft.com/fwlink/?linkid=865984
+#define GE_UTILITIES_EXPORT
+#define GE_ALLOW_MEMCPY_SERIALIZATION(type) static_assert(std::is_trivially_copyable<type>() == true, #type " is not trivially copyable"); template<> struct RTTIPlainType<type> { enum {kID=0}; enum {kHasDynamicSize = 0}; static void toMemory(const type& data, char* memory) { memcpy(memory, &data, sizeof(type)); } static uint32 fromMemory(type& data, char* memory) { memcpy(&data, memory, sizeof(type)); return static_cast<uint32>(sizeof(type)); } static uint32 getDynamicSize(const type&) { return static_cast<uint32>(sizeof(type)); } };

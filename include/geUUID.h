@@ -27,7 +27,7 @@ namespace geEngineSDK {
   /**
    * @brief Represents a universally unique identifier.
    */
-  class GE_UTILITY_EXPORT UUID
+  class GE_UTILITIES_EXPORT UUID
   {
    public:
     /**
@@ -107,7 +107,7 @@ namespace geEngineSDK {
     *
     * @note	Thread safe.
     */
-  class GE_UTILITY_EXPORT UUIDGenerator
+  class GE_UTILITIES_EXPORT UUIDGenerator
   {
    public:
     /**

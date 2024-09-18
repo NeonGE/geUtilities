@@ -18,7 +18,7 @@
  * Includes
  */
 /*****************************************************************************/
-#include "gePrerequisitesUtil.h"
+#include "gePrerequisitesUtilities.h"
 #include "geNumericLimits.h"
 
 namespace geEngineSDK {
@@ -53,7 +53,7 @@ namespace geEngineSDK {
     class MemBlock
     {
      public:
-      MemBlock(uint8* data)
+      MemBlock(byte* data)
         : m_data(data),
           m_freePtr(0),
           m_freeElems(ElemsPerBlock),
@@ -78,9 +78,9 @@ namespace geEngineSDK {
        *        Caller needs to ensure the remaining block size is adequate
        *        before calling.
        */
-      uint8*
+      byte*
       alloc() {
-        uint8* freeEntry = &m_data[m_freePtr];
+        byte* freeEntry = &m_data[m_freePtr];
         m_freePtr = *reinterpret_cast<SIZE_T*>(freeEntry);
         --m_freeElems;
         return freeEntry;
@@ -95,10 +95,10 @@ namespace geEngineSDK {
         *entryPtr = m_freePtr;
         ++m_freeElems;
 
-        m_freePtr = static_cast<SIZE_T>((reinterpret_cast<uint8*>(data)) - m_data);
+        m_freePtr = static_cast<SIZE_T>((reinterpret_cast<byte*>(data)) - m_data);
       }
 
-      uint8* m_data;
+      byte* m_data;
       SIZE_T m_freePtr;
       SIZE_T m_freeElems;
       MemBlock* m_nextBlock;
@@ -128,7 +128,7 @@ namespace geEngineSDK {
     /**
      * @brief Allocates enough memory for a single element in the pool.
      */
-    uint8*
+    byte*
     alloc() {
       ScopedLock<Lock> lock(m_lockPolicy);
 
@@ -137,7 +137,7 @@ namespace geEngineSDK {
       }
 
       ++m_totalNumElems;
-      uint8* output = m_freeBlock->alloc();
+      byte* output = m_freeBlock->alloc();
 
       return output;
     }
@@ -228,7 +228,7 @@ namespace geEngineSDK {
         //Padding for potential alignment correction
         SIZE_T paddedBlockDataSize = blockDataSize + (Alignment - 1);
 
-        auto data = reinterpret_cast<uint8*>(ge_alloc(sizeof(MemBlock) +
+        auto data = reinterpret_cast<byte*>(ge_alloc(sizeof(MemBlock) +
                                                         paddedBlockDataSize));
 
         void* blockData = data + sizeof(MemBlock);
@@ -237,7 +237,7 @@ namespace geEngineSDK {
                           blockData,
                           paddedBlockDataSize);
 
-        newBlock = new (data) MemBlock(reinterpret_cast<uint8*>(blockData));
+        newBlock = new (data) MemBlock(reinterpret_cast<byte*>(blockData));
         ++m_numBlocks;
 
         newBlock->m_nextBlock = m_freeBlock;

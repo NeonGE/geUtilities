@@ -21,7 +21,7 @@
  * Includes
  */
 /*****************************************************************************/
-#include "gePrerequisitesUtil.h"
+#include "gePrerequisitesUtilities.h"
 #include "geMath.h"
 #include "geVector2.h"
 #include "geVector3.h"
@@ -400,14 +400,14 @@ namespace geEngineSDK {
     /**
      * @return Rotator representation of this matrix
      */
-    GE_UTILITY_EXPORT Rotator
+    GE_UTILITIES_EXPORT Rotator
     rotator() const;
 
     /**
      * @brief Transform a rotation matrix into a quaternion.
      * @warning rotation part will need to be unit length for this to be right!
      */
-    GE_UTILITY_EXPORT Quaternion
+    GE_UTILITIES_EXPORT Quaternion
     toQuaternion() const;
 
     /*************************************************************************/
@@ -492,8 +492,8 @@ namespace geEngineSDK {
     /**
      * @brief Constants for Matrix with Zero values and Identity values
      */
-    MS_ALIGN(16) static GE_UTILITY_EXPORT const Matrix4 ZERO GCC_ALIGN(16);
-    MS_ALIGN(16) static GE_UTILITY_EXPORT const Matrix4 IDENTITY GCC_ALIGN(16);
+    MS_ALIGN(16) static GE_UTILITIES_EXPORT const Matrix4 ZERO GCC_ALIGN(16);
+    MS_ALIGN(16) static GE_UTILITIES_EXPORT const Matrix4 IDENTITY GCC_ALIGN(16);
   };
 
   /**
@@ -847,6 +847,7 @@ namespace geEngineSDK {
 
   inline bool
   Matrix4::operator!=(const Matrix4& Other) const {
+
     return !(*this == Other);
   }
 
@@ -1766,7 +1767,6 @@ namespace geEngineSDK {
               Plane(0.0f, 0.0f, ((MinZ == MaxZ) ? MinZ : -MaxZ * MinZ / (MinZ - MaxZ)), 0.0f))
   {}
 
-
   FORCEINLINE ReversedZPerspectiveMatrix::ReversedZPerspectiveMatrix(float HalfFOV,
                                                                      float Width,
                                                                      float Height,
@@ -2021,19 +2021,19 @@ namespace geEngineSDK {
     Math::sin_cos(&SY, &CY, Rot.yaw   * Math::DEG2RAD);
     Math::sin_cos(&SR, &CR, Rot.roll  * Math::DEG2RAD);
 
-    m[0][0] = CP * CY;
-    m[0][1] = CP * SY;
-    m[0][2] = SP;
+    m[0][0] = CY * CR + SY * SP * SR;
+    m[0][1] = SR * CP;
+    m[0][2] = -SY * CR + CY * SP * SR;
     m[0][3] = 0.f;
 
-    m[1][0] = SR * SP * CY - CR * SY;
-    m[1][1] = SR * SP * SY + CR * CY;
-    m[1][2] = -SR * CP;
+    m[1][0] = -CY * SR + SY * SP * CR;
+    m[1][1] = CR * CP;
+    m[1][2] = SR * SY + CY * SP * CR;
     m[1][3] = 0.f;
 
-    m[2][0] = -(CR * SP * CY + SR * SY);
-    m[2][1] = CY * SR - CR * SP * SY;
-    m[2][2] = CR * CP;
+    m[2][0] = SY * CP;
+    m[2][1] = -SP;
+    m[2][2] = CY * CP;
     m[2][3] = 0.f;
 
     m[3][0] = Origin.x;
@@ -2069,28 +2069,28 @@ namespace geEngineSDK {
      * @brief Matrix factory. Return an Matrix4 so we don't have type conversion
      *        issues in expressions.
      */
-    static GE_UTILITY_EXPORT Matrix4
+    static GE_UTILITIES_EXPORT Matrix4
     make(Quaternion const& Rot);
 
     /**
      * @brief Builds a rotation matrix given only a XAxis. Y and Z are unspecified
      *        but will be orthonormal. XAxis need not be normalized.
      */
-    static GE_UTILITY_EXPORT Matrix4
+    static GE_UTILITIES_EXPORT Matrix4
     makeFromX(Vector3 const& XAxis);
 
     /**
      * @brief Builds a rotation matrix given only a YAxis. X and Z are unspecified
      *        but will be orthonormal. YAxis need not be normalized.
      */
-    static GE_UTILITY_EXPORT Matrix4
+    static GE_UTILITIES_EXPORT Matrix4
     makeFromY(Vector3 const& YAxis);
 
     /**
      * @brief Builds a rotation matrix given only a ZAxis. X and Y are unspecified
      *        but will be orthonormal. ZAxis need not be normalized.
      */
-    static GE_UTILITY_EXPORT Matrix4
+    static GE_UTILITIES_EXPORT Matrix4
     makeFromZ(Vector3 const& ZAxis);
 
     /**
@@ -2098,7 +2098,7 @@ namespace geEngineSDK {
      *        Y may be changed minimally to enforce orthogonality.
      *        Z will be computed. Inputs need not be normalized.
      */
-    static GE_UTILITY_EXPORT Matrix4
+    static GE_UTILITIES_EXPORT Matrix4
     makeFromXY(Vector3 const& XAxis, Vector3 const& YAxis);
 
     /**
@@ -2106,7 +2106,7 @@ namespace geEngineSDK {
      *        Z may be changed minimally to enforce orthogonality.
      *        Y will be computed. Inputs need not be normalized.
      */
-    static GE_UTILITY_EXPORT Matrix4
+    static GE_UTILITIES_EXPORT Matrix4
     makeFromXZ(Vector3 const& XAxis, Vector3 const& ZAxis);
 
     /**
@@ -2114,7 +2114,7 @@ namespace geEngineSDK {
      *        X may be changed minimally to enforce orthogonality.
      *        Z will be computed. Inputs need not be normalized.
      */
-    static GE_UTILITY_EXPORT Matrix4
+    static GE_UTILITIES_EXPORT Matrix4
     makeFromYX(Vector3 const& YAxis, Vector3 const& XAxis);
 
     /**
@@ -2122,7 +2122,7 @@ namespace geEngineSDK {
      *        Z may be changed minimally to enforce orthogonality.
      *        X will be computed. Inputs need not be normalized.
      */
-    static GE_UTILITY_EXPORT Matrix4
+    static GE_UTILITIES_EXPORT Matrix4
     makeFromYZ(Vector3 const& YAxis, Vector3 const& ZAxis);
 
     /**
@@ -2130,7 +2130,7 @@ namespace geEngineSDK {
      *        X may be changed minimally to enforce orthogonality.
      *        Y will be computed. Inputs need not be normalized.
      */
-    static GE_UTILITY_EXPORT Matrix4
+    static GE_UTILITIES_EXPORT Matrix4
     makeFromZX(Vector3 const& ZAxis, Vector3 const& XAxis);
 
     /**
@@ -2138,7 +2138,7 @@ namespace geEngineSDK {
      *        Y may be changed minimally to enforce orthogonality.
      *        X will be computed. Inputs need not be normalized.
      */
-    static GE_UTILITY_EXPORT Matrix4
+    static GE_UTILITIES_EXPORT Matrix4
     makeFromZY(Vector3 const& ZAxis, Vector3 const& YAxis);
   };
 }
@@ -2245,7 +2245,7 @@ namespace geEngineSDK {
      * @brief Matrix factory. Return a Matrix4 so we don't have type conversion
      *        issues in expressions.
      */
-    static GE_UTILITY_EXPORT Matrix4
+    static GE_UTILITIES_EXPORT Matrix4
     make(const Quaternion& Rot, const Vector3& Origin);
   };
 
@@ -2327,14 +2327,14 @@ namespace geEngineSDK {
      * @param Q rotation
      * @param Origin translation to apply
      */
-    GE_UTILITY_EXPORT QuatRotationTranslationMatrix(const Quaternion& Q,
+    GE_UTILITIES_EXPORT QuatRotationTranslationMatrix(const Quaternion& Q,
                                                     const Vector3& Origin);
 
     /**
      * @brief Matrix factory. Return an FMatrix so we don't have type
      *        conversion issues in expressions.
     */
-    static GE_UTILITY_EXPORT Matrix4
+    static GE_UTILITIES_EXPORT Matrix4
     make(const Quaternion& Q, const Vector3& Origin) {
       return QuatRotationTranslationMatrix(Q, Origin);
     }

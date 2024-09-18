@@ -17,7 +17,7 @@
  * Includes
  */
 /*****************************************************************************/
-#include "gePrerequisitesUtil.h"
+#include "gePrerequisitesUtilities.h"
 #include "geMath.h"
 #include "geBitwise.h"
 
@@ -184,7 +184,7 @@ namespace geEngineSDK {
      * @brief Initializes the bitfield with enough storage for @p count bits
      *        and sets them to the initial value of @p value.
      */
-    Bitfield(bool value = false, uint32 count = 0)
+    explicit Bitfield(bool value = false, uint32 count = 0)
       : m_numBits(count) {
       if (count > 0) {
         realloc(count);
@@ -265,7 +265,7 @@ namespace geEngineSDK {
       GE_ASSERT(idx < m_numBits);
 
       const uint32 bitMask = 1 << (idx & (BITS_PER_DWORD - 1));
-      uint32& data = m_data[idx >> BITS_PER_DWORD_LOG2];
+      const uint32& data = m_data[idx >> BITS_PER_DWORD_LOG2];
 
       return BitReferenceConst(data, bitMask);
     }

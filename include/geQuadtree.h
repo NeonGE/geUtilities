@@ -17,7 +17,7 @@
  * Includes
  */
  /*****************************************************************************/
-#include "gePrerequisitesUtil.h"
+#include "gePrerequisitesUtilities.h"
 #include "geMath.h"
 #include "geVectorNI.h"
 #include "geSIMD.h"
@@ -280,7 +280,8 @@ namespace geEngineSDK {
        */
       NodeBounds(const simd::Rect2& bounds)
         : m_bounds(bounds) {
-          static CONSTEXPR float chldExtentScl = 0.5f * (1.0f + 1.0f / Options::loosePadding);
+          static CONSTEXPR float chldExtentScl = 0.5f * (1.0f +
+            1.0f / static_cast<float>(Options::loosePadding));
 
         m_childExtent = bounds.extents.x * chldExtentScl;
         m_childOffset = bounds.extents.x - m_childExtent;
@@ -678,7 +679,8 @@ namespace geEngineSDK {
      */
     Quadtree(const Vector2& center, float extent, void* context = nullptr)
       : m_rootBounds(simd::Rect2(center, extent)),
-        m_minNodeExtent(extent * Math::pow(0.5f * (1.0f + 1.0f / Options::loosePadding),
+        m_minNodeExtent(extent * Math::pow(0.5f * (1.0f +
+                                           1.0f / static_cast<float>(Options::loosePadding)),
                                            Options::maxDepth)),
         m_context(context)
     {}

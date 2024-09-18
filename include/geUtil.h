@@ -52,13 +52,13 @@ namespace geEngineSDK {
   /**
    * @brief Generates an MD5 hash string for the provided source string.
    */
-  String GE_UTILITY_EXPORT
+  String GE_UTILITIES_EXPORT
   md5(const WString& source);
 
   /**
    * @brief Generates an MD5 hash string for the provided source string.
    */
-  String GE_UTILITY_EXPORT
+  String GE_UTILITIES_EXPORT
   md5(const String& source);
 
   /**

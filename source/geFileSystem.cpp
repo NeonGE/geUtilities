@@ -70,13 +70,13 @@ namespace geEngineSDK {
 
         for (auto& file : files) {
           Path fileDestPath = destinationPath;
-          fileDestPath.append(file.getTail());
+          fileDestPath.append(Path(file.getTail()));
           todo.push(make_tuple(file, fileDestPath));
         }
 
         for (auto& dir : directories) {
           Path dirDestPath = destinationPath;
-          dirDestPath.append(dir.getTail());
+          dirDestPath.append(Path(dir.getTail()));
           todo.push(make_tuple(dir, dirDestPath));
         }
       }

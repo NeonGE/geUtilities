@@ -17,7 +17,7 @@
  * Includes
  */
 /*****************************************************************************/
-#include "gePrerequisitesUtil.h"
+#include "gePrerequisitesUtilities.h"
 
 #if GE_PLATFORM == GE_PLATFORM_WIN32
   struct HINSTANCE__;
@@ -48,7 +48,7 @@ namespace geEngineSDK {
   /**
    * @brief Class that holds data about a dynamic library.
    */
-  class GE_UTILITY_EXPORT DynLib final
+  class GE_UTILITIES_EXPORT DynLib final
   {
    public:
 #if GE_PLATFORM == GE_PLATFORM_LINUX

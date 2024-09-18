@@ -68,7 +68,7 @@ namespace geEngineSDK {
   /**
    * @brief Provides access to various operating system specific utility functions.
    */
-  class GE_UTILITY_EXPORT PlatformUtility
+  class GE_UTILITIES_EXPORT PlatformUtility
   {
    public:
     /**

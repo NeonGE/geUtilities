@@ -21,7 +21,7 @@
  * Includes
  */
 /*****************************************************************************/
-#include "gePrerequisitesUtil.h"
+#include "gePrerequisitesUtilities.h"
 #include "geMath.h"
 #include "geVector3.h"
 #include "geDebug.h"
@@ -84,7 +84,7 @@ namespace geEngineSDK {
      * @brief Constructor.
      * @param Quat Quaternion used to specify rotation.
      */
-    explicit GE_UTILITY_EXPORT Rotator(const Quaternion& Quat);
+    explicit GE_UTILITIES_EXPORT Rotator(const Quaternion& Quat);
 
    public:
     /*************************************************************************/
@@ -223,7 +223,7 @@ namespace geEngineSDK {
     /**
      * @brief Returns the inverse of the rotator.
      */
-    GE_UTILITY_EXPORT Rotator
+    GE_UTILITIES_EXPORT Rotator
     getInverse() const;
 
     /**
@@ -238,14 +238,14 @@ namespace geEngineSDK {
      * @brief Convert a rotation into a unit vector facing in its direction.
      * @return Rotation as a unit direction vector.
      */
-    GE_UTILITY_EXPORT Vector3
+    GE_UTILITIES_EXPORT Vector3
     toVector() const;
 
     /**
      * @brief Get Rotation as a quaternion.
      * @return Rotation as a quaternion.
      */
-    GE_UTILITY_EXPORT Quaternion
+    GE_UTILITIES_EXPORT Quaternion
     toQuaternion() const;
 
     /**
@@ -253,7 +253,7 @@ namespace geEngineSDK {
      *        Rotator now stored in degrees.
      * @return Rotation as a Euler angle vector.
      */
-    GE_UTILITY_EXPORT Vector3
+    GE_UTILITIES_EXPORT Vector3
     euler() const;
 
     /**
@@ -261,7 +261,7 @@ namespace geEngineSDK {
      * @param V The vector to rotate.
      * @return The rotated vector.
      */
-    GE_UTILITY_EXPORT Vector3
+    GE_UTILITIES_EXPORT Vector3
     rotateVector(const Vector3& V) const;
 
     /**
@@ -269,7 +269,7 @@ namespace geEngineSDK {
      * @param V The vector to rotate.
      * @return The rotated vector.
      */
-    GE_UTILITY_EXPORT Vector3
+    GE_UTILITIES_EXPORT Vector3
     unrotateVector(const Vector3& V) const;
 
     /**
@@ -320,7 +320,7 @@ namespace geEngineSDK {
      * @param Winding[Out] the Winding part of this Rotator
      * @param Remainder[Out] the Remainder
      */
-    GE_UTILITY_EXPORT void
+    GE_UTILITIES_EXPORT void
     getWindingAndRemainder(Rotator& Winding, Rotator& Remainder) const;
 
     /**
@@ -417,30 +417,30 @@ namespace geEngineSDK {
      * @param Euler Euler angle vector.
      * @return A rotator from a Euler angle.
      */
-    static GE_UTILITY_EXPORT Rotator
+    static GE_UTILITIES_EXPORT Rotator
     makeFromEuler(const Vector3& Euler);
 
    public:
     /**
      * @brief A rotator of zero degrees on each axis.
      */
-    static GE_UTILITY_EXPORT const Rotator ZERO;
+    static GE_UTILITIES_EXPORT const Rotator ZERO;
 
    public:
     /**
-     * @brief Rotation around the right axis (around Y axis), Looking up and down
+     * @brief Rotation around the right axis (around X axis), Looking up and down
      *        (0=Straight Ahead, +Up, -Down)
      */
     float pitch;
 
     /**
-     * @brief Rotation around the up axis (around Z axis), Running in circles
+     * @brief Rotation around the up axis (around Y axis), Running in circles
      *        0=East, +North, -South.
      */
     float yaw;
 
     /**
-     * @brief Rotation around the forward axis (around X axis), Tilting your head,
+     * @brief Rotation around the forward axis (around Z axis), Tilting your head,
      *        0=Straight, +Clockwise, -CCW.
      */
     float roll;
@@ -679,8 +679,8 @@ namespace geEngineSDK {
 
   FORCEINLINE float
   Rotator::getManhattanDistance(const Rotator& Rotator) const {
-    return Math::abs<float>(yaw - Rotator.yaw) +
-           Math::abs<float>(pitch - Rotator.pitch) +
+    return Math::abs<float>(pitch - Rotator.pitch) +
+           Math::abs<float>(yaw - Rotator.yaw) +
            Math::abs<float>(roll - Rotator.roll);
   }
 

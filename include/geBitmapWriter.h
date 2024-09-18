@@ -17,13 +17,13 @@
  * Includes
  */
 /*****************************************************************************/
-#include "gePrerequisitesUtil.h"
+#include "gePrerequisitesUtilities.h"
 
 namespace geEngineSDK {
   /**
    * @brief Utility class for generating BMP images.
    */
-  class GE_UTILITY_EXPORT BitmapWriter
+  class GE_UTILITIES_EXPORT BitmapWriter
   {
   public:
     /**

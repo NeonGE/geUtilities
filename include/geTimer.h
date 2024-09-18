@@ -17,7 +17,7 @@
  * Includes
  */
 /*****************************************************************************/
-#include "gePrerequisitesUtil.h"
+#include "gePrerequisitesUtilities.h"
 #include <chrono>
 
 namespace geEngineSDK {
@@ -27,7 +27,7 @@ namespace geEngineSDK {
   /**
    * @brief Timer class used for querying high precision timers.
    */
-  class GE_UTILITY_EXPORT Timer
+  class GE_UTILITIES_EXPORT Timer
   {
    public:
     /**

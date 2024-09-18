@@ -17,11 +17,12 @@
  */
 /*****************************************************************************/
 #include "Win32/geMinWindows.h"
-#include "gePrerequisitesUtil.h"
+#include "gePrerequisitesUtilities.h"
 #include "Win32/geWin32PlatformUtility.h"
 #include "geColor.h"
 #include "geUUID.h"
 #include "geUnicode.h"
+#include "geDebug.h"
 
 #include <shellapi.h>
 #include <iphlpapi.h>
@@ -67,7 +68,8 @@ namespace geEngineSDK {
     memcpy((char*)output.cpuManufacturer.data() + 8, &CPUInfo[2], 4);
 
     //Get CPU brand string
-    char brandString[48];
+    String brandString;
+    brandString.resize(48);
 
     //Get the information associated with each extended ID.
     __cpuid(CPUInfo, 0x80000000);
@@ -76,13 +78,13 @@ namespace geEngineSDK {
       __cpuid(CPUInfo, i);
 
       if (0x80000002 == i) {
-        memcpy(brandString, CPUInfo, sizeof(CPUInfo));
+        memcpy(&brandString[0], CPUInfo, sizeof(CPUInfo));
       }
       else if (0x80000003 == i) {
-        memcpy(brandString + 16, CPUInfo, sizeof(CPUInfo));
+        memcpy(&brandString[16], CPUInfo, sizeof(CPUInfo));
       }
       else if (0x80000004 == i) {
-        memcpy(brandString + 32, CPUInfo, sizeof(CPUInfo));
+        memcpy(&brandString[32], CPUInfo, sizeof(CPUInfo));
       }
     }
 
@@ -151,7 +153,7 @@ namespace geEngineSDK {
     static uint8 keyboarState[256];
 
     if (FALSE == GetKeyboardState(keyboarState)) {
-      return nullptr;
+      return WString();
     }
 
     uint32 virtualKey = MapVirtualKeyExW(keyCode, 1, keyboardLayout);
@@ -208,7 +210,9 @@ namespace geEngineSDK {
   UUID
   PlatformUtility::generateUUID() {
     ::UUID uuid;
-    UuidCreate(&uuid);
+    if (RPC_S_OK != UuidCreate(&uuid)) {
+      GE_LOG(kError, Generic, "Error creating UUID");
+    }
 
     //Endianess might not be correct, but it shouldn't matter
     uint32 data1 = uuid.Data1;

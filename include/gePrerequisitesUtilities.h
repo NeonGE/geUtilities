@@ -1,6 +1,6 @@
 /*****************************************************************************/
 /**
- * @file    gePrerequisitesUtil.h
+ * @file    gePrerequisitesUtilities.h
  * @author  Samuel Prince (samuel.prince.quezada@gmail.com)
  * @date    2015/02/09
  * @brief   Utility include with the most basic defines needed

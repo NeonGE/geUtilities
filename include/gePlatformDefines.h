@@ -224,29 +224,29 @@
 #if GE_PLATFORM == GE_PLATFORM_WIN32
 # if GE_COMPILER == GE_COMPILER_MSVC
 #   if defined( GE_STATIC_LIB )
-#     define GE_UTILITY_EXPORT
+#     define GE_UTILITIES_EXPORT
 #   else
-#     if defined( GE_UTILITY_EXPORTS )
-#       define GE_UTILITY_EXPORT __declspec( dllexport )
+#     if defined( GE_UTILITIES_EXPORTS )
+#       define GE_UTILITIES_EXPORT __declspec( dllexport )
 #     else
-#       define GE_UTILITY_EXPORT __declspec( dllimport )
+#       define GE_UTILITIES_EXPORT __declspec( dllimport )
 #     endif
 #   endif
 # else  //Any other Compiler
 #   if defined( GE_STATIC_LIB )
-#     define GE_UTILITY_EXPORT
+#     define GE_UTILITIES_EXPORT
 #   else
-#     if defined( GE_UTILITY_EXPORTS )
-#       define GE_UTILITY_EXPORT __attribute__ ((dllexport))
+#     if defined( GE_UTILITIES_EXPORTS )
+#       define GE_UTILITIES_EXPORT __attribute__ ((dllexport))
 #     else
-#       define GE_UTILITY_EXPORT __attribute__ ((dllimport))
+#       define GE_UTILITIES_EXPORT __attribute__ ((dllimport))
 #     endif
 #   endif
 # endif
-# define GE_UTILITY_HIDDEN
+# define GE_UTILITIES_HIDDEN
 #else //Linux/Mac settings
-# define GE_UTILITY_EXPORT __attribute__ ((visibility ("default")))
-# define GE_UTILITY_HIDDEN __attribute__ ((visibility ("hidden")))
+# define GE_UTILITIES_EXPORT __attribute__ ((visibility ("default")))
+# define GE_UTILITIES_HIDDEN __attribute__ ((visibility ("hidden")))
 #endif
 
 //DLL export for plug ins
@@ -262,8 +262,8 @@
 
 /*****************************************************************************/
 /**
-* Windows specific Settings
-*/
+ * Windows specific Settings
+ */
 /*****************************************************************************/
 //Win32 compilers use _DEBUG for specifying debug builds. For MinGW, we set DEBUG
 #if GE_PLATFORM == GE_PLATFORM_WIN32
@@ -322,6 +322,13 @@
 # define GE_DEBUG_ONLY(x)
 # define GE_ASSERT(x)
 #endif
+
+/*****************************************************************************/
+/**
+ * Helper macros used for migration of c++17 to c++20
+ */
+/*****************************************************************************/
+#define U8STRING(x) x
 
 /*****************************************************************************/
 /**

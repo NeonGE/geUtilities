@@ -1,0 +1,385 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{6E32D479-2E1A-4360-A1F8-920DADC8DAF3}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>geUtilities</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>NotSet</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>NotSet</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>NotSet</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>NotSet</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\geEngine_PropSheet.props" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\geEngine_PropSheet.props" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\geEngine_PropSheet.props" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\geEngine_PropSheet.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <TargetName>$(ProjectName)d</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+    <TargetName>$(ProjectName)d</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>LZ4_HEAPMODE;GE_UTILITIES_EXPORTS;_DEBUG</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <MinimalRebuild>false</MinimalRebuild>
+      <OpenMP>GenerateParallelCode</OpenMP>
+      <Cpp0xSupport>true</Cpp0xSupport>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <SupportJustMyCode>false</SupportJustMyCode>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <BufferSecurityCheck>false</BufferSecurityCheck>
+      <AdditionalOptions>/bigobj</AdditionalOptions>
+      <FloatingPointModel>Fast</FloatingPointModel>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ImportLibrary>$(GE_ENGINE_SDK)lib/$(PlatformShortName)/$(TargetName).lib</ImportLibrary>
+      <AdditionalDependencies>DbgHelp.lib;IPHLPAPI.lib;Rpcrt4.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>LZ4_HEAPMODE;GE_UTILITIES_EXPORTS;_DEBUG</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <MinimalRebuild>false</MinimalRebuild>
+      <OpenMP>GenerateParallelCode</OpenMP>
+      <Cpp0xSupport>true</Cpp0xSupport>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <SupportJustMyCode>false</SupportJustMyCode>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <BufferSecurityCheck>false</BufferSecurityCheck>
+      <AdditionalOptions>/bigobj</AdditionalOptions>
+      <FloatingPointModel>Fast</FloatingPointModel>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ImportLibrary>$(GE_ENGINE_SDK)lib/$(PlatformShortName)/$(TargetName).lib</ImportLibrary>
+      <AdditionalDependencies>DbgHelp.lib;IPHLPAPI.lib;Rpcrt4.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>LZ4_HEAPMODE;GE_UTILITIES_EXPORTS;NDEBUG</PreprocessorDefinitions>
+      <BufferSecurityCheck>false</BufferSecurityCheck>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <OpenMP>GenerateParallelCode</OpenMP>
+      <Cpp0xSupport>true</Cpp0xSupport>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <AdditionalOptions>/bigobj</AdditionalOptions>
+      <FloatingPointModel>Fast</FloatingPointModel>
+    </ClCompile>
+    <Link>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ImportLibrary>$(GE_ENGINE_SDK)lib/$(PlatformShortName)/$(TargetName).lib</ImportLibrary>
+      <AdditionalDependencies>DbgHelp.lib;IPHLPAPI.lib;Rpcrt4.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>LZ4_HEAPMODE;GE_UTILITIES_EXPORTS;NDEBUG</PreprocessorDefinitions>
+      <BufferSecurityCheck>false</BufferSecurityCheck>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <OpenMP>GenerateParallelCode</OpenMP>
+      <Cpp0xSupport>true</Cpp0xSupport>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <AdditionalOptions>/bigobj</AdditionalOptions>
+      <FloatingPointModel>Fast</FloatingPointModel>
+    </ClCompile>
+    <Link>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ImportLibrary>$(GE_ENGINE_SDK)lib/$(PlatformShortName)/$(TargetName).lib</ImportLibrary>
+      <AdditionalDependencies>DbgHelp.lib;IPHLPAPI.lib;Rpcrt4.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="include\externals\catch_amalgamated.hpp" />
+    <ClInclude Include="include\Externals\json.hpp" />
+    <ClInclude Include="include\Externals\lz4.h" />
+    <ClInclude Include="include\Externals\md5.h" />
+    <ClInclude Include="include\externals\tetgen.h" />
+    <ClInclude Include="include\geAny.h" />
+    <ClInclude Include="include\geAsyncOp.h" />
+    <ClInclude Include="include\geBinaryCloner.h" />
+    <ClInclude Include="include\geBinaryCompare.h" />
+    <ClInclude Include="include\geBinaryDiff.h" />
+    <ClInclude Include="include\geBinarySerializer.h" />
+    <ClInclude Include="include\geBitfield.h" />
+    <ClInclude Include="include\geBitmapWriter.h" />
+    <ClInclude Include="include\geBitwise.h" />
+    <ClInclude Include="include\geBox.h" />
+    <ClInclude Include="include\geBox2D.h" />
+    <ClInclude Include="include\geBox2DI.h" />
+    <ClInclude Include="include\geBoxSphereBounds.h" />
+    <ClInclude Include="include\geCapsuleShape.h" />
+    <ClInclude Include="include\geColor.h" />
+    <ClInclude Include="include\geColorGradient.h" />
+    <ClInclude Include="include\geColorGradientRTTI.h" />
+    <ClInclude Include="include\geComplex.h" />
+    <ClInclude Include="include\geCompression.h" />
+    <ClInclude Include="include\geConvexHull2D.h" />
+    <ClInclude Include="include\geCrashHandler.h" />
+    <ClInclude Include="include\geDataBlob.h" />
+    <ClInclude Include="include\geDataStream.h" />
+    <ClInclude Include="include\geDebug.h" />
+    <ClInclude Include="include\geDegree.h" />
+    <ClInclude Include="include\geDynArray.h" />
+    <ClInclude Include="include\geDynLib.h" />
+    <ClInclude Include="include\geDynLibManager.h" />
+    <ClInclude Include="include\geEnumClassHash.h" />
+    <ClInclude Include="include\geEvent.h" />
+    <ClInclude Include="include\geException.h" />
+    <ClInclude Include="include\geFileSerializer.h" />
+    <ClInclude Include="include\geFileSystem.h" />
+    <ClInclude Include="include\geFlags.h" />
+    <ClInclude Include="include\geFloat10.h" />
+    <ClInclude Include="include\geFloat11.h" />
+    <ClInclude Include="include\geFloat16.h" />
+    <ClInclude Include="include\geFloat16Color.h" />
+    <ClInclude Include="include\geFloat32.h" />
+    <ClInclude Include="include\geFrameAlloc.h" />
+    <ClInclude Include="include\geFreeAlloc.h" />
+    <ClInclude Include="include\geFwdDeclUtil.h" />
+    <ClInclude Include="include\geGroupAlloc.h" />
+    <ClInclude Include="include\geInterval.h" />
+    <ClInclude Include="include\geIReflectable.h" />
+    <ClInclude Include="include\geIReflectableRTTI.h" />
+    <ClInclude Include="include\geLog.h" />
+    <ClInclude Include="include\geLookupTable.h" />
+    <ClInclude Include="include\geMacroUtil.h" />
+    <ClInclude Include="include\geMath.h" />
+    <ClInclude Include="include\geMatrix4.h" />
+    <ClInclude Include="include\geMemAllocProfiler.h" />
+    <ClInclude Include="include\geMemoryAllocator.h" />
+    <ClInclude Include="include\geMemorySerializer.h" />
+    <ClInclude Include="include\geMinHeap.h" />
+    <ClInclude Include="include\geNumericLimits.h" />
+    <ClInclude Include="include\geOctree.h" />
+    <ClInclude Include="include\gePoolAlloc.h" />
+    <ClInclude Include="include\geQuadtree.h" />
+    <ClInclude Include="include\geRandom.h" />
+    <ClInclude Include="include\geRect2.h" />
+    <ClInclude Include="include\geSIMD.h" />
+    <ClInclude Include="include\geSmallVector.h" />
+    <ClInclude Include="include\geStackAlloc.h" />
+    <ClInclude Include="include\geMessageHandler.h" />
+    <ClInclude Include="include\geMessageHandlerFwd.h" />
+    <ClInclude Include="include\geModule.h" />
+    <ClInclude Include="include\geNonCopyable.h" />
+    <ClInclude Include="include\geOrientedBox.h" />
+    <ClInclude Include="include\gePath.h" />
+    <ClInclude Include="include\gePlane.h" />
+    <ClInclude Include="include\gePlatformDefines.h" />
+    <ClInclude Include="include\gePlatformTypes.h" />
+    <ClInclude Include="include\gePlatformUtility.h" />
+    <ClInclude Include="include\gePrerequisitesUtilities.h" />
+    <ClInclude Include="include\geQuaternion.h" />
+    <ClInclude Include="include\geRadian.h" />
+    <ClInclude Include="include\geRotator.h" />
+    <ClInclude Include="include\geRTTIField.h" />
+    <ClInclude Include="include\geRTTIManagedDataBlockField.h" />
+    <ClInclude Include="include\geRTTIPlainField.h" />
+    <ClInclude Include="include\geRTTIPrerequisites.h" />
+    <ClInclude Include="include\geRTTIReflectableField.h" />
+    <ClInclude Include="include\geRTTIReflectablePtrField.h" />
+    <ClInclude Include="include\geRTTIType.h" />
+    <ClInclude Include="include\geSerializedObject.h" />
+    <ClInclude Include="include\geSerializedObjectRTTI.h" />
+    <ClInclude Include="include\geServiceLocator.h" />
+    <ClInclude Include="include\geSphere.h" />
+    <ClInclude Include="include\geSpinLock.h" />
+    <ClInclude Include="include\geStaticAlloc.h" />
+    <ClInclude Include="include\geStdHeaders.h" />
+    <ClInclude Include="include\geString.h" />
+    <ClInclude Include="include\geStringFormat.h" />
+    <ClInclude Include="include\geStringID.h" />
+    <ClInclude Include="include\geTaskScheduler.h" />
+    <ClInclude Include="include\geTextureAtlasLayout.h" />
+    <ClInclude Include="include\geThreading.h" />
+    <ClInclude Include="include\geThreadPool.h" />
+    <ClInclude Include="include\geTime.h" />
+    <ClInclude Include="include\geTimer.h" />
+    <ClInclude Include="include\geTransform.h" />
+    <ClInclude Include="include\geTransformRTTI.h" />
+    <ClInclude Include="include\geTriangulation.h" />
+    <ClInclude Include="include\geUnicode.h" />
+    <ClInclude Include="include\geUtil.h" />
+    <ClInclude Include="include\geUUID.h" />
+    <ClInclude Include="include\geVector2.h" />
+    <ClInclude Include="include\geVector2Half.h" />
+    <ClInclude Include="include\geVector2I.h" />
+    <ClInclude Include="include\geVector3.h" />
+    <ClInclude Include="include\geVector4.h" />
+    <ClInclude Include="include\geVectorNI.h" />
+    <ClInclude Include="include\Win32\geMinWindows.h" />
+    <ClInclude Include="include\Win32\geWin32PlatformUtility.h" />
+    <ClInclude Include="include\Win32\geWin32Windows.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="source\externals\catch_amalgamated.cpp" />
+    <ClCompile Include="source\Externals\lz4.c" />
+    <ClCompile Include="source\Externals\md5.cpp" />
+    <ClCompile Include="source\externals\predicates.cxx" />
+    <ClCompile Include="source\externals\tetgen.cxx" />
+    <ClCompile Include="source\geAsyncOp.cpp" />
+    <ClCompile Include="source\geBinaryCloner.cpp" />
+    <ClCompile Include="source\geBinaryCompare.cpp" />
+    <ClCompile Include="source\geBinaryDiff.cpp" />
+    <ClCompile Include="source\geBinarySerializer.cpp" />
+    <ClCompile Include="source\geBitmapWriter.cpp" />
+    <ClCompile Include="source\geBox.cpp" />
+    <ClCompile Include="source\geBox2D.cpp" />
+    <ClCompile Include="source\geBox2DI.cpp" />
+    <ClCompile Include="source\geBoxSphereBounds.cpp" />
+    <ClCompile Include="source\geColor.cpp" />
+    <ClCompile Include="source\geColorGradient.cpp" />
+    <ClCompile Include="source\geCompression.cpp" />
+    <ClCompile Include="source\geCrashHandler.cpp" />
+    <ClCompile Include="source\geDataStream.cpp" />
+    <ClCompile Include="source\geDebug.cpp" />
+    <ClCompile Include="source\geDegree.cpp" />
+    <ClCompile Include="source\geDynLib.cpp" />
+    <ClCompile Include="source\geDynLibManager.cpp" />
+    <ClCompile Include="source\geFileSerializer.cpp" />
+    <ClCompile Include="source\geFileSystem.cpp" />
+    <ClCompile Include="source\geFrameAlloc.cpp" />
+    <ClCompile Include="source\geIReflectable.cpp" />
+    <ClCompile Include="source\geLog.cpp" />
+    <ClCompile Include="source\geLookupTable.cpp" />
+    <ClCompile Include="source\geMath.cpp" />
+    <ClCompile Include="source\geMatrix4.cpp" />
+    <ClCompile Include="source\geMemoryAllocator.cpp" />
+    <ClCompile Include="source\geMemorySerializer.cpp" />
+    <ClCompile Include="source\geRect2.cpp" />
+    <ClCompile Include="source\geStackAlloc.cpp" />
+    <ClCompile Include="source\geMessageHandler.cpp" />
+    <ClCompile Include="source\gePath.cpp" />
+    <ClCompile Include="source\geQuaternion.cpp" />
+    <ClCompile Include="source\geRadian.cpp" />
+    <ClCompile Include="source\geRotator.cpp" />
+    <ClCompile Include="source\geRTTIField.cpp" />
+    <ClCompile Include="source\geRTTIType.cpp" />
+    <ClCompile Include="source\geSerializedObject.cpp" />
+    <ClCompile Include="source\geSphere.cpp" />
+    <ClCompile Include="source\geString.cpp" />
+    <ClCompile Include="source\geStringID.cpp" />
+    <ClCompile Include="source\geTaskScheduler.cpp" />
+    <ClCompile Include="source\geTextureAtlasLayout.cpp" />
+    <ClCompile Include="source\geThreadPool.cpp" />
+    <ClCompile Include="source\geTime.cpp" />
+    <ClCompile Include="source\geTimer.cpp" />
+    <ClCompile Include="source\geTransform.cpp" />
+    <ClCompile Include="source\geTriangulation.cpp" />
+    <ClCompile Include="source\geUnicode.cpp" />
+    <ClCompile Include="source\geUtil.cpp" />
+    <ClCompile Include="source\geUUID.cpp" />
+    <ClCompile Include="source\geVector2.cpp" />
+    <ClCompile Include="source\geVector2I.cpp" />
+    <ClCompile Include="source\geVector3.cpp" />
+    <ClCompile Include="source\geVector4.cpp" />
+    <ClCompile Include="source\Win32\geWin32CrashHandler.cpp" />
+    <ClCompile Include="source\Win32\geWin32FileSystem.cpp" />
+    <ClCompile Include="source\Win32\geWin32PlatformUtility.cpp" />
+    <ClCompile Include="source\Win32\geWin32Windows.cpp" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

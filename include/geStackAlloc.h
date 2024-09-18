@@ -48,16 +48,16 @@ namespace geEngineSDK {
     class MemBlock
     {
      public:
-      MemBlock(SIZE_T size) : m_size(size) {}
+      explicit MemBlock(SIZE_T size) : m_size(size) {}
       ~MemBlock() = default;
 
       /**
        * @brief Returns the first free address and increments the free pointer.
        *        Caller needs to ensure the remaining block size is adequate before calling.
        */
-      uint8*
+      byte*
       alloc(SIZE_T amount) {
-        uint8* freePtr = &m_data[m_freePtr];
+        byte* freePtr = &m_data[m_freePtr];
         m_freePtr += amount;
         return freePtr;
       }
@@ -69,17 +69,17 @@ namespace geEngineSDK {
        *        debug purposes in order to more easily track out-of-order deallocations.
        */
       void
-      dealloc(uint8* data, SIZE_T amount) {
+      dealloc(const byte* data, SIZE_T amount) {
         m_freePtr -= amount;
         GE_ASSERT((&m_data[m_freePtr]) == data && 
-                  "Out of order stack deallocation detected. Deallocations need"\
-                   "to happen in order opposite of allocations.");
+                  "Out of order stack deallocation detected. Deallocations need"
+                  "to happen in order opposite of allocations.");
 #if !GE_DEBUG_MODE
         GE_UNREFERENCED_PARAMETER(data);
 #endif
       }
      public:
-      uint8* m_data = nullptr;
+      byte* m_data = nullptr;
       SIZE_T m_freePtr = 0;
       SIZE_T m_size = 0;
       MemBlock* m_nextBlock = nullptr;
@@ -116,7 +116,7 @@ namespace geEngineSDK {
      *
      *			Each allocation comes with a 4 byte overhead.
      */
-    uint8*
+    byte*
     alloc(SIZE_T amount) {
       amount += sizeof(SIZE_T);
 
@@ -125,7 +125,7 @@ namespace geEngineSDK {
         allocBlock(amount);
       }
 
-      uint8* data = m_freeBlock->alloc(amount);
+      byte* data = m_freeBlock->alloc(amount);
 
       SIZE_T* storedSize = reinterpret_cast<SIZE_T*>(data);
       *storedSize = amount;
@@ -138,7 +138,7 @@ namespace geEngineSDK {
      *        opposite order then when it was allocated.
      */
     void
-    dealloc(uint8* data) {
+    dealloc(byte* data) {
       data -= sizeof(SIZE_T);
 
       SIZE_T* storedSize = reinterpret_cast<SIZE_T*>(data);
@@ -196,7 +196,7 @@ namespace geEngineSDK {
       }
 
       if (nullptr == newBlock) {
-        auto data = reinterpret_cast<uint8*>(ge_alloc(blockSize + sizeof(MemBlock)));
+        auto data = reinterpret_cast<byte*>(ge_alloc(blockSize + sizeof(MemBlock)));
         newBlock = new (data)MemBlock(blockSize);
         data += sizeof(MemBlock);
 
@@ -247,27 +247,27 @@ namespace geEngineSDK {
       * @brief  Sets up the stack with the currently active thread. You need to
       *         call this on any thread before doing any allocations or deallocations
       */
-    static GE_UTILITY_EXPORT void
+    static GE_UTILITIES_EXPORT void
     beginThread();
 
     /**
      * @brief Cleans up the stack for the current thread. You may not perform any allocations
      *        or deallocations after this is called, unless you call BeginThread again.
      */
-    static GE_UTILITY_EXPORT void
+    static GE_UTILITIES_EXPORT void
     endThread();
 
     /**
      * @copydoc MemoryStackInternal::alloc(SIZE_T)
      */
-    static GE_UTILITY_EXPORT uint8*
+    static GE_UTILITIES_EXPORT byte*
     alloc(SIZE_T numBytes);
 
     /**
-     * @copydoc MemoryStackInternal::dealloc(uint8*)
+     * @copydoc MemoryStackInternal::dealloc(byte*)
      */
-    static GE_UTILITY_EXPORT void
-    deallocLast(uint8* data);
+    static GE_UTILITIES_EXPORT void
+    deallocLast(byte* data);
 
    private:
     static GE_THREADLOCAL MemStackInternal<1024 * 1024>* threadMemStack;
@@ -342,7 +342,7 @@ namespace geEngineSDK {
   void
   ge_stack_delete(T* data) {
     data->~T();
-    MemStack::deallocLast(reinterpret_cast<uint8*>(data));
+    MemStack::deallocLast(reinterpret_cast<byte*>(data));
   }
 
   /**
@@ -357,12 +357,12 @@ namespace geEngineSDK {
       data[i].~T();
     }
 
-    MemStack::deallocLast(reinterpret_cast<uint8*>(data));
+    MemStack::deallocLast(reinterpret_cast<byte*>(data));
   }
 
   inline void
   ge_stack_delete(void* data, SIZE_T /*count*/) {
-    MemStack::deallocLast(reinterpret_cast<uint8*>(data));
+    MemStack::deallocLast(reinterpret_cast<byte*>(data));
   }
 
   /**
@@ -370,7 +370,7 @@ namespace geEngineSDK {
    */
   inline void
   ge_stack_free(void* data) {
-    return MemStack::deallocLast(reinterpret_cast<uint8*>(data));
+    return MemStack::deallocLast(reinterpret_cast<byte*>(data));
   }
 
   /**

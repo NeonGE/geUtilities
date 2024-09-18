@@ -19,13 +19,13 @@
  * Includes
  */
 /*****************************************************************************/
-#include "gePrerequisitesUtil.h"
+#include "gePrerequisitesUtilities.h"
 #include "geIReflectable.h"
 
 namespace geEngineSDK {
   struct SerializationContext;
 
-  struct GE_UTILITY_EXPORT SerializedInstance : IReflectable
+  struct GE_UTILITIES_EXPORT SerializedInstance : IReflectable
   {
     virtual ~SerializedInstance() = default;
 
@@ -59,7 +59,7 @@ namespace geEngineSDK {
   /**
    * @brief An intermediate serialized data for a single field in an object.
    */
-  struct GE_UTILITY_EXPORT SerializedEntry : IReflectable
+  struct GE_UTILITIES_EXPORT SerializedEntry : IReflectable
   {
     SerializedEntry() = default;
 
@@ -85,7 +85,7 @@ namespace geEngineSDK {
    * @brief A serialized portion of an object belonging to a specific class in
    *        a class hierarchy. Consists of multiple entries, one for each field
    */
-  struct GE_UTILITY_EXPORT SerializedSubObject : IReflectable
+  struct GE_UTILITIES_EXPORT SerializedSubObject : IReflectable
   {
     SerializedSubObject() = default;
 
@@ -111,7 +111,7 @@ namespace geEngineSDK {
    * @brief A serialized object consisting of multiple sub-objects, one for
    *        each inherited class.
    */
-  struct GE_UTILITY_EXPORT SerializedObject : SerializedInstance
+  struct GE_UTILITIES_EXPORT SerializedObject : SerializedInstance
   {
     /**
      * @brief Returns the RTTI type ID for the most-derived class of this
@@ -178,7 +178,7 @@ namespace geEngineSDK {
    * @brief Contains data for a serialized value of a specific field or array
    *        entry.
    */
-  struct GE_UTILITY_EXPORT SerializedField : SerializedInstance
+  struct GE_UTILITIES_EXPORT SerializedField : SerializedInstance
   {
     SerializedField() = default;
 
@@ -216,7 +216,7 @@ namespace geEngineSDK {
   /**
    * @brief Contains data for a serialized value of a data block field.
    */
-  struct GE_UTILITY_EXPORT SerializedDataBlock : SerializedInstance
+  struct GE_UTILITIES_EXPORT SerializedDataBlock : SerializedInstance
   {
     SerializedDataBlock() = default;
 
@@ -248,7 +248,7 @@ namespace geEngineSDK {
   /**
    * @brief A serialized value representing a single entry in an array.
    */
-  struct GE_UTILITY_EXPORT SerializedArrayEntry : IReflectable
+  struct GE_UTILITIES_EXPORT SerializedArrayEntry : IReflectable
   {
     SerializedArrayEntry() = default;
 
@@ -273,7 +273,7 @@ namespace geEngineSDK {
   /**
    * @brief A serialized array containing a list of all its entries.
    */
-  struct GE_UTILITY_EXPORT SerializedArray : SerializedInstance
+  struct GE_UTILITIES_EXPORT SerializedArray : SerializedInstance
   {
     SerializedArray() = default;
 

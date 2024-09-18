@@ -17,7 +17,7 @@
  * Includes
  */
 /*****************************************************************************/
-#include "gePrerequisitesUtil.h"
+#include "gePrerequisitesUtilities.h"
 #include "geVector3.h"
 
 namespace geEngineSDK {
@@ -53,7 +53,7 @@ namespace geEngineSDK {
      * @param Pts Pointer to list of points this sphere must contain.
      * @param Count How many points are in the list.
      */
-    GE_UTILITY_EXPORT Sphere(const Vector3* Pts, SIZE_T Count);
+    GE_UTILITIES_EXPORT Sphere(const Vector3* Pts, SIZE_T Count);
 
    public:
     /**
@@ -111,7 +111,7 @@ namespace geEngineSDK {
      * @param M Matrix to transform by.
      * @return Result of transformation.
      */
-    GE_UTILITY_EXPORT Sphere
+    GE_UTILITIES_EXPORT Sphere
     transformBy(const Matrix4& M) const;
 
     /**
@@ -119,14 +119,14 @@ namespace geEngineSDK {
      * @param M Transform information.
      * @return Result of transformation.
      */
-    GE_UTILITY_EXPORT Sphere
+    GE_UTILITIES_EXPORT Sphere
     transformBy(const Transform& M) const;
 
     /**
      * @brief Get volume of the current sphere
      * @return Volume (in Engine units).
      */
-    GE_UTILITY_EXPORT float
+    GE_UTILITIES_EXPORT float
     getVolume() const;
 
     /**
@@ -135,8 +135,20 @@ namespace geEngineSDK {
      * @return Reference to this bounding volume after resizing to include the
      *         other bounding volume.
      */
-    GE_UTILITY_EXPORT Sphere&
+    GE_UTILITIES_EXPORT Sphere&
     operator+=(const Sphere& Other);
+
+    Sphere&
+    operator+=(const Vector3& point) {
+      float dist = (point - m_center).size();
+      if (dist > m_radius) {
+        float newRadius = (m_radius + dist) * 0.5f;
+        m_center += (point - m_center) * (newRadius - m_radius) / dist;
+        m_radius = newRadius;
+      }
+
+      return *this;
+    }
 
     /**
      * @brief Gets the result of addition to this bounding volume.
@@ -157,7 +169,7 @@ namespace geEngineSDK {
     /**
      * @brief The sphere's radius.
      */
-    float m_radius;
+    float m_radius = 0.f;
   };
 
   GE_ALLOW_MEMCPY_SERIALIZATION(Sphere);

@@ -18,11 +18,11 @@
  * Includes
  */
  /*****************************************************************************/
-#include "gePrerequisitesUtil.h"
+#include "gePrerequisitesUtilities.h"
 #include "geVector2.h"
 
 namespace geEngineSDK {
-  class GE_UTILITY_EXPORT Rect2
+  class GE_UTILITIES_EXPORT Rect2
   {
    public:
     Rect2() = default;

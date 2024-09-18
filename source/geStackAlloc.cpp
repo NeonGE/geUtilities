@@ -17,7 +17,7 @@
  * Includes
  */
 /*****************************************************************************/
-#include "gePrerequisitesUtil.h"
+#include "gePrerequisitesUtilities.h"
 #include "geStackAlloc.h"
 
 namespace geEngineSDK {
@@ -40,7 +40,7 @@ namespace geEngineSDK {
     }
   }
 
-  uint8*
+  byte*
   MemStack::alloc(SIZE_T numBytes) {
     GE_ASSERT(nullptr != threadMemStack &&
               "Stack allocation failed. Did you call BeginThread?");
@@ -48,7 +48,7 @@ namespace geEngineSDK {
   }
 
   void
-  MemStack::deallocLast(uint8* data) {
+  MemStack::deallocLast(byte* data) {
     GE_ASSERT(nullptr != threadMemStack&&
               "Stack deallocation failed. Did you call BeginThread?");
     threadMemStack->dealloc(data);

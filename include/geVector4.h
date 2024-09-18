@@ -21,7 +21,7 @@
  * Includes
  */
 /*****************************************************************************/
-#include "gePrerequisitesUtil.h"
+#include "gePrerequisitesUtilities.h"
 #include "geDebug.h"
 #include "geMath.h"
 #include "geColor.h"
@@ -300,7 +300,7 @@ namespace geEngineSDK {
      * the roll can't be determined from a vector.
      * @return Rotator from the Vector's direction.
      */
-    GE_UTILITY_EXPORT Rotator
+    GE_UTILITIES_EXPORT Rotator
     toOrientationRotator() const;
 
     /**
@@ -308,7 +308,7 @@ namespace geEngineSDK {
      *        in which the vector points.
      * @return Quaternion from the Vector's direction.
      */
-    GE_UTILITY_EXPORT Quaternion
+    GE_UTILITIES_EXPORT Quaternion
     toOrientationQuat() const;
 
     /**
@@ -320,7 +320,7 @@ namespace geEngineSDK {
      * @return Rotator from the Vector's direction.
      * @see toOrientationRotator()
      */
-    GE_UTILITY_EXPORT Rotator
+    GE_UTILITIES_EXPORT Rotator
     rotation() const;
 
     /**
@@ -401,7 +401,7 @@ namespace geEngineSDK {
 # endif
 
    public:
-    static GE_UTILITY_EXPORT const Vector4 ZERO;
+    static GE_UTILITIES_EXPORT const Vector4 ZERO;
 
     /**
      * @brief The vector's X-component.

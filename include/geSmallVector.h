@@ -21,7 +21,7 @@
  */
 /*****************************************************************************/
 
-#include "gePrerequisitesUtil.h"
+#include "gePrerequisitesUtilities.h"
 
 namespace geEngineSDK {
   using std::copy;
@@ -61,7 +61,7 @@ namespace geEngineSDK {
       }
     }
 
-    SmallVector(uint32 size, const Type& value = Type()) {
+    explicit SmallVector(uint32 size, const Type& value = Type()) {
       append(size, value);
     }
 
@@ -70,7 +70,7 @@ namespace geEngineSDK {
     }
 
     ~SmallVector() {
-      for (auto& entry : *this) {
+      for (const auto& entry : *this) {
         entry.~Type();
       }
 
@@ -131,7 +131,7 @@ namespace geEngineSDK {
 
       // If the other buffer isn't small, we can just steal its buffer
       if (!other.isSmall()) {
-        for (auto& entry : *this) {
+        for (const auto& entry : *this) {
           entry.~Type();
         }
 
@@ -534,7 +534,7 @@ namespace geEngineSDK {
                          buffer);
 
       //Destroy existing elements in old memory
-      for (auto& entry : *this) {
+      for (const auto& entry : *this) {
         entry.~Type();
       }
 

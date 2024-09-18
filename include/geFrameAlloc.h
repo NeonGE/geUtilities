@@ -53,7 +53,7 @@ namespace geEngineSDK {
    * @note  Not thread safe with an exception. alloc() and clear() methods need to be called
    *        from the same thread. Dealloc() is thread safe and can be called from any thread.
    */
-  class GE_UTILITY_EXPORT FrameAlloc
+  class GE_UTILITIES_EXPORT FrameAlloc
   {
    private:
     /**
@@ -62,14 +62,14 @@ namespace geEngineSDK {
     class MemBlock
     {
      public:
-      MemBlock(SIZE_T size) : m_size(size) {}
+      explicit MemBlock(SIZE_T size) : m_size(size) {}
       ~MemBlock() = default;
 
       /**
        * @brief Allocates a piece of memory within the block. Caller must
        *        ensure the block has enough empty space.
        */
-      uint8*
+      byte*
       alloc(SIZE_T amount);
 
       /**
@@ -79,7 +79,7 @@ namespace geEngineSDK {
       clear();
 
      public:
-      uint8* m_data = nullptr;
+      byte* m_data = nullptr;
       SIZE_T m_freePtr = 0;
       SIZE_T m_size;
     };
@@ -93,7 +93,7 @@ namespace geEngineSDK {
      * @param[in] amount  Amount of memory to allocate, in bytes.
      * @note  Not thread safe.
      */
-    uint8*
+    byte*
     alloc(SIZE_T amount);
 
     /**
@@ -104,7 +104,7 @@ namespace geEngineSDK {
      * @param[in] alignment Alignment of the allocated memory. Must be power of two.
      * @note  Not thread safe.
      */
-    uint8*
+    byte*
     allocAligned(SIZE_T amount, SIZE_T alignment);
 
     /**
@@ -112,10 +112,10 @@ namespace geEngineSDK {
      * @note  Not thread safe.
      */
     template<class T, class... Args>
-		T*
+    T*
     construct(Args &&...args) {
-			return new ((T*)alloc(sizeof(T))) T(forward<Args>(args)...);
-		}
+      return new (reinterpret_cast<T*>(alloc(sizeof(T)))) T(forward<Args>(args)...);
+    }
 
     /**
      * @brief Destructs and deallocates an object.
@@ -125,7 +125,7 @@ namespace geEngineSDK {
     void
     destruct(T* data) {
       data->~T();
-      free(reinterpret_cast<uint8*>(data));
+      free(reinterpret_cast<byte*>(data));
     }
 
     /**
@@ -136,7 +136,7 @@ namespace geEngineSDK {
      * @note  Thread safe.
      */
     void
-    free(uint8* data);
+    free(byte* data);
 
     /**
      * @brief Deallocates and destructs a previously allocated object.
@@ -151,7 +151,7 @@ namespace geEngineSDK {
       if (nullptr != obj) {
         obj->~T();
       }
-      free(reinterpret_cast<uint8*>(obj));
+      free(reinterpret_cast<byte*>(obj));
     }
 
     /**
@@ -232,7 +232,7 @@ namespace geEngineSDK {
     using difference_type = ptrdiff_t;
 
     StdFrameAlloc() _NOEXCEPT = default;
-    StdFrameAlloc(FrameAlloc* pAlloc) _NOEXCEPT : m_FrameAlloc(pAlloc) {}
+    explicit StdFrameAlloc(FrameAlloc* pAlloc) _NOEXCEPT : m_FrameAlloc(pAlloc) {}
 
     template<class U>
     StdFrameAlloc(const StdFrameAlloc<U>& refAlloc) _NOEXCEPT
@@ -284,7 +284,7 @@ namespace geEngineSDK {
      */
     void
     deallocate(T* p, size_t) const _NOEXCEPT {
-      m_FrameAlloc->free(reinterpret_cast<uint8*>(p));
+      m_FrameAlloc->free(reinterpret_cast<byte*>(p));
     }
 
    public:
@@ -335,14 +335,14 @@ namespace geEngineSDK {
    *        own frame allocator.
    * @note  Thread safe.
    */
-  GE_UTILITY_EXPORT FrameAlloc&
+  GE_UTILITIES_EXPORT FrameAlloc&
   g_frameAlloc();
 
   /**
    * @brief Allocates some memory using the global frame allocator.
    * @param[in] numBytes  Number of bytes to allocate.
    */
-  GE_UTILITY_EXPORT uint8*
+  GE_UTILITIES_EXPORT byte*
   ge_frame_alloc(SIZE_T numBytes);
 
   /**
@@ -350,21 +350,21 @@ namespace geEngineSDK {
    *        boundary, using the global frame allocator. Boundary is in bytes
    *        and must be a power of two.
    */
-  GE_UTILITY_EXPORT uint8*
+  GE_UTILITIES_EXPORT byte*
   ge_frame_alloc_aligned(SIZE_T count, SIZE_T align);
 
   /**
    * @brief Deallocates memory allocated with the global frame allocator.
    * @note  Must be called on the same thread the memory was allocated on.
    */
-  GE_UTILITY_EXPORT void
+  GE_UTILITIES_EXPORT void
   ge_frame_free(void* data);
 
   /**
    * @brief Frees memory previously allocated with ge_frame_alloc_aligned().
    * @note  Must be called on the same thread the memory was allocated on.
    */
-  GE_UTILITY_EXPORT void
+  GE_UTILITIES_EXPORT void
   ge_frame_free_aligned(void* data);
 
   /**
@@ -426,7 +426,7 @@ namespace geEngineSDK {
   void
   ge_frame_delete(T* data) {
     data->~T();
-    ge_frame_free(reinterpret_cast<uint8*>(data));
+    ge_frame_free(reinterpret_cast<byte*>(data));
   }
 
   /**
@@ -440,19 +440,19 @@ namespace geEngineSDK {
     for (SIZE_T i = 0; i < count; ++i) {
       data[i].~T();
     }
-    ge_frame_free(reinterpret_cast<uint8*>(data));
+    ge_frame_free(reinterpret_cast<byte*>(data));
   }
 
   /**
    * @copydoc FrameAlloc::markFrame
    */
-  GE_UTILITY_EXPORT void
+  GE_UTILITIES_EXPORT void
   ge_frame_mark();
 
   /**
    * @copydoc FrameAlloc::clear
    */
-  GE_UTILITY_EXPORT void
+  GE_UTILITIES_EXPORT void
   ge_frame_clear();
 
   /**

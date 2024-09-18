@@ -19,7 +19,7 @@
  * Includes
  */
 /*****************************************************************************/
-#include "gePrerequisitesUtil.h"
+#include "gePrerequisitesUtilities.h"
 #include "geVector3.h"
 #include "geTransform.h"
 
@@ -63,13 +63,13 @@ namespace geEngineSDK {
      * @param Points Array of Points to create for the bounding volume.
      * @param Count The number of points.
      */
-    GE_UTILITY_EXPORT AABox(const Vector3* Points, SIZE_T Count);
+    GE_UTILITIES_EXPORT AABox(const Vector3* Points, SIZE_T Count);
 
     /**
      * @brief Creates and initializes a new box from an array of points.
      * @param Points Array of Points to create for the bounding volume.
      */
-    GE_UTILITY_EXPORT AABox(const Vector<Vector3>& Points);
+    GE_UTILITIES_EXPORT AABox(const Vector<Vector3>& Points);
 
    public:
     /**
@@ -308,7 +308,7 @@ namespace geEngineSDK {
      * @param Other The bounding box to test overlap
      * @return the overlap box. It can be 0 if they don't overlap
      */
-    GE_UTILITY_EXPORT AABox
+    GE_UTILITIES_EXPORT AABox
     overlap(const AABox& Other) const;
 
     /**
@@ -316,7 +316,7 @@ namespace geEngineSDK {
      * @param M The transformation object to perform the inversely transform this box with.
      * @return	The transformed box.
      */
-    GE_UTILITY_EXPORT AABox
+    GE_UTILITIES_EXPORT AABox
     inverseTransformBy(const Transform& M) const;
 
     /**
@@ -383,7 +383,7 @@ namespace geEngineSDK {
      * @return The transformed box.
      * @see TransformProjectBy
      */
-    GE_UTILITY_EXPORT AABox
+    GE_UTILITIES_EXPORT AABox
     transformBy(const Matrix4& M) const;
 
     /**
@@ -392,7 +392,7 @@ namespace geEngineSDK {
      * @return The transformed box.
      * @see TransformProjectBy
      */
-    GE_UTILITY_EXPORT AABox
+    GE_UTILITIES_EXPORT AABox
     transformBy(const Transform& M) const;
 
     /**
@@ -401,7 +401,7 @@ namespace geEngineSDK {
      * @return The transformed box.
      * @see TransformBy
      */
-    GE_UTILITY_EXPORT AABox
+    GE_UTILITIES_EXPORT AABox
     transformProjectBy(const Matrix4& ProjM) const;
 
    public:

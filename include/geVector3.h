@@ -22,7 +22,7 @@
  * Includes
  */
 /*****************************************************************************/
-#include "gePrerequisitesUtil.h"
+#include "gePrerequisitesUtilities.h"
 #include "geMath.h"
 #include "geNumericLimits.h"
 #include "geColor.h"
@@ -603,7 +603,7 @@ namespace geEngineSDK {
      * @return Rotator from the Vector's direction, without any roll.
      * @see toOrientationQuat()
      */
-    GE_UTILITY_EXPORT Rotator
+    GE_UTILITIES_EXPORT Rotator
     toOrientationRotator() const;
 
     /**
@@ -618,7 +618,7 @@ namespace geEngineSDK {
      * @return Quaternion from the Vector's direction, without any roll.
      * @see toOrientationRotator(), Quaternion::findBetweenVectors()
      */
-    GE_UTILITY_EXPORT Quaternion
+    GE_UTILITIES_EXPORT Quaternion
     toOrientationQuat() const;
 
     /**
@@ -627,7 +627,7 @@ namespace geEngineSDK {
      *        roll to zero because the roll can't be determined from a vector.
      * @return The Rotator from the vector's direction.
      */
-    GE_UTILITY_EXPORT Rotator
+    GE_UTILITIES_EXPORT Rotator
     rotation() const;
 
     /**
@@ -783,7 +783,7 @@ namespace geEngineSDK {
      * @return The squared distance between two points.
      */
     static FORCEINLINE float
-    distSquared(const Vector3 &v1, const Vector3 &v2);
+    distSquared(const Vector3& v1, const Vector3& v2);
 
     /**
      * @brief Compute pushout of a box from a plane.
@@ -792,7 +792,7 @@ namespace geEngineSDK {
      * @return Pushout required.
      */
     static FORCEINLINE float
-    boxPushOut(const Vector3 &normal, const Vector3 &size);
+    boxPushOut(const Vector3& normal, const Vector3& size);
 
     /**
      * @brief See if two normal vectors are nearly parallel, meaning the angle
@@ -930,42 +930,42 @@ namespace geEngineSDK {
     /**
      * @brief A zero vector (0,0,0)
      */
-    static GE_UTILITY_EXPORT const Vector3 ZERO;
+    static GE_UTILITIES_EXPORT const Vector3 ZERO;
 
     /**
      * @brief A unit vector (1,1,1)
      */
-    static GE_UTILITY_EXPORT const Vector3 UNIT;
+    static GE_UTILITIES_EXPORT const Vector3 UNIT;
 
     /**
      * @brief World up vector (0,0,1)
      */
-    static GE_UTILITY_EXPORT const Vector3 UP;
+    static GE_UTILITIES_EXPORT const Vector3 UP;
 
     /**
      * @brief World down vector (0,0,-1)
      */
-    static GE_UTILITY_EXPORT const Vector3 DOWN;
+    static GE_UTILITIES_EXPORT const Vector3 DOWN;
 
     /**
      * @brief Forward vector (1,0,0)
      */
-    static GE_UTILITY_EXPORT const Vector3 FORWARD;
+    static GE_UTILITIES_EXPORT const Vector3 FORWARD;
     
     /**
      * @brief Forward vector (-1,0,0)
      */
-    static GE_UTILITY_EXPORT const Vector3 BACKWARD;
+    static GE_UTILITIES_EXPORT const Vector3 BACKWARD;
 
     /**
     * @brief Right vector (0,1,0)
     */
-    static GE_UTILITY_EXPORT const Vector3 RIGHT;
+    static GE_UTILITIES_EXPORT const Vector3 RIGHT;
 
     /**
     * @brief Right vector (0,-1,0)
     */
-    static GE_UTILITY_EXPORT const Vector3 LEFT;
+    static GE_UTILITIES_EXPORT const Vector3 LEFT;
   };
 
   /***************************************************************************/
@@ -1101,10 +1101,10 @@ namespace geEngineSDK {
   inline Vector3
   Vector3::pointPlaneProject(const Vector3& point,
                              const Vector3& planeBase,
-                             const Vector3& planeNorm) {
+                             const Vector3& planeNormal) {
     //Find the distance of X from the plane
     //Add the distance back along the normal from the point
-    return point - Vector3::pointPlaneDist(point, planeBase, planeNorm) * planeNorm;
+    return point - Vector3::pointPlaneDist(point, planeBase, planeNormal) * planeNormal;
   }
 
   inline Vector3
@@ -1148,9 +1148,8 @@ namespace geEngineSDK {
     else if (Vector3::pointPlaneDist(base2, base1, normal1) > Math::THRESH_POINT_ON_PLANE) {
       return false;
     }
-    else {
-      return true;
-    }
+
+    return true;
   }
 
   inline float

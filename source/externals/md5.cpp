@@ -1,4 +1,6 @@
 /* MD5
+Slightly modified version for the purposes of geEngine by Samuel Prince
+
 converted to C++ class by Frank Thilo (thilo@unix-ag.org)
 for bzflag (http://www.bzflag.org)
 
@@ -31,7 +33,7 @@ documentation and/or software.
 */
 
 /* interface header */
-#include "Externals/md5.h"
+#include "md5.h"
 
 /* system implementation headers */
 #include <cstdio>

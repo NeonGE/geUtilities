@@ -99,7 +99,7 @@ namespace geEngineSDK {
             continue;
           }
 
-          Tetrahedron& neighbor = volume.tetrahedra[neighborIdx];
+          const Tetrahedron& neighbor = volume.tetrahedra[neighborIdx];
           if (vert != neighbor.vertices[0] &&
               vert != neighbor.vertices[1] &&
               vert != neighbor.vertices[2] &&

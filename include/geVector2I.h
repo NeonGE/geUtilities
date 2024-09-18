@@ -21,14 +21,14 @@
  * Includes
  */
 /*****************************************************************************/
-#include "gePrerequisitesUtil.h"
+#include "gePrerequisitesUtilities.h"
 #include "geMath.h"
 
 namespace geEngineSDK {
   /**
    * @brief Structure for integer points in 2-d space.
    */
-  class GE_UTILITY_EXPORT Vector2I
+  class GE_UTILITIES_EXPORT Vector2I
   {
    public:
     /**

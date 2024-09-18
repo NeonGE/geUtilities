@@ -140,7 +140,7 @@ namespace geEngineSDK {
       }
       else if (isUTF32BE(reinterpret_cast<char*>(headerBytes))) {
         GE_LOG(kWarning, Generic, "UTF-32 big endian decoding not supported");
-        return u8"";
+        return U8STRING("");
       }
     }
 
@@ -156,7 +156,7 @@ namespace geEngineSDK {
       }
       else if (isUTF16BE(reinterpret_cast<char*>(headerBytes))) {
         GE_LOG(kWarning, Generic, "UTF-16 big endian decoding not supported");
-        return u8"";
+        return U8STRING("");
       }
     }
 

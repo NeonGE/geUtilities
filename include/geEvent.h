@@ -17,7 +17,7 @@
 * Includes
 */
 /*****************************************************************************/
-#include "gePrerequisitesUtil.h"
+#include "gePrerequisitesUtilities.h"
 
 namespace geEngineSDK {
   using std::function;

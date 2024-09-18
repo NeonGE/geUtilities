@@ -17,7 +17,7 @@
  * Includes
  */
 /*****************************************************************************/
-#include "gePrerequisitesUtil.h"
+#include "gePrerequisitesUtilities.h"
 
 namespace geEngineSDK {
   /**
@@ -62,7 +62,7 @@ namespace geEngineSDK {
   /**
    * @brief Contains helper methods that triangulate point data.
    */
-  class GE_UTILITY_EXPORT Triangulation
+  class GE_UTILITIES_EXPORT Triangulation
   {
    public:
     /**

@@ -34,7 +34,7 @@
  * Includes
  */
 /*****************************************************************************/
-#include "gePrerequisitesUtil.h"
+#include "gePrerequisitesUtilities.h"
 
 #include "geMatrix4.h"
 #include "geVector3.h"
@@ -43,7 +43,7 @@
 #include "geRTTIType.h"
 
 namespace geEngineSDK {
-  class GE_UTILITY_EXPORT Transform : public IReflectable
+  class GE_UTILITIES_EXPORT Transform : public IReflectable
   {
    public:
     /**
@@ -174,44 +174,36 @@ namespace geEngineSDK {
 
       GE_ASSERT(isRotationNormalized());
 
-      OutMatrix.m[3][0] = m_translation.x;
-      OutMatrix.m[3][1] = m_translation.y;
-      OutMatrix.m[3][2] = m_translation.z;
-
       const float x2 = m_rotation.x + m_rotation.x;
       const float y2 = m_rotation.y + m_rotation.y;
       const float z2 = m_rotation.z + m_rotation.z;
 
-      {
-        const float xx2 = m_rotation.x * x2;
-        const float yy2 = m_rotation.y * y2;
-        const float zz2 = m_rotation.z * z2;
+      const float xx2 = m_rotation.x * x2;
+      const float yy2 = m_rotation.y * y2;
+      const float zz2 = m_rotation.z * z2;
+      const float xy2 = m_rotation.x * y2;
+      const float xz2 = m_rotation.x * z2;
+      const float yz2 = m_rotation.y * z2;
+      const float wx2 = m_rotation.w * x2;
+      const float wy2 = m_rotation.w * y2;
+      const float wz2 = m_rotation.w * z2;
 
-        OutMatrix.m[0][0] = (1.0f - (yy2 + zz2)) * m_scale3D.x;
-        OutMatrix.m[1][1] = (1.0f - (xx2 + zz2)) * m_scale3D.y;
-        OutMatrix.m[2][2] = (1.0f - (xx2 + yy2)) * m_scale3D.z;
-      }
-      {
-        const float yz2 = m_rotation.y * z2;
-        const float wx2 = m_rotation.w * x2;
+      OutMatrix.m[0][0] = (1.0f - (yy2 + zz2)) * m_scale3D.x;
+      OutMatrix.m[1][1] = (1.0f - (xx2 + zz2)) * m_scale3D.y;
+      OutMatrix.m[2][2] = (1.0f - (xx2 + yy2)) * m_scale3D.z;
 
-        OutMatrix.m[2][1] = (yz2 - wx2) * m_scale3D.z;
-        OutMatrix.m[1][2] = (yz2 + wx2) * m_scale3D.y;
-      }
-      {
-        const float xy2 = m_rotation.x * y2;
-        const float wz2 = m_rotation.w * z2;
+      OutMatrix.m[0][1] = (xy2 + wz2) * m_scale3D.x;
+      OutMatrix.m[1][0] = (xy2 - wz2) * m_scale3D.y;
 
-        OutMatrix.m[1][0] = (xy2 - wz2) * m_scale3D.y;
-        OutMatrix.m[0][1] = (xy2 + wz2) * m_scale3D.x;
-      }
-      {
-        const float xz2 = m_rotation.x * z2;
-        const float wy2 = m_rotation.w * y2;
+      OutMatrix.m[0][2] = (xz2 - wy2) * m_scale3D.x;
+      OutMatrix.m[2][0] = (xz2 + wy2) * m_scale3D.z;
 
-        OutMatrix.m[2][0] = (xz2 + wy2) * m_scale3D.z;
-        OutMatrix.m[0][2] = (xz2 - wy2) * m_scale3D.x;
-      }
+      OutMatrix.m[1][2] = (yz2 + wx2) * m_scale3D.y;
+      OutMatrix.m[2][1] = (yz2 - wx2) * m_scale3D.z;
+
+      OutMatrix.m[3][0] = m_translation.x;
+      OutMatrix.m[3][1] = m_translation.y;
+      OutMatrix.m[3][2] = m_translation.z;
 
       OutMatrix.m[0][3] = 0.0f;
       OutMatrix.m[1][3] = 0.0f;

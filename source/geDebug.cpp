@@ -370,7 +370,7 @@ R"(<!DOCTYPE HTML PUBLIC '-//W3C//DTD HTML 4.0 Transitional//EN'>
     fileStream->writeString(stream.str());
   }
 
-  GE_UTILITY_EXPORT Debug& g_debug() {
+  GE_UTILITIES_EXPORT Debug& g_debug() {
     static Debug debug;
     return debug;
   }

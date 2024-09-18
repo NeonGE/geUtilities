@@ -50,7 +50,7 @@ namespace geEngineSDK {
     class MemBlock
     {
      public:
-      MemBlock(uint8* data, SIZE_T size)
+      MemBlock(byte* data, SIZE_T size)
         : m_data(data),
           m_size(size)
       {}
@@ -59,9 +59,9 @@ namespace geEngineSDK {
        * @brief Allocates a piece of memory within the block.
        *        Caller must ensure the block has enough empty space.
        */
-      uint8*
+      byte*
       alloc(SIZE_T amount) {
-        uint8* freePtr = &m_data[m_freePtr];
+        byte* freePtr = &m_data[m_freePtr];
         m_freePtr += amount;
 
         return freePtr;
@@ -73,7 +73,7 @@ namespace geEngineSDK {
        *        memory is instead orphaned.
        */
       void
-      free(uint8* data, SIZE_T allocSize) {
+      free(byte* data, SIZE_T allocSize) {
         if ((data + allocSize) == (m_data + m_freePtr)) {
           m_freePtr -= allocSize;
         }
@@ -88,7 +88,7 @@ namespace geEngineSDK {
         m_freePtr = 0;
       }
 
-      uint8* m_data = nullptr;
+      byte* m_data = nullptr;
       SIZE_T m_freePtr = 0;
       SIZE_T m_size = 0;
       MemBlock* m_nextBlock = nullptr;
@@ -102,7 +102,7 @@ namespace geEngineSDK {
      * @brief  Allocates a new piece of memory of the specified size.
      * @param[in]  amount  Amount of memory to allocate, in bytes.
      */
-    uint8*
+    byte*
     alloc(SIZE_T amount) {
       if (0 == amount) {
         return nullptr;
@@ -114,7 +114,7 @@ namespace geEngineSDK {
 
       SIZE_T freeMem = BlockSize - m_freePtr;
 
-      uint8* data;
+      byte* data;
       if (amount > freeMem) {
         data = m_dynamicAlloc.alloc(amount);
       }
@@ -144,7 +144,7 @@ namespace geEngineSDK {
         return;
       }
 
-      uint8* dataPtr = reinterpret_cast<uint8*>(data);
+      byte* dataPtr = reinterpret_cast<byte*>(data);
 #if GE_DEBUG_MODE
       dataPtr -= sizeof(SIZE_T);
 
@@ -152,7 +152,7 @@ namespace geEngineSDK {
       m_totalAllocBytes -= *storedSize;
 #endif
       if (data > m_staticData && data < (m_staticData + BlockSize)) {
-        if (((reinterpret_cast<uint8*>(data)) + allocSize) == (m_staticData + m_freePtr)) {
+        if (((reinterpret_cast<byte*>(data)) + allocSize) == (m_staticData + m_freePtr)) {
           m_freePtr -= allocSize;
         }
       }
@@ -173,7 +173,7 @@ namespace geEngineSDK {
       //Dealloc is only used for debug and can be removed if needed.
       //All the actual deallocation happens in clear()
 
-      uint8* dataPtr = reinterpret_cast<uint8*>(data);
+      byte* dataPtr = reinterpret_cast<byte*>(data);
 #if GE_DEBUG_MODE
       dataPtr -= sizeof(SIZE_T);
 
@@ -253,7 +253,7 @@ namespace geEngineSDK {
     }
 
    private:
-    uint8 m_staticData[BlockSize];
+    byte m_staticData[BlockSize];
     SIZE_T m_freePtr = 0;
     DynamicAllocator m_dynamicAlloc;
     SIZE_T m_totalAllocBytes = 0;
@@ -277,7 +277,7 @@ namespace geEngineSDK {
 
     StdStaticAlloc() = default;
 
-    StdStaticAlloc(StaticAlloc<BlockSize, FreeAlloc>* refAlloc) _NOEXCEPT
+    explicit StdStaticAlloc(StaticAlloc<BlockSize, FreeAlloc>* refAlloc) _NOEXCEPT
       : m_staticAlloc(refAlloc)
     {}
 
@@ -319,7 +319,7 @@ namespace geEngineSDK {
      */
     void
     deallocate(T* p, size_t num) const _NOEXCEPT {
-      m_staticAlloc->free(reinterpret_cast<uint8*>(p), num);
+      m_staticAlloc->free(reinterpret_cast<byte*>(p), num);
     }
 
     StaticAlloc<BlockSize, FreeAlloc>* m_staticAlloc = nullptr;

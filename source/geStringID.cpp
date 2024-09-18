@@ -163,16 +163,16 @@ namespace geEngineSDK {
   };
 
   template
-  GE_UTILITY_EXPORT void
+  GE_UTILITIES_EXPORT void
   StringID::construct(const ANSICHAR* const&);
   
   template
-  GE_UTILITY_EXPORT void
+  GE_UTILITIES_EXPORT void
   StringID::construct(String const&);
 
   template
-  GE_UTILITY_EXPORT uint32 StringID::calcHash(const ANSICHAR* const&) const;
+  GE_UTILITIES_EXPORT uint32 StringID::calcHash(const ANSICHAR* const&) const;
   
   template
-  GE_UTILITY_EXPORT uint32 StringID::calcHash(String const&) const;
+  GE_UTILITIES_EXPORT uint32 StringID::calcHash(String const&) const;
 }

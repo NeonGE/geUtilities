@@ -19,7 +19,7 @@
  * Includes
  */
 /*****************************************************************************/
-#include "gePrerequisitesUtil.h"
+#include "gePrerequisitesUtilities.h"
 #include <istream>
 
 namespace geEngineSDK {
@@ -44,7 +44,7 @@ namespace geEngineSDK {
    * @brief	General purpose class used for encapsulating the reading and writing
    *        of data from and to various sources using a common interface.
    */
-  class GE_UTILITY_EXPORT DataStream
+  class GE_UTILITIES_EXPORT DataStream
   {
    public:
     /**
@@ -217,7 +217,7 @@ namespace geEngineSDK {
   /**
    * @brief Data stream for handling data from memory.
    */
-  class GE_UTILITY_EXPORT MemoryDataStream : public DataStream
+  class GE_UTILITIES_EXPORT MemoryDataStream : public DataStream
   {
    public:
     /**
@@ -333,7 +333,7 @@ namespace geEngineSDK {
   /**
    * @brief Data stream for handling data from standard streams.
    */
-  class GE_UTILITY_EXPORT FileDataStream : public DataStream
+  class GE_UTILITIES_EXPORT FileDataStream : public DataStream
   {
    public:
     /**

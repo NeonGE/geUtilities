@@ -210,6 +210,9 @@ namespace geEngineSDK {
                                           nullptr,
                                           desc.module,
                                           desc.creationParams);
+
+      GE_ASSERT(nullptr != m_windowData->hWnd);
+
       m_windowData->isExternal = false;
     }
     else {
@@ -448,6 +451,8 @@ namespace geEngineSDK {
 
   void
   Win32Window::minimize() {
+    GE_ASSERT(nullptr != m_windowData && nullptr != m_windowData->hWnd);
+
     if (m_windowData->hWnd) {
       ShowWindow(m_windowData->hWnd, SW_MINIMIZE);
     }
@@ -459,6 +464,8 @@ namespace geEngineSDK {
 
   void
   Win32Window::maximize() {
+    GE_ASSERT(nullptr != m_windowData && nullptr != m_windowData->hWnd);
+
     if (m_windowData->hWnd) {
       ShowWindow(m_windowData->hWnd, SW_MAXIMIZE);
     }
@@ -470,6 +477,8 @@ namespace geEngineSDK {
 
   void
   Win32Window::restore() {
+    GE_ASSERT(nullptr != m_windowData && nullptr != m_windowData->hWnd);
+
     if (m_windowData->hWnd) {
       ShowWindow(m_windowData->hWnd, SW_RESTORE);
     }
@@ -481,7 +490,9 @@ namespace geEngineSDK {
 
   void
   Win32Window::_windowMovedOrResized() {
-    if (!m_windowData->hWnd || IsIconic(m_windowData->hWnd)) {
+    GE_ASSERT(nullptr != m_windowData && nullptr != m_windowData->hWnd);
+
+    if (IsIconic(m_windowData->hWnd)) {
       return;
     }
 

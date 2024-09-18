@@ -55,6 +55,11 @@ namespace geEngineSDK {
       return *this;
     }
 
+    VectorNI&
+    operator=(int32 val[N]) {
+      memcpy(v, val, sizeof(v));
+    }
+
     bool
     operator==(const Vector2I& rhs) const {
       for (SIZE_T i = 0; i < N; ++i) {

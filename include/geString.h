@@ -118,19 +118,19 @@ namespace geEngineSDK {
   /**
    * @brief Converts a narrow string to a wide string.
    */
-  GE_UTILITY_EXPORT WString
+  GE_UTILITIES_EXPORT WString
   toWString(const String& source);
 
   /**
    * @brief Converts a narrow string to a wide string.
    */
-  GE_UTILITY_EXPORT WString
+  GE_UTILITIES_EXPORT WString
   toWString(const char* source);
 
   /**
    * @brief Converts a float to a wide string.
    */
-  GE_UTILITY_EXPORT WString
+  GE_UTILITIES_EXPORT WString
   toWString(float val,
             uint16 precision = 6,
             uint16 width = 0,
@@ -140,7 +140,7 @@ namespace geEngineSDK {
   /**
    * @brief Converts a double to a wide string.
    */
-  GE_UTILITY_EXPORT WString
+  GE_UTILITIES_EXPORT WString
   toWString(double val,
             uint16 precision = 6,
             uint16 width = 0,
@@ -150,7 +150,7 @@ namespace geEngineSDK {
   /**
    * @brief Converts a Radian to a wide string.
    */
-  GE_UTILITY_EXPORT WString
+  GE_UTILITIES_EXPORT WString
   toWString(Radian val,
             uint16 precision = 6,
             uint16 width = 0,
@@ -160,7 +160,7 @@ namespace geEngineSDK {
   /**
    * @brief Converts a Degree to a wide string.
    */
-  GE_UTILITY_EXPORT WString 
+  GE_UTILITIES_EXPORT WString 
   toWString(Degree val,
             uint16 precision = 6,
             uint16 width = 0,
@@ -170,7 +170,7 @@ namespace geEngineSDK {
   /**
    * @brief Converts an int to a wide string.
    */
-  GE_UTILITY_EXPORT WString 
+  GE_UTILITIES_EXPORT WString 
   toWString(int32 val,
             uint16 width = 0,
             char fill = ' ',
@@ -179,7 +179,7 @@ namespace geEngineSDK {
   /**
    * @brief Converts an unsigned int to a wide string.
    */
-  GE_UTILITY_EXPORT WString 
+  GE_UTILITIES_EXPORT WString 
   toWString(uint32 val,
             uint16 width = 0,
             char fill = ' ',
@@ -188,7 +188,7 @@ namespace geEngineSDK {
   /**
    * @brief Converts an 64bit integer to a wide string.
    */
-  GE_UTILITY_EXPORT WString 
+  GE_UTILITIES_EXPORT WString 
   toWString(int64 val,
             uint16 width = 0,
             char fill = ' ',
@@ -197,7 +197,7 @@ namespace geEngineSDK {
   /**
    * @brief Converts an 64bit unsigned to a wide string.
    */
-  GE_UTILITY_EXPORT WString 
+  GE_UTILITIES_EXPORT WString 
   toWString(uint64 val,
             uint16 width = 0,
             char fill = ' ',
@@ -206,7 +206,7 @@ namespace geEngineSDK {
   /**
    * @brief Converts an narrow char unsigned to a wide string.
    */
-  GE_UTILITY_EXPORT WString 
+  GE_UTILITIES_EXPORT WString 
   toWString(ANSICHAR val,
             uint16 width = 0,
             char fill = ' ',
@@ -215,7 +215,7 @@ namespace geEngineSDK {
   /**
    * @brief Converts an wide bit char unsigned to a wide string.
    */
-  GE_UTILITY_EXPORT WString 
+  GE_UTILITIES_EXPORT WString 
   toWString(UNICHAR val,
             uint16 width = 0,
             char fill = ' ',
@@ -227,88 +227,88 @@ namespace geEngineSDK {
    * @param	yesNo (optional) If set to true, result is "yes" or "no"
    *              instead of "true" or "false".
    */
-  GE_UTILITY_EXPORT WString 
+  GE_UTILITIES_EXPORT WString 
   toWString(bool val, bool yesNo = false);
 
   /**
    * @brief Converts a 2 dimensional int vector to a wide string.
    * @note  Format is "x y".
    */
-  GE_UTILITY_EXPORT WString
+  GE_UTILITIES_EXPORT WString
   toWString(const Vector2& val);
 
   /**
    * @brief Converts a 2 dimensional vector to a wide string.
    * @note  Format is "x y".
    */
-  GE_UTILITY_EXPORT WString 
+  GE_UTILITIES_EXPORT WString 
   toWString(const Vector2I& val);
 
   /**
    * @brief Converts a 3 dimensional vector to a wide string.
    * @note  Format is "x y z".
    */
-  GE_UTILITY_EXPORT WString 
+  GE_UTILITIES_EXPORT WString 
   toWString(const Vector3& val);
 
   /**
    * @brief Converts a 4 dimensional vector to a wide string.
    * @note  Format is "x y z w".
    */
-  GE_UTILITY_EXPORT WString 
+  GE_UTILITIES_EXPORT WString 
   toWString(const Vector4& val);
 
   /**
    * @brief Converts a 4x4 matrix to a wide string.
    * @note  Format is "00 01 02 03 10 11 12 13 20 21 22 23 30 31 32 33".
    */
-  GE_UTILITY_EXPORT WString 
+  GE_UTILITIES_EXPORT WString 
   toWString(const Matrix4& val);
 
   /**
    * @brief Converts a Quaternion to a wide string.
    * @note  Format is "w x y z".
    */
-  GE_UTILITY_EXPORT WString 
+  GE_UTILITIES_EXPORT WString 
   toWString(const Quaternion& val);
 
   /**
    * @brief Converts a linear color to a string.
    * @note  Format is "r g b a".
    */
-  GE_UTILITY_EXPORT WString 
+  GE_UTILITIES_EXPORT WString 
   toWString(const LinearColor& val);
 
   /**
    * @brief Converts a color to a string.
    * @note  Format is "r g b a".
    */
-  GE_UTILITY_EXPORT WString 
+  GE_UTILITIES_EXPORT WString 
   toWString(const Color& val);
 
   /**
    * @brief Converts a vector of strings into a single string where the
    *        substrings are delimited by spaces.
    */
-  GE_UTILITY_EXPORT WString 
+  GE_UTILITIES_EXPORT WString 
   toWString(const Vector<geEngineSDK::WString>& val);
 
   /**
    * @brief Converts a wide string to a narrow string.
    */
-  GE_UTILITY_EXPORT String 
+  GE_UTILITIES_EXPORT String 
   toString(const WString& source);
 
   /**
    * @brief Converts a wide string to a narrow string.
    */
-  GE_UTILITY_EXPORT String
+  GE_UTILITIES_EXPORT String
   toString(const wchar_t* source);
 
   /**
    * @brief Converts a float to a string.
    */
-  GE_UTILITY_EXPORT String 
+  GE_UTILITIES_EXPORT String 
   toString(float val,
            uint16 precision = 6,
            uint16 width = 0,
@@ -318,7 +318,7 @@ namespace geEngineSDK {
   /**
    * @brief Converts a double to a string.
    */
-  GE_UTILITY_EXPORT String 
+  GE_UTILITIES_EXPORT String 
   toString(double val,
            uint16 precision = 6,
            uint16 width = 0,
@@ -328,7 +328,7 @@ namespace geEngineSDK {
   /**
    * @brief Converts a Radian to a string.
    */
-  GE_UTILITY_EXPORT String 
+  GE_UTILITIES_EXPORT String 
   toString(Radian val,
            uint16 precision = 6,
            uint16 width = 0,
@@ -338,7 +338,7 @@ namespace geEngineSDK {
   /**
    * @brief Converts a Degree to a string.
    */
-  GE_UTILITY_EXPORT String 
+  GE_UTILITIES_EXPORT String 
   toString(Degree val,
            uint16 precision = 6,
            uint16 width = 0,
@@ -348,7 +348,7 @@ namespace geEngineSDK {
   /**
    * @brief Converts an int to a string.
    */
-  GE_UTILITY_EXPORT String 
+  GE_UTILITIES_EXPORT String 
   toString(int32 val,
            uint16 width = 0,
            char fill = ' ',
@@ -357,7 +357,7 @@ namespace geEngineSDK {
   /**
    * @brief Converts an unsigned int to a string.
    */
-  GE_UTILITY_EXPORT String 
+  GE_UTILITIES_EXPORT String 
   toString(uint32 val,
            uint16 width = 0,
            char fill = ' ',
@@ -366,7 +366,7 @@ namespace geEngineSDK {
   /**
    * @brief Converts a 64bit int to a string.
    */
-  GE_UTILITY_EXPORT String 
+  GE_UTILITIES_EXPORT String 
   toString(int64 val,
            uint16 width = 0,
            char fill = ' ',
@@ -375,7 +375,7 @@ namespace geEngineSDK {
   /**
    * @brief Converts an 64bit unsigned int to a string.
    */
-  GE_UTILITY_EXPORT String 
+  GE_UTILITIES_EXPORT String 
   toString(uint64 val,
            uint16 width = 0,
            char fill = ' ',
@@ -387,81 +387,81 @@ namespace geEngineSDK {
    * @param	yesNo (optional) If set to true, result is "yes" or "no"
    *              instead of "true" or "false".
    */
-  GE_UTILITY_EXPORT String 
+  GE_UTILITIES_EXPORT String 
   toString(bool val, bool yesNo = false);
 
   /**
    * @brief Converts a 2 dimensional vector to a string.
    * @note  Format is "x y".
    */
-  GE_UTILITY_EXPORT String 
+  GE_UTILITIES_EXPORT String 
   toString(const Vector2& val);
 
   /**
    * @brief Converts a 2 dimensional int vector to a string.
    * @note  Format is "x y".
    */
-  GE_UTILITY_EXPORT String
+  GE_UTILITIES_EXPORT String
   toString(const Vector2I& val);
 
   /**
    * @brief Converts a 3 dimensional vector to a string.
    * @note  Format is "x y z".
    */
-  GE_UTILITY_EXPORT String 
+  GE_UTILITIES_EXPORT String 
   toString(const Vector3& val);
 
   /**
    * @brief Converts a 4 dimensional vector to a string.
    * @note  Format is "x y z w".
    */
-  GE_UTILITY_EXPORT String 
+  GE_UTILITIES_EXPORT String 
   toString(const Vector4& val);
 
   /**
    * @brief Converts a 4x4 matrix to a string.
    * @note  Format is "00 01 02 03 10 11 12 13 20 21 22 23 30 31 32 33".
    */
-  GE_UTILITY_EXPORT String 
+  GE_UTILITIES_EXPORT String 
   toString(const Matrix4& val);
 
   /**
    * @brief Converts a Quaternion to a string.
    * @note  Format is "w x y z".
    */
-  GE_UTILITY_EXPORT String 
+  GE_UTILITIES_EXPORT String 
   toString(const Quaternion& val);
 
   /**
    * @brief Converts a linear color to a string.
    * @note  Format is "r g b a".
    */
-  GE_UTILITY_EXPORT String 
+  GE_UTILITIES_EXPORT String 
   toString(const LinearColor& val);
 
   /**
    * @brief Converts a color to a string.
    * @note  Format is "r g b a".
    */
-  GE_UTILITY_EXPORT String 
+  GE_UTILITIES_EXPORT String 
   toString(const Color& val);
 
   /**
    * Converts an UUID to a string.
    */
-  GE_UTILITY_EXPORT String
+  GE_UTILITIES_EXPORT String
   toString(const UUID& val);
 
   /**
    * @brief Converts a path to a string.
    */
-  GE_UTILITY_EXPORT String
+  GE_UTILITIES_EXPORT String
   toString(const Path& val);
 
   /**
    * @brief Converts a log verbosity to a string.
    */
-  GE_UTILITY_EXPORT String
+  GE_UTILITIES_EXPORT String
   toString(const LogVerbosity& val);
 
   /**
@@ -485,7 +485,7 @@ namespace geEngineSDK {
    * - Full: [DayOfWeek], [Month] [NumericalDate], [NumericalYear] [HH]::[MM]::[SS]
    * By default will output the local hour in custom format.
    */
-  GE_UTILITY_EXPORT String
+  GE_UTILITIES_EXPORT String
   toString(time_t time,
            bool isUTC = false,
            bool useISO8601 = false,
@@ -495,7 +495,7 @@ namespace geEngineSDK {
    * @brief Converts a vector of strings into a single string where the
    *        substrings are delimited by spaces.
    */
-  GE_UTILITY_EXPORT String 
+  GE_UTILITIES_EXPORT String 
   toString(const Vector<geEngineSDK::String>& val);
 
   /**
@@ -503,7 +503,7 @@ namespace geEngineSDK {
    * @note  0.0f if the value could not be parsed, otherwise the numeric
    *        version of the string.
    */
-  GE_UTILITY_EXPORT float 
+  GE_UTILITIES_EXPORT float 
   parseFloat(const String& val, float defaultValue = 0);
 
   /**
@@ -511,7 +511,7 @@ namespace geEngineSDK {
    * @note  0 if the value could not be parsed, otherwise the numeric
    *        version of the string.
    */
-  GE_UTILITY_EXPORT int32 
+  GE_UTILITIES_EXPORT int32 
   parseInt(const String& val, int32 defaultValue = 0);
 
   /**
@@ -519,7 +519,7 @@ namespace geEngineSDK {
    * @note  0 if the value could not be parsed, otherwise the numeric
    *        version of the string.
    */
-  GE_UTILITY_EXPORT uint32 
+  GE_UTILITIES_EXPORT uint32 
   parseUnsignedInt(const String& val, uint32 defaultValue = 0);
 
   /**
@@ -527,7 +527,7 @@ namespace geEngineSDK {
    * @note  0 if the value could not be parsed,
    *        otherwise the numeric version of the string.
    */
-  GE_UTILITY_EXPORT int64
+  GE_UTILITIES_EXPORT int64
   parseInt64(const String& val, int64 defaultValue = 0);
 
   /**
@@ -535,7 +535,7 @@ namespace geEngineSDK {
    * @note  0 if the value could not be parsed,
    *        otherwise the numeric version of the string.
    */
-  GE_UTILITY_EXPORT uint64
+  GE_UTILITIES_EXPORT uint64
   parseUnsignedInt64(const String& val, uint64 defaultValue = 0);
 
 
@@ -544,13 +544,13 @@ namespace geEngineSDK {
    * @note  Returns true if case-insensitive match of the start of the string
    *        matches "true", "yes" or "1", false otherwise.
    */
-  GE_UTILITY_EXPORT bool 
+  GE_UTILITIES_EXPORT bool 
   parseBool(const String& val, bool defaultValue = false);
 
   /**
    * @brief Checks the String is a valid number value.
    */
-  GE_UTILITY_EXPORT bool 
+  GE_UTILITIES_EXPORT bool 
   isNumber(const String& val);
 
   /**
@@ -558,7 +558,7 @@ namespace geEngineSDK {
    * @note  0.0f if the value could not be parsed, otherwise the numeric
    *        version of the string.
    */
-  GE_UTILITY_EXPORT float 
+  GE_UTILITIES_EXPORT float 
   parseFloat(const WString& val, float defaultValue = 0);
 
   /**
@@ -566,7 +566,7 @@ namespace geEngineSDK {
    * @note  0 if the value could not be parsed, otherwise the numeric version
    *        of the string.
    */
-  GE_UTILITY_EXPORT int32 
+  GE_UTILITIES_EXPORT int32 
   parseInt(const WString& val, int32 defaultValue = 0);
 
   /**
@@ -574,7 +574,7 @@ namespace geEngineSDK {
    * @note  0 if the value could not be parsed, otherwise the numeric version
    *        of the string.
    */
-  GE_UTILITY_EXPORT uint32 
+  GE_UTILITIES_EXPORT uint32 
   parseUnsignedInt(const WString& val, uint32 defaultValue = 0);
 
   /**
@@ -582,7 +582,7 @@ namespace geEngineSDK {
    * @note  0 if the value could not be parsed,
    *        otherwise the numeric version of the string.
    */
-  GE_UTILITY_EXPORT int64
+  GE_UTILITIES_EXPORT int64
   parseInt64(const WString& val, int64 defaultValue = 0);
 
   /**
@@ -590,7 +590,7 @@ namespace geEngineSDK {
    * @note  0 if the value could not be parsed,
    *        otherwise the numeric version of the string.
    */
-  GE_UTILITY_EXPORT uint64
+  GE_UTILITIES_EXPORT uint64
   parseUnsignedInt64(const WString& val, uint64 defaultValue = 0);
 
   /**
@@ -598,13 +598,13 @@ namespace geEngineSDK {
    * @note  Returns true if case-insensitive match of the start of the string
    *        matches "true", "yes" or "1", false otherwise.
    */
-  GE_UTILITY_EXPORT bool 
+  GE_UTILITIES_EXPORT bool 
   parseBool(const WString& val, bool defaultValue = false);
 
   /**
    * @brief	Checks the WString is a valid number value.
    */
-  GE_UTILITY_EXPORT bool 
+  GE_UTILITIES_EXPORT bool 
   isNumber(const WString& val);
 }
 
@@ -614,7 +614,7 @@ namespace geEngineSDK {
   /**
    * @brief Utility class for manipulating Strings.
    */
-  class GE_UTILITY_EXPORT StringUtil
+  class GE_UTILITIES_EXPORT StringUtil
   {
    public:
     /**
@@ -1069,7 +1069,7 @@ namespace geEngineSDK {
   /**
    * @brief Helper method that throws an exception regarding a data overflow.
    */
-  void GE_UTILITY_EXPORT 
+  void GE_UTILITIES_EXPORT 
   __string_throwDataOverflowException();
 
   /**

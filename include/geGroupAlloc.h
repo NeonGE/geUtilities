@@ -20,7 +20,7 @@
  * Includes
  */
 /*****************************************************************************/
-#include "gePrerequisitesUtil.h"
+#include "gePrerequisitesUtilities.h"
 
 namespace geEngineSDK {
   using std::forward;
@@ -74,7 +74,7 @@ namespace geEngineSDK {
       GE_ASSERT(nullptr == m_data);
 
       if (m_numBytes > 0) {
-        m_data = reinterpret_cast<uint8*>(ge_alloc(m_numBytes));
+        m_data = reinterpret_cast<byte*>(ge_alloc(m_numBytes));
       }
 
       m_dataPtr = m_data;
@@ -115,10 +115,10 @@ namespace geEngineSDK {
      * @brief Allocates a new piece of memory of the specified size.
      * @param[in] amount  Amount of memory to allocate, in bytes.
      */
-    uint8*
+    byte*
     alloc(SIZE_T amount) {
       GE_ASSERT(m_dataPtr + amount <= (m_data + m_numBytes));
-      uint8* output = m_dataPtr;
+      byte* output = m_dataPtr;
       m_dataPtr += amount;
       return output;
     }
@@ -210,8 +210,8 @@ namespace geEngineSDK {
     }
 
    private:
-    uint8* m_data = nullptr;
-    uint8* m_dataPtr = nullptr;
+    byte* m_data = nullptr;
+    byte* m_dataPtr = nullptr;
     SIZE_T m_numBytes = 0;
   };
 }

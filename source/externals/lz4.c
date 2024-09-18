@@ -1253,7 +1253,7 @@ int LZ4_compress_fast(const char* source, char* dest, int inputSize, int maxOutp
 {
     int result;
 #if (LZ4_HEAPMODE)
-    LZ4_stream_t* ctxPtr = ALLOC(sizeof(LZ4_stream_t));   /* malloc-calloc always properly aligned */
+    LZ4_stream_t* ctxPtr = reinterpret_cast<LZ4_stream_t*>(ALLOC(sizeof(LZ4_stream_t)));   /* malloc-calloc always properly aligned */
     if (ctxPtr == NULL) return 0;
 #else
     LZ4_stream_t ctx;
@@ -1278,7 +1278,7 @@ int LZ4_compress_default(const char* src, char* dst, int srcSize, int maxOutputS
 /* strangely enough, gcc generates faster code when this function is uncommented, even if unused */
 int LZ4_compress_fast_force(const char* src, char* dst, int srcSize, int dstCapacity, int acceleration)
 {
-    LZ4_stream_t ctx;
+    static LZ4_stream_t ctx;
     LZ4_initStream(&ctx, sizeof(ctx));
 
     if (srcSize < LZ4_64Klimit) {

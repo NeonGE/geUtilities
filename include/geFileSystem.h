@@ -17,7 +17,7 @@
  * Includes
  */
 /*****************************************************************************/
-#include "gePrerequisitesUtil.h"
+#include "gePrerequisitesUtilities.h"
 
 namespace geEngineSDK {
   using std::time_t;
@@ -26,7 +26,7 @@ namespace geEngineSDK {
   /**
    * @brief Utility class for dealing with files.
    */
-  class GE_UTILITY_EXPORT FileSystem
+  class GE_UTILITIES_EXPORT FileSystem
   {
    public:
     /**
@@ -187,7 +187,7 @@ namespace geEngineSDK {
    *        accessing multiple files on the same drive at once, ruining
    *        performance on mechanical drives.
    */
-  class GE_UTILITY_EXPORT FileScheduler final
+  class GE_UTILITIES_EXPORT FileScheduler final
   {
    public:
     /**

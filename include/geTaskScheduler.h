@@ -19,7 +19,7 @@
  * Includes
  */
 /*****************************************************************************/
-#include "gePrerequisitesUtil.h"
+#include "gePrerequisitesUtilities.h"
 #include "geModule.h"
 #include "geThreadPool.h"
 
@@ -46,7 +46,7 @@ namespace geEngineSDK {
    * @brief Represents a single task that may be queued in the TaskScheduler.
    * @note	Thread safe.
    */
-  class GE_UTILITY_EXPORT Task
+  class GE_UTILITIES_EXPORT Task
   {
     struct PrivatelyConstruct {};
   
@@ -123,7 +123,7 @@ namespace geEngineSDK {
    *        to be processed in parallel.
    * @note  Thread safe.
    */
-  class GE_UTILITY_EXPORT TaskGroup
+  class GE_UTILITIES_EXPORT TaskGroup
   {
     struct PrivatelyConstruct {};
 
@@ -198,7 +198,7 @@ namespace geEngineSDK {
    * @note  By default the task scheduler will create as many threads as there are physical
    *        CPU cores. You may add or remove threads using addWorker()/removeWorker() methods.
    */
-  class GE_UTILITY_EXPORT TaskScheduler : public Module<TaskScheduler>
+  class GE_UTILITIES_EXPORT TaskScheduler : public Module<TaskScheduler>
   {
    public:
     TaskScheduler();
