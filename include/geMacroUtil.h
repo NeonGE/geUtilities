@@ -38,3 +38,17 @@
 #ifndef GE_UNREFERENCED_PARAMETER
 # define GE_UNREFERENCED_PARAMETER(P) (void)P
 #endif
+
+/*****************************************************************************/
+/**
+ * Offset of a member in a struct
+ * @param member Member to get the offset of
+ * @return Offset of the member in the struct
+ */
+template<typename T, typename U>
+size_t
+offsetOf(U T::* member) {
+  return reinterpret_cast<size_t>(&(reinterpret_cast<T*>(0)->*member));
+}
+
+/*****************************************************************************/
