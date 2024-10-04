@@ -129,7 +129,9 @@ namespace geEngineSDK {
 
     void
     unlock() {
-      this->m_lock.unlock();
+      if (this->m_lock.owns_lock()) {
+        this->m_lock.unlock();
+      }
     }
 
    private:

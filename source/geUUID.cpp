@@ -19,6 +19,12 @@
 #include "gePrerequisitesUtilities.h"
 #include "geUUID.h"
 #include "gePlatformUtility.h"
+#include "gePath.h"
+#include "geFileSystem.h"
+
+using std::hex;
+using std::setw;
+using std::setfill;
 
 namespace {
   CONSTEXPR const geEngineSDK::ANSICHAR HEX_TO_LITERAL[16] = {
@@ -143,6 +149,29 @@ namespace geEngineSDK {
       uint8 hexVal = LITERAL_TO_HEX[static_cast<int>(charVal)];
       m_data[3] |= hexVal << (i * 4);
     }
+  }
+
+  UUID::UUID(const Path& filePath) {
+    StringStream saltStream;
+    saltStream << hex << FileSystem::getLastModifiedTime(filePath);
+
+    //Hash the file path
+    hash<String> hashFn;
+    String filePathStr = filePath.toString();
+    SIZE_T hashValue1 = hashFn(filePathStr);
+    SIZE_T hashValue2 = hashFn(filePathStr + saltStream.str());
+
+    //Convert hash value to hex string (UUID-like format)
+    StringStream ss;
+    ss << hex << setw(8) << setfill('0') << (hashValue1 >> 32);
+    ss << "-" << setw(4) << setfill('0') << ((hashValue1 >> 16) & 0xFFFF);
+    ss << "-" << setw(4) << setfill('0') << (hashValue1 & 0xFFFF);
+    ss << "-" << setw(4) << setfill('0') << ((hashValue2 >> 48) & 0xFFFF);
+    ss << "-" << setw(12) << setfill('0') << (hashValue2 & 0xFFFFFFFFFFFF);
+
+    //Format the hex string as a UUID (optional)
+    String uuid = ss.str();
+    *this = UUID(uuid);
   }
 
   String

@@ -24,6 +24,8 @@
 #include "geUtil.h"
 
 namespace geEngineSDK {
+  class Path;
+
   /**
    * @brief Represents a universally unique identifier.
    */
@@ -46,6 +48,8 @@ namespace geEngineSDK {
      * @brief Initializes an UUID using its string representation.
      */
     explicit UUID(const String& uuid);
+
+    explicit UUID(const Path& filePath);
 
     CONSTEXPR bool
     operator==(const UUID& rhs) const {

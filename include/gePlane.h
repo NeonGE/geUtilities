@@ -342,7 +342,7 @@ namespace geEngineSDK {
 
   FORCEINLINE Plane::Plane(const Vector3& A, const Vector3& B, const Vector3& C)
     : Vector3(((B - A) ^ (C - A)).getSafeNormal()) {
-    w = A | (Vector3)(*this);
+    w = A | static_cast<Vector3>(*this);
   }
 
   FORCEINLINE Plane::Plane(FORCE_INIT::E)
