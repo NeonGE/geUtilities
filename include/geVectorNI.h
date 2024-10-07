@@ -61,7 +61,7 @@ namespace geEngineSDK {
     }
 
     bool
-    operator==(const Vector2I& rhs) const {
+    operator==(const VectorNI& rhs) const {
       for (SIZE_T i = 0; i < N; ++i) {
         if (v[i] != rhs[i]) {
           return false;
@@ -71,7 +71,7 @@ namespace geEngineSDK {
     }
 
     bool
-    operator!=(const Vector2I& rhs) const {
+    operator!=(const VectorNI& rhs) const {
       return !operator==(*this, rhs);
     }
 
