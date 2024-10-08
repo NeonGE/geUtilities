@@ -1198,12 +1198,12 @@ namespace geEngineSDK {
 
   FORCEINLINE float
   Vector3::operator|(const Vector3& v) const {
-    return x*v.x + y*v.y + z*v.z;
+    return dot(*this, v);
   }
 
   FORCEINLINE float
   Vector3::dot(const Vector3& a, const Vector3& b) {
-    return a | b;
+    return a.x * b.x + a.y * b.y + a.z * b.z;
   }
 
   FORCEINLINE Vector3
