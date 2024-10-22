@@ -276,6 +276,16 @@ namespace geEngineSDK {
   using UnorderedMultimap = std::unordered_multimap<K, V, H, C, A>;
   
   /**
+   * @brief An associative container containing an ordered set of elements
+   *        where multiple elements can have the same key. Usually faster than
+   *        MultiSet for larger data sets.
+   */
+  template<typename T,
+           typename Container = Vector<T>,
+           typename Pr = std::less<typename Container::value_type>>
+  using PriorityQueue = std::priority_queue<T, Container, Pr>;
+
+  /**
    * @brief Fixed size array.
    */
   template<typename T, size_t N>
@@ -286,11 +296,13 @@ namespace geEngineSDK {
    */
   template<size_t N>
   using Bitset = std::bitset<N>;
+
   /**
    * @brief Optional object that may or may not contain a value.
    */
   template<typename T>
   using Optional = std::optional<T>;
+
   /**
    * @brief Variant object that may hold any of the specified
    */
