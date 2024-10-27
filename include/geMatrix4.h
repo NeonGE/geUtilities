@@ -1806,6 +1806,17 @@ namespace geEngineSDK {
      * @param ZOffset offset in the Z axis
      */
     OrthoMatrix(float Width, float Height, float ZScale, float ZOffset);
+
+    /**
+     * @brief Constructor for a orthographic perspective matrix (left-hand)
+     * @param Left - Coordinate for the left vertical clipping plane
+     * @param Right - Coordinate for the right vertical clipping plane
+     * @param Bottom - Coordinate for the bottom horizontal clipping plane
+     * @param Top - Coordinate for the top horizontal clipping plane
+     * @param ZNear - The near clipping distance
+     * @param ZFar - The far clipping distance
+     */
+    OrthoMatrix(float Left, float Right, float Bottom, float Top, float ZNear, float ZFar);
   };
 
   class ReversedZOrthoMatrix : public Matrix4
@@ -1820,6 +1831,38 @@ namespace geEngineSDK {
               Plane(0.0f, 0.0f, ZScale, 0.0f),
               Plane(0.0f, 0.0f, ZOffset * ZScale, 1.0f)) {}
 
+  FORCEINLINE OrthoMatrix::OrthoMatrix(float Left,
+                                       float Right,
+                                       float Bottom,
+                                       float Top,
+                                       float ZNear,
+                                       float ZFar) {
+    //Compute the reciprocal width and height and the depth range
+    const float RWidth = 1.0f / (Right - Left);
+    const float RHeight = 1.0f / (Top - Bottom);
+    const float RDepth = 1.0f / (ZFar - ZNear);
+
+    //Set up the orthographic matrix
+    m[0][0] = 2.0f * RWidth;
+    m[0][1] = 0.0f;
+    m[0][2] = 0.0f;
+    m[0][3] = 0.0f;
+
+    m[1][0] = 0.0f;
+    m[1][1] = 2.0f * RHeight;
+    m[1][2] = 0.0f;
+    m[1][3] = 0.0f;
+
+    m[2][0] = 0.0f;
+    m[2][1] = 0.0f;
+    m[2][2] = RDepth;
+    m[2][3] = 0.0f;
+
+    m[3][0] = -(Right + Left) * RWidth;
+    m[3][1] = -(Top + Bottom) * RHeight;
+    m[3][2] = -ZNear * RDepth;
+    m[3][3] = 1.0f;
+  }
 
   FORCEINLINE ReversedZOrthoMatrix::ReversedZOrthoMatrix(float Width,
                                                          float Height,
