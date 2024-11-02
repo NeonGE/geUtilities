@@ -252,6 +252,7 @@
     <ClInclude Include="include\geMinHeap.h" />
     <ClInclude Include="include\geNumericLimits.h" />
     <ClInclude Include="include\geOctree.h" />
+    <ClInclude Include="include\gePlatformUsing.h" />
     <ClInclude Include="include\gePoolAlloc.h" />
     <ClInclude Include="include\geQuadtree.h" />
     <ClInclude Include="include\geRandom.h" />

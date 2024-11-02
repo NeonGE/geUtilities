@@ -989,7 +989,7 @@ namespace geEngineSDK {
   inline Matrix4
   Matrix4::inverseFast() const {
     //If we're in non final release, then make sure we're not creating NaNs
-# if GE_DEBUG_MODE
+# if USING(GE_DEBUG_MODE)
     //Check for zero scale matrix to invert
     if (getScaledAxis(AXIS::kX).isNearlyZero(Math::SMALL_NUMBER) &&
         getScaledAxis(AXIS::kY).isNearlyZero(Math::SMALL_NUMBER) &&
@@ -1704,7 +1704,7 @@ namespace geEngineSDK {
     ReversedZPerspectiveMatrix(float HalfFOV, float Width, float Height, float MinZ);
   };
 
-# if GE_COMPILER == GE_COMPILER_MSVC
+# if USING(GE_COMPILER_MSVC)
 #   pragma warning (push)
     //Disable possible division by 0 warning
 #   pragma warning (disable : 4723)
@@ -1788,7 +1788,7 @@ namespace geEngineSDK {
               Plane(0.0f, 0.0f, MinZ, 0.0f))
   {}
 
-# if GE_COMPILER == GE_COMPILER_MSVC
+# if USING(GE_COMPILER_MSVC)
 #   pragma warning (pop)
 # endif
 }

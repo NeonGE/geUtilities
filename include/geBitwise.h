@@ -75,7 +75,7 @@ namespace geEngineSDK {
       return next;
     }
 
-#if GE_COMPILER == GE_COMPILER_MSVC
+#if USING(GE_COMPILER_MSVC)
 # pragma intrinsic(_BitScanReverse,_BitScanForward)
 #endif
     /**
@@ -84,11 +84,11 @@ namespace geEngineSDK {
      */
     static uint32
     mostSignificantBit(uint32 val) {
-#if GE_COMPILER == GE_COMPILER_MSVC
+#if USING(GE_COMPILER_MSVC)
       unsigned long index;
       _BitScanReverse(&index, val);
       return index;
-#elif GE_COMPILER == GE_COMPILER_GNUC || GE_COMPILER == GE_COMPILER_CLANG
+#elif USING(GE_COMPILER_GNUC) || USING(GE_COMPILER_CLANG)
       return 31 - __builtin_clz(val);
 #else
       static_assert(false, "Not implemented");
@@ -101,11 +101,11 @@ namespace geEngineSDK {
      */
     static uint32
     leastSignificantBit(uint32 val) {
-#if GE_COMPILER == GE_COMPILER_MSVC
+#if USING(GE_COMPILER_MSVC)
       unsigned long index;
       _BitScanForward(&index, val);
       return index;
-#elif GE_COMPILER == GE_COMPILER_GNUC || GE_COMPILER == GE_COMPILER_CLANG
+#elif USING(GE_COMPILER_GNUC) || USING(GE_COMPILER_CLANG)
       return __builtin_ctz(val);
 #else
       static_assert(false, "Not implemented");
@@ -119,11 +119,11 @@ namespace geEngineSDK {
      */
     static uint32
     mostSignificantBit(uint64 val) {
-# if GE_COMPILER == GE_COMPILER_MSVC
+# if USING(GE_COMPILER_MSVC)
       unsigned long index;
       _BitScanReverse(&index, static_cast<unsigned long>(val));
       return index;
-# elif GE_COMPILER == GE_COMPILER_GNUC || GE_COMPILER == GE_COMPILER_CLANG
+# elif USING(GE_COMPILER_GNUC) || USING(GE_COMPILER_CLANG)
       return 31 - __builtin_clzll(val);
 # else
       static_assert(false, "Not implemented");
@@ -136,11 +136,11 @@ namespace geEngineSDK {
      */
     static uint32
     leastSignificantBit(uint64 val) {
-# if GE_COMPILER == GE_COMPILER_MSVC
+# if USING(GE_COMPILER_MSVC)
       unsigned long index;
       _BitScanForward64(&index, static_cast<unsigned long>(val));
       return index;
-# elif GE_COMPILER == GE_COMPILER_GNUC || GE_COMPILER == GE_COMPILER_CLANG
+# elif USING(GE_COMPILER_GNUC) || USING(GE_COMPILER_CLANG)
       return __builtin_ctzll(val);
 # else
       static_assert(false, "Not implemented");
@@ -358,11 +358,11 @@ namespace geEngineSDK {
           (reinterpret_cast<uint16*>(dest))[0] = static_cast<uint16>(value);
           break;
         case 3:
-#if GE_ENDIAN == GE_ENDIAN_BIG
+#if USING(GE_ENDIAN_BIG)
           (reinterpret_cast<uint8*>(dest))[0] = static_cast<uint8>((value >> 16) & 0xFF);
           (reinterpret_cast<uint8*>(dest))[1] = static_cast<uint8>((value >> 8) & 0xFF);
           (reinterpret_cast<uint8*>(dest))[2] = static_cast<uint8>(value & 0xFF);
-#else
+#elif USING(GE_ENDIAN_LITTLE)
           (reinterpret_cast<uint8*>(dest))[2] = static_cast<uint8>((value >> 16) & 0xFF);
           (reinterpret_cast<uint8*>(dest))[1] = static_cast<uint8>((value >> 8) & 0xFF);
           (reinterpret_cast<uint8*>(dest))[0] = static_cast<uint8>(value & 0xFF);
@@ -388,12 +388,12 @@ namespace geEngineSDK {
         case 2:
           return (reinterpret_cast<uint16*>(const_cast<void*>(src)))[0];
         case 3:
-#if GE_ENDIAN == GE_ENDIAN_BIG
+#if USING(GE_ENDIAN_BIG)
           pData = reinterpret_cast<uint8*>(const_cast<void*>(src));
           return (static_cast<uint32>(pData[0] << 16) |
                   static_cast<uint32>(pData[1] << 8) |
                   static_cast<uint32>(pData[2]));
-#else
+#elif USING(GE_ENDIAN_LITTLE)
           pData = reinterpret_cast<uint8*>(const_cast<void*>(src));
           return (static_cast<uint32>(pData[0]) | 
                   static_cast<uint32>(pData[1] << 8) | 

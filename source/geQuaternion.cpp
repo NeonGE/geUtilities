@@ -34,7 +34,7 @@ namespace geEngineSDK {
       return;
     }
 
-#if GE_DEBUG_MODE
+#if USING(GE_DEBUG_MODE)
     //Make sure the Rotation part of the Matrix is unit length.
     //Changed to this (same as removeScaling) from rotDeterminant as using two
     //different ways of checking unit length matrix caused inconsistency. 
@@ -170,7 +170,7 @@ namespace geEngineSDK {
                                          (1.f - 2.f*(x*x + y*y))).valueDegrees();
     }
 
-# if GE_DEBUG_MODE
+# if USING(GE_DEBUG_MODE)
     if (RotatorFromQuat.containsNaN()) {
       GE_LOG(kWarning, Generic, "Quaternion::rotator(): Rotator result contains NaN!");
       RotatorFromQuat = Rotator::ZERO;

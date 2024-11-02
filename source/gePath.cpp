@@ -93,11 +93,9 @@ namespace geEngineSDK {
         break;
       case PATH_TYPE::kDefault:
       default:
-#if GE_PLATFORM == GE_PLATFORM_WIN32
+#if USING(GE_PLATFORM_WINDOWS)
         parseWindows(pathStr, numChars);
-#elif GE_PLATFORM == GE_PLATFORM_OSX   || \
-        GE_PLATFORM == GE_PLATFORM_LINUX || \
-        GE_PLATFORM == GE_PLATFORM_PS4
+#elif USING(GE_PLATFORM_OSX) || USING(GE_PLATFORM_LINUX) || USING(GE_PLATFORM_PS4)
         //TODO: Test parsing with PS4
         parseUnix(pathStr, numChars);
 #else
@@ -107,7 +105,7 @@ namespace geEngineSDK {
     }
   }
 
-#if GE_PLATFORM == GE_PLATFORM_WIN32
+#if USING(GE_PLATFORM_WINDOWS)
   WString
   Path::toPlatformString() const {
     return UTF8::toWide(toString());
@@ -124,11 +122,9 @@ namespace geEngineSDK {
         return buildUnix();
       case PATH_TYPE::kDefault:
       default:
-#if GE_PLATFORM == GE_PLATFORM_WIN32
+#if USING(GE_PLATFORM_WINDOWS)
         return buildWindows();
-#elif GE_PLATFORM == GE_PLATFORM_OSX   || \
-        GE_PLATFORM == GE_PLATFORM_LINUX || \
-        GE_PLATFORM == GE_PLATFORM_PS4
+#elif USING(GE_PLATFORM_OSX) || USING(GE_PLATFORM_LINUX) || USING(GE_PLATFORM_PS4)
         return buildUnix();
 #else
         static_assert(false, "Unsupported platform for path.");
@@ -218,8 +214,10 @@ namespace geEngineSDK {
     m_directories.erase(m_directories.begin(), 
                         m_directories.begin() + base.m_directories.size());
 
-    /** Sometimes a directory name can be interpreted as a file and we're okay with that.
-     *  Check for that special case. */
+    /**
+     * Sometimes a directory name can be interpreted as a file and we're okay with that.
+     * Check for that special case.
+     */
     if (base.isFile()) {
       if (!m_directories.empty()) {
         m_directories.erase(m_directories.begin());

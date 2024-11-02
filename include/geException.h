@@ -25,7 +25,7 @@ namespace geEngineSDK {
   /**
    * @brief Base class for all geEngine exceptions.
    */
-#if GE_COMPILER == GE_COMPILER_MSVC
+#if USING(GE_COMPILER_MSVC)
 # pragma warning( push )
 # pragma warning( disable : 4275 )
 #endif
@@ -269,7 +269,7 @@ namespace geEngineSDK {
 }
 #endif
 
-#if GE_COMPILER == GE_COMPILER_MSVC
+#if USING(GE_COMPILER_MSVC)
 # pragma warning( pop )
 #endif
 }

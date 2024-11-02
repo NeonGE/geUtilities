@@ -430,6 +430,9 @@
     <ClInclude Include="include\externals\catch_amalgamated.hpp">
       <Filter>Source Files\Externals\Catch2</Filter>
     </ClInclude>
+    <ClInclude Include="include\gePlatformUsing.h">
+      <Filter>Source Files\Prerequisites</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\geMemoryAllocator.cpp">

@@ -34,7 +34,7 @@ namespace geEngineSDK {
     m_freePtr = 0;
   }
 
-#if GE_DEBUG_MODE
+#if USING(GE_DEBUG_MODE)
   FrameAlloc::FrameAlloc(SIZE_T blockSize)
     : m_blockSize(blockSize),
       m_freeBlock(nullptr),
@@ -60,9 +60,9 @@ namespace geEngineSDK {
 
   byte*
   FrameAlloc::alloc(SIZE_T amount) {
-#if GE_DEBUG_MODE
-    amount += sizeof(SIZE_T);
-#endif
+
+    GE_DEBUG_ONLY(amount += sizeof(SIZE_T));
+
     SIZE_T freeMem = 0;
     if (nullptr != m_freeBlock) {
       freeMem = m_freeBlock->m_size - m_freeBlock->m_freePtr;
@@ -74,7 +74,7 @@ namespace geEngineSDK {
 
     byte* data = m_freeBlock->alloc(amount);
 
-#if GE_DEBUG_MODE
+#if USING(GE_DEBUG_MODE)
     m_totalAllocBytes += amount;
 
     SIZE_T* storedSize = reinterpret_cast<SIZE_T*>(data);
@@ -88,14 +88,13 @@ namespace geEngineSDK {
 
   byte*
   FrameAlloc::allocAligned(SIZE_T amount, SIZE_T alignment) {
-#if GE_DEBUG_MODE
-    amount += sizeof(SIZE_T);
-#endif
+    GE_DEBUG_ONLY(amount += sizeof(SIZE_T));
+
     SIZE_T freeMem = 0;
     SIZE_T freePtr = 0;
     if (nullptr != m_freeBlock) {
       freeMem = m_freeBlock->m_size - m_freeBlock->m_freePtr;
-#if GE_DEBUG_MODE
+#if USING(GE_DEBUG_MODE)
       freePtr = m_freeBlock->m_freePtr + sizeof(SIZE_T);
 #else
       freePtr = m_freeBlock->m_freePtr;
@@ -107,7 +106,7 @@ namespace geEngineSDK {
       //New blocks are allocated on a 16 byte boundary, ensure enough space is
       //allocated taking into account the requested alignment
 
-#if GE_DEBUG_MODE
+#if USING(GE_DEBUG_MODE)
       alignOffset = (alignment - (sizeof(SIZE_T) & (alignment - 1))) & (alignment - 1);
 #else
       if (16 < alignment) {
@@ -123,7 +122,7 @@ namespace geEngineSDK {
     amount += alignOffset;
     byte* data = m_freeBlock->alloc(amount);
 
-#if GE_DEBUG_MODE
+#if USING(GE_DEBUG_MODE)
     m_totalAllocBytes += amount;
 
     auto storedSize = reinterpret_cast<SIZE_T*>(data + alignOffset);
@@ -139,7 +138,7 @@ namespace geEngineSDK {
   FrameAlloc::free(byte* data) {
     //Dealloc is only used for debug and can be removed if needed.
     //All the actual deallocation happens in clear()
-#if GE_DEBUG_MODE
+#if USING(GE_DEBUG_MODE)
     if (data) {
       data -= sizeof(SIZE_T);
       auto storedSize = reinterpret_cast<SIZE_T*>(data);
@@ -167,9 +166,7 @@ namespace geEngineSDK {
       auto framePtr = reinterpret_cast<byte*>(m_lastFrame);
       m_lastFrame = *reinterpret_cast<void**>(m_lastFrame);
 
-#if GE_DEBUG_MODE
-      framePtr -= sizeof(SIZE_T);
-#endif
+      GE_DEBUG_ONLY(framePtr -= sizeof(SIZE_T));
 
       uint32 startBlockIdx = m_nextBlockIdx - 1;
       uint32 numFreedBlocks = 0;
@@ -224,7 +221,7 @@ namespace geEngineSDK {
       }
     }
     else {
-#if GE_DEBUG_MODE
+#if USING(GE_DEBUG_MODE)
       if (m_totalAllocBytes.load() > 0) {
         GE_EXCEPT(InvalidStateException,
                   "Not all frame allocated bytes were properly released.");

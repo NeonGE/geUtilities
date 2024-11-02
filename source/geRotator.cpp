@@ -85,11 +85,10 @@ namespace geEngineSDK {
     RotationQuat.y = CR * CP * SY - SR * SP * CY;
     RotationQuat.z = SR * CP * CY - CR * SP * SY;
 
-# if GE_DEBUG_MODE
     //Very large inputs can cause NaN's. Want to catch this here
     GE_ASSERT(!RotationQuat.containsNaN() &&
               "Invalid input to Rotator::toQuaternion - generated NaN output");
-# endif
+
     return RotationQuat;
   }
 }

@@ -588,8 +588,8 @@ namespace geEngineSDK {
     static const Color Silver;
     static const Color Emerald;
 
-#if GE_ENDIAN == GE_ENDIAN_LITTLE
-# if GE_COMPILER == GE_COMPILER_MSVC
+#if USING(GE_ENDIAN_LITTLE)
+# if USING(GE_COMPILER_MSVC)
 #   pragma warning( push )
 #   pragma warning( disable : 4201 )
     //Win32 x86

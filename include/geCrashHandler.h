@@ -74,7 +74,7 @@ namespace geEngineSDK {
                 const String& strFile = StringUtil::BLANK,
                 uint32 nLine = 0) const;
 
-#if GE_PLATFORM == GE_PLATFORM_WIN32
+#if USING(GE_PLATFORM_WINDOWS)
     /**
      * @brief Records a crash resulting from a Windows-specific SEH exception.
      * @param[in] exceptionData Exception data returned from getExceptionInformation()
@@ -142,7 +142,7 @@ namespace geEngineSDK {
     static const String s_crashLogName;
     static const String s_fatalErrorMsg;
 
-#if GE_PLATFORM == GE_PLATFORM_WIN32
+#if USING(GE_PLATFORM_WINDOWS)
     struct Data;
     Data* m_crashData;
 #endif

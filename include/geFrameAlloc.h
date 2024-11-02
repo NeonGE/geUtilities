@@ -199,7 +199,7 @@ namespace geEngineSDK {
     atomic<SIZE_T> m_totalAllocBytes;
     void* m_lastFrame;
 
-#if GE_DEBUG_MODE
+#if USING(GE_DEBUG_MODE)
     ThreadId m_ownerThread;
 #endif
   };

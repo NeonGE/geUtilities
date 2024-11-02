@@ -36,7 +36,7 @@ namespace geEngineSDK {
     //Find roll.
     R.roll = 0;
 
-# if GE_DEBUG_MODE
+# if USING(GE_DEBUG_MODE)
     if (R.containsNaN()) {
       GE_LOG(kWarning, Generic, "Vector4::toRotation(): Rotator result "
              "contains NaN!");

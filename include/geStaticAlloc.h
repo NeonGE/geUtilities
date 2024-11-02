@@ -108,9 +108,7 @@ namespace geEngineSDK {
         return nullptr;
       }
 
-#if GE_DEBUG_MODE
-      amount += sizeof(SIZE_T);
-#endif
+      GE_DEBUG_ONLY(amount += sizeof(SIZE_T));
 
       SIZE_T freeMem = BlockSize - m_freePtr;
 
@@ -123,7 +121,7 @@ namespace geEngineSDK {
         m_freePtr += amount;
       }
 
-#if GE_DEBUG_MODE
+#if USING(GE_DEBUG_MODE)
       m_totalAllocBytes += amount;
 
       SIZE_T* storedSize = reinterpret_cast<SIZE_T*>(data);
@@ -145,7 +143,7 @@ namespace geEngineSDK {
       }
 
       byte* dataPtr = reinterpret_cast<byte*>(data);
-#if GE_DEBUG_MODE
+#if USING(GE_DEBUG_MODE)
       dataPtr -= sizeof(SIZE_T);
 
       SIZE_T* storedSize = reinterpret_cast<SIZE_T*>(dataPtr);
@@ -174,7 +172,7 @@ namespace geEngineSDK {
       //All the actual deallocation happens in clear()
 
       byte* dataPtr = reinterpret_cast<byte*>(data);
-#if GE_DEBUG_MODE
+#if USING(GE_DEBUG_MODE)
       dataPtr -= sizeof(SIZE_T);
 
       SIZE_T* storedSize = reinterpret_cast<SIZE_T*>(dataPtr);

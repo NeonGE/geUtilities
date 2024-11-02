@@ -141,11 +141,11 @@ namespace geEngineSDK {
     union {
       struct
       {
-#if GE_ENDIAN == GE_ENDIAN_LITTLE
+#if USING(GE_ENDIAN_LITTLE)
         uint16 mantissa : 10;
         uint16 exponent : 5;
         uint16 sign : 1;
-#else
+#elif USING(GE_ENDIAN_BIG)
         uint16 sign : 1;
         uint16 exponent : 5;
         uint16 mantissa : 10;

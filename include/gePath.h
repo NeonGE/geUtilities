@@ -136,7 +136,7 @@ namespace geEngineSDK {
      *        Right Thing for the current platform. This method is equivalent
      *        to toWString() on Windows, and to toString() elsewhere.
      */
-#if GE_PLATFORM == GE_PLATFORM_WIN32
+#if USING(GE_PLATFORM_WINDOWS)
     WString
     toPlatformString() const;
 #else
@@ -633,7 +633,7 @@ namespace geEngineSDK {
         static_cast<uint64>(rttiGetElementSize(data.m_directories)) +
         static_cast<uint64>(sizeof(uint32));
 
-#if GE_DEBUG_MODE
+#if USING(GE_DEBUG_MODE)
       if (NumLimit::MAX_UINT32 < dataSize) {
         __string_throwDataOverflowException();
       }

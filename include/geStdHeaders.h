@@ -100,7 +100,7 @@ extern "C" {
  * Windows specifics
  */
 /*****************************************************************************/
-#if GE_PLATFORM == GE_PLATFORM_WIN32
+#if USING(GE_PLATFORM_WINDOWS)
   //Undefine min & max
 # undef min
 # undef max
@@ -118,7 +118,7 @@ extern "C" {
  * Linux specifics
  */
 /*****************************************************************************/
-#if GE_PLATFORM == GE_PLATFORM_LINUX
+#if USING(GE_PLATFORM_LINUX)
   extern "C" {
 #   include <unistd.h>
 #   include <dlfcn.h>
@@ -130,7 +130,7 @@ extern "C" {
  * Apple specifics
  */
 /*****************************************************************************/
-#if GE_PLATFORM == GE_PLATFORM_OSX
+#if USING(GE_PLATFORM_OSX)
   extern "C" {
 #   include <unistd.h>
 #   include <sys/param.h>
@@ -143,7 +143,7 @@ extern "C" {
  * PS4 specifics
  */
 /*****************************************************************************/
-#if GE_PLATFORM == GE_PLATFORM_PS4
+#if USING(GE_PLATFORM_PS4)
   extern "C" {
 #   include <unistd.h>
 #   include <sys/param.h>

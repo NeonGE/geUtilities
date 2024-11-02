@@ -305,7 +305,7 @@ namespace geEngineSDK {
                  moduleName, static_cast<uint32>(GetLastError()));
         }
         else {
-#if GE_DEBUG_DETAILED_SYMBOLS
+#if USING(GE_DEBUG_DETAILED_SYMBOLS)
           if (SymNone == imageInfo.SymType) {
             GE_LOG(kWarning, Platform, "Failed loading symbols for module: {0}", moduleName);
           }

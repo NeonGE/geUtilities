@@ -59,10 +59,9 @@ namespace geEngineSDK {
 
   QuatRotationTranslationMatrix::QuatRotationTranslationMatrix(const Quaternion& Q,
                                                                const Vector3& Origin) {
-# if GE_DEBUG_MODE
-    //Make sure Quaternion is normalized
+    //Make sure Quaternion is normalized (Only done in debug)
     GE_ASSERT(Q.isNormalized());
-# endif
+
     const float x2 = Q.x + Q.x;  const float y2 = Q.y + Q.y;  const float z2 = Q.z + Q.z;
     const float xx = Q.x * x2;   const float xy = Q.x * y2;   const float xz = Q.x * z2;
     const float yy = Q.y * y2;   const float yz = Q.y * z2;   const float zz = Q.z * z2;

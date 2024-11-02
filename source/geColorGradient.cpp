@@ -63,7 +63,7 @@ namespace geEngineSDK {
   void
   ColorGradient::setKeys(const Vector<ColorGradientKey>& keys,
                          float duration) {
-#if GE_DEBUG_MODE
+#if USING(GE_DEBUG_MODE)
     //Ensure keys are sorted
     if (!keys.empty()) {
       float time = keys[0].time;

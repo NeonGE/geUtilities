@@ -87,7 +87,7 @@ namespace geEngineSDK {
         rttiGetElementSize(data.m_numKeys) +
         rttiGetElementSize(data.m_duration) + sizeof(uint32) * 2);
 
-#if GE_DEBUG_MODE
+#if USING(GE_DEBUG_MODE)
       if (NumLimit::MAX_UINT32 < dataSize) {
         GE_EXCEPT(InternalErrorException,
                   "Data overflow! Size doesn't fit into 32 bits.");

@@ -12,85 +12,200 @@
 /*****************************************************************************/
 #pragma once
 
+#include "gePlatformUsing.h"
+
 /*****************************************************************************/
 /**
  * Initial platform/compiler-related stuff to set.
  */
 /*****************************************************************************/
-#define GE_PLATFORM_WIN32   1                 //Windows Platform
-#define GE_PLATFORM_LINUX   2                 //Linux Platform
-#define GE_PLATFORM_OSX     3                 //Apple Platform
-#define GE_PLATFORM_IOS     4                 //iPhone Platform
-#define GE_PLATFORM_ANDROID 5                 //Android Platform
-#define GE_PLATFORM_PS4     6                 //PlayStation 4 Platform
+#if defined(_WIN32) || defined(_WIN64)
+#   define GE_PLATFORM_WINDOWS   IN_USE
+#else
+#   define GE_PLATFORM_WINDOWS   NOT_IN_USE
+#endif
 
-#define GE_COMPILER_MSVC 1                    //Visual Studio Compiler
-#define GE_COMPILER_GNUC 2                    //GCC Compiler
-#define GE_COMPILER_INTEL 3                   //Intel Compiler
-#define GE_COMPILER_CLANG 4                   //Clang Compiler
+#if defined(__APPLE__) && defined(__MACH__)
+#   include <TargetConditionals.h>
+#   if TARGET_OS_MAC && !TARGET_OS_IPHONE
+#     define GE_PLATFORM_OSX     IN_USE
+#   else
+#     define GE_PLATFORM_OSX     NOT_IN_USE
+#   endif
+#   if TARGET_OS_IPHONE
+#     define GE_PLATFORM_IOS     IN_USE
+#   else
+#     define GE_PLATFORM_IOS     NOT_IN_USE
+#   endif
+#else
+#   define GE_PLATFORM_OSX       NOT_IN_USE
+#   define GE_PLATFORM_IOS       NOT_IN_USE
+#endif
 
-#define GE_ARCHITECTURE_x86_32 1              //Intel x86 32 bits
-#define GE_ARCHITECTURE_x86_64 2              //Intel x86 64 bits
-#define GE_ARCHITECTURE_ARM_32 3              //ARM 32 bits
-#define GE_ARCHITECTURE_ARM_64 4              //ARM 64 bits
+#if defined(__ANDROID__)
+#   define GE_PLATFORM_ANDROID   IN_USE
+#else
+#   define GE_PLATFORM_ANDROID   NOT_IN_USE
+#endif
 
-#define GE_ENDIAN_LITTLE 1                    //Little Endian
-#define GE_ENDIAN_BIG 2                       //Big Endian
+#if defined(__linux__) && !defined(__ANDROID__)
+#   define GE_PLATFORM_LINUX     IN_USE
+#else
+#   define GE_PLATFORM_LINUX     NOT_IN_USE
+#endif
 
-//Define the actual endian type (little endian for Windows, Linux, Apple and PS4)
-#define GE_ENDIAN GE_ENDIAN_LITTLE
+#if defined(__ORBIS__)
+#   define GE_PLATFORM_PS4       IN_USE
+#else
+#   define GE_PLATFORM_PS4       NOT_IN_USE
+#endif
+
+#if defined(__PROSPERO__)
+#   define GE_PLATFORM_PS5       IN_USE
+#else
+#   define GE_PLATFORM_PS5       NOT_IN_USE
+#endif
+
+#if defined(_GAMING_XBOX)
+#   define GE_PLATFORM_XBOX      IN_USE
+#else
+#   define GE_PLATFORM_XBOX      NOT_IN_USE
+#endif
+
+#if defined(_MSC_VER)
+#   define GE_COMPILER_MSVC      IN_USE
+#else
+#   define GE_COMPILER_MSVC      NOT_IN_USE
+#endif
+
+#if defined(__GNUC__) && !defined(__clang__) && !defined(__INTEL_COMPILER)
+#   define GE_COMPILER_GNUC      IN_USE
+#else
+#   define GE_COMPILER_GNUC      NOT_IN_USE
+#endif
+
+#if defined(__INTEL_COMPILER)
+#   define GE_COMPILER_INTEL     IN_USE
+#else
+#   define GE_COMPILER_INTEL     NOT_IN_USE
+#endif
+
+#if defined(__clang__)
+#   define GE_COMPILER_CLANG     IN_USE
+#else
+#   define GE_COMPILER_CLANG     NOT_IN_USE
+#endif
+
+/*****************************************************************************/
+/**
+ * Check for C++11 support
+ */
+/*****************************************************************************/
+#if USING(GE_COMPILER_MSVC)
+    //MSVC 1900 (Visual Studio 2015) and later fully support C++11
+#   define GE_CPP11_OR_LATER    USE_IF(_MSC_VER >= 1900)
+
+    //Visual Studio 2015 and later (C++14 features mostly available)
+#   define GE_CPP14_OR_LATER    USE_IF(_MSC_VER >= 1900)
+    
+    //Visual Studio 2017 and later (C++17 features mostly available)
+#   define GE_CPP17_OR_LATER    USE_IF(_MSC_VER >= 1910)
+
+    //Visual Studio 2019 version 16.7 and later (C++20 mostly available)
+#   define GE_CPP20_OR_LATER    USE_IF(_MSC_VER >= 1927)
+#else
+#   define GE_CPP11_OR_LATER    USE_IF(__cplusplus >= 201103L) //C++11 or later
+#   define GE_CPP14_OR_LATER    USE_IF(__cplusplus >= 201402L) //C++14 or later
+#   define GE_CPP17_OR_LATER    USE_IF(__cplusplus >= 201703L) //C++17 or later
+#   define GE_CPP20_OR_LATER    USE_IF(__cplusplus >= 202002L) //C++20 or later
+#endif
+
+//#define GE_ARCHITECTURE_x86_32 1              //Intel x86 32 bits
+//#define GE_ARCHITECTURE_x86_64 2              //Intel x86 64 bits
+//#define GE_ARCHITECTURE_ARM_32 3              //ARM 32 bits
+//#define GE_ARCHITECTURE_ARM_64 4              //ARM 64 bits
+
+#if defined(__BYTE_ORDER__) && __BYTE_ORDER__ == __ORDER_LITTLE_ENDIAN__
+#   define GE_ENDIAN_LITTLE    IN_USE
+#   define GE_ENDIAN_BIG       NOT_IN_USE
+#elif defined(__BYTE_ORDER__) && __BYTE_ORDER__ == __ORDER_BIG_ENDIAN__
+#   define GE_ENDIAN_LITTLE    NOT_IN_USE
+#   define GE_ENDIAN_BIG       IN_USE
+#elif USING(GE_PLATFORM_WINDOWS)
+#   define GE_ENDIAN_LITTLE    IN_USE
+#   define GE_ENDIAN_BIG       NOT_IN_USE
+#else
+  //If it's not a known platform, check the byte order to determine endianness
+  #include <cstdint>
+
+  inline bool
+  isLittleEndian() {
+    uint16_t number = 0x1;
+    return *reinterpret_cast<uint8_t*>(&number) == 0x1;
+  }
+
+  #if isLittleEndian()
+  #   define GE_ENDIAN_LITTLE    IN_USE
+  #   define GE_ENDIAN_BIG       NOT_IN_USE
+  #else
+  #   define GE_ENDIAN_LITTLE    NOT_IN_USE
+  #   define GE_ENDIAN_BIG       IN_USE
+  #endif
+#endif
 
 #define GE_VERSION_MAJOR 0                    //Engine version mayor value
-#define GE_VERSION_MINOR 4                    //Engine version minor value
+#define GE_VERSION_MINOR 5                    //Engine version minor value
 #define GE_VERSION_PATCH 0                    //Engine version patch value
 #define GE_EDITOR_BUILD 1                     //This is an Editor Build
 
 //Define if on a crash we want to report warnings on unknown symbols
-#define GE_DEBUG_DETAILED_SYMBOLS 1
+#define GE_DEBUG_DETAILED_SYMBOLS IN_USE
 
 /*****************************************************************************/
 /**
  *Compiler type and version.
  */
 /*****************************************************************************/
-#if defined(__clang__)
-#   define GE_COMPILER GE_COMPILER_CLANG
-#   define GE_COMP_VER __clang_version__
+#if USING(GE_COMPILER_CLANG)
+#   define GE_COMP_VER    __clang_version__
 #   define GE_THREADLOCAL __thread
-#   define GE_STDCALL __attribute__((stdcall))
-#   define GE_CDECL __attribute__((cdecl))
-#   define GE_FALLTHROUGH [[clang::fallthrough]];
-#elif defined(__GNUC__) //Check after Clang, as Clang defines this too
-#   define GE_COMPILER GE_COMPILER_GNUC
-#   define GE_COMP_VER (((__GNUC__)*100) + (__GNUC_MINOR__*10) + __GNUC_PATCHLEVEL__)
-#   define GE_THREADLOCAL __thread
-#   define GE_STDCALL __attribute__((stdcall))
-#   define GE_CDECL __attribute__((cdecl))
-#   define GE_FALLTHROUGH __attribute__((fallthrough));
-#elif defined (__INTEL_COMPILER)
-#   define GE_COMPILER GE_COMPILER_INTEL
-#   define GE_COMP_VER __INTEL_COMPILER
-#   define GE_STDCALL __stdcall
-#   define GE_CDECL __cdecl
-#   define GE_FALLTHROUGH
-/** 
- * GE_THREADLOCAL define is down below because Intel compiler defines it
- * differently based on platform
- */
+#   define GE_STDCALL     __attribute__((stdcall))
+#   define GE_CDECL       __attribute__((cdecl))
+#   define GE_FALLTHROUGH [[clang::fallthrough]]
 
-//Check after Clang and Intel, we could be building with either with VS
-#elif defined(_MSC_VER)
-#   define GE_COMPILER GE_COMPILER_MSVC
+#elif USING(GE_COMPILER_GNUC) //Check after Clang, as Clang also defines __GNUC__
+#   define GE_COMP_VER    (((__GNUC__)*100) + (__GNUC_MINOR__*10) + __GNUC_PATCHLEVEL__)
+#   define GE_THREADLOCAL __thread
+#   define GE_STDCALL     __attribute__((stdcall))
+#   define GE_CDECL       __attribute__((cdecl))
+#   define GE_FALLTHROUGH __attribute__((fallthrough))
+
+#elif USING(GE_COMPILER_INTEL)
+#   define GE_COMP_VER    __INTEL_COMPILER
+#   define GE_STDCALL     __stdcall
+#   define GE_CDECL       __cdecl
+#   define GE_FALLTHROUGH
+    /** 
+     * GE_THREADLOCAL is defined based on platform because Intel compiler
+     * handles it differently.
+     */
+#   if USING(GE_PLATFORM_WINDOWS) || USING(GE_PLATFORM_XBOX)
+#     define GE_THREADLOCAL __declspec(thread)  // Windows uses __declspec(thread)
+#   else
+#     define GE_THREADLOCAL __thread            // Unix-based systems use __thread
+#   endif
+
+#elif USING(GE_COMPILER_MSVC)
 #   define GE_COMP_VER _MSC_VER
 #   define GE_THREADLOCAL __declspec(thread)
-#   define GE_STDCALL __stdcall
-#   define GE_CDECL __cdecl
+#   define GE_STDCALL     __stdcall
+#   define GE_CDECL       __cdecl
 #   define GE_FALLTHROUGH
 #   undef __PRETTY_FUNCTION__
 #   define __PRETTY_FUNCTION__ __FUNCSIG__
+
 #else
-//No know compiler found, send the error to the output (if any)
-#   pragma error "No known compiler. "
+#   error "No known compiler detected."
 #endif
 
 /*****************************************************************************/
@@ -98,40 +213,32 @@
  * See if we can use __forceinline or if we need to use __inline instead
  */
 /*****************************************************************************/
-#if GE_COMPILER == GE_COMPILER_MSVC           //If we are compiling on Visual Studio
-# if GE_COMP_VER >= 1200                      //If we are on Visual Studio 6 or higher
-#   define FORCEINLINE __forceinline          //Set __forceinline
-#   ifndef RESTRICT
-#     define RESTRICT __restrict              //No alias hint
+#if USING(GE_COMPILER_MSVC)                   //If compiling on Visual Studio
+#   if GE_COMP_VER >= 1200                    //Visual Studio 6 or higher
+#     define FORCEINLINE __forceinline        //Use __forceinline
+#     ifndef RESTRICT
+#       define RESTRICT __restrict            //No alias hint
+#     endif
 #   endif
-# endif
-#elif defined(__MINGW32__)                    //If we are on a Unix type system
-# if !defined(FORCEINLINE)
-#   define FORCEINLINE __inline               //Set __inline
-#   ifndef RESTRICT
-#     define RESTRICT                         //No alias hint
+#elif USING(GE_COMPILER_GNUC) || USING(GE_COMPILER_CLANG) //GCC or Clang
+#   if !defined(FORCEINLINE)
+#     define FORCEINLINE __inline__           //Use __inline__ for GCC/Clang
+#     ifndef RESTRICT
+#       define RESTRICT __restrict            //No alias hint
+#     endif
 #   endif
-# endif
+#elif USING(GE_COMPILER_INTEL)                //If compiling on Intel Compiler
+#   if !defined(FORCEINLINE)
+#     define FORCEINLINE __forceinline        //Use __forceinline for Intel
+#     ifndef RESTRICT
+#       define RESTRICT __restrict            //No alias hint
+#     endif
+#   endif
 #else                                         //Any other compiler
-# define FORCEINLINE __inline                 //Set __inline
-# ifndef RESTRICT
-#   define RESTRICT __restrict                //No alias hint
-# endif
-#endif
-
-/*****************************************************************************/
-/**
- * Finds the current platform
- */
-/*****************************************************************************/
-#if defined(__WIN32__) || defined(_WIN32)     //If it's a Windows platform
-# define GE_PLATFORM GE_PLATFORM_WIN32
-#elif defined( __APPLE_CC__ )                 //It's an Apple platform
-# define GE_PLATFORM GE_PLATFORM_OSX
-#elif defined( __ORBIS__ )                    //It's a PlayStation 4
-# define GE_PLATFORM GE_PLATFORM_PS4
-#else                                         //Will consider it as a Linux platform
-# define GE_PLATFORM GE_PLATFORM_LINUX
+#   define FORCEINLINE inline                 //Use inline as default
+#   ifndef RESTRICT
+#     define RESTRICT                         //No alias hint available
+#   endif
 #endif
 
 /*****************************************************************************/
@@ -150,26 +257,46 @@
  * Memory Alignment macros
  */
 /*****************************************************************************/
-#if GE_COMPILER == GE_COMPILER_MSVC           //If we are compiling on Visual Studio
-# define MS_ALIGN(n)  __declspec(align(n))
-# ifndef GCC_PACK
-#   define GCC_PACK(n)
-# endif
-# ifndef GCC_ALIGN
-#   define GCC_ALIGN(n)
-# endif
-#elif ( GE_COMPILER == GE_COMPILER_GNUC && GE_PLATFORM == GE_PLATFORM_PS4 )
-# define MS_ALIGN(n)
-# define GCC_PACK(n)
-# define GCC_ALIGN(n) __attribute__( (__aligned__(n)) )
-#else                                         //If we are on a Unix type system
-# define MS_ALIGN(n)
-# define GCC_PACK(n)  __attribute__( (packed, aligned(n)) )
-# define GCC_ALIGN(n) __attribute__( (aligned(n)) )
+#if USING(GE_COMPILER_MSVC)   // If compiling on Visual Studio (Windows)
+#   define MS_ALIGN(n)  __declspec(align(n))
+#   ifndef GCC_PACK
+#     define GCC_PACK(n)
+#   endif
+#   ifndef GCC_ALIGN
+#     define GCC_ALIGN(n)
+#   endif
+
+#elif USING(GE_COMPILER_GNUC) || USING(GE_COMPILER_CLANG)
+#   if GE_PLATFORM_PS4 == IN_USE || GE_PLATFORM_PS5 == IN_USE
+      //PlayStation platforms
+#     define MS_ALIGN(n)
+#     define GCC_PACK(n)
+#     define GCC_ALIGN(n) __attribute__((__aligned__(n)))
+
+#   elif USING(GE_PLATFORM_XBOX) || USING(GE_PLATFORM_OSX) ||\
+         USING(GE_PLATFORM_LINUX) || USING(GE_PLATFORM_ANDROID) ||\
+         USING(GE_PLATFORM_IOS)
+      //macOS, Xbox, Linux, and Android (Unix-like systems)
+#     define MS_ALIGN(n)
+#     define GCC_PACK(n)  __attribute__((packed, aligned(n)))
+#     define GCC_ALIGN(n) __attribute__((aligned(n)))
+
+    #else
+      // Any other Unix-like system (default Unix configuration)
+#     define MS_ALIGN(n)
+#     define GCC_PACK(n)  __attribute__((packed, aligned(n)))
+#     define GCC_ALIGN(n) __attribute__((aligned(n)))
+#   endif
+#else
+#   error "Unsupported compiler or platform detected."
 #endif
 
 #ifndef CONSTEXPR
-# define CONSTEXPR constexpr
+#   if USING(GE_CPP11_OR_LATER)
+#     define CONSTEXPR constexpr
+#   else
+#     define CONSTEXPR
+#   endif
 #endif
 
 /*****************************************************************************/
@@ -177,12 +304,14 @@
  * For throw override
  */
 /*****************************************************************************/
-#if GE_COMPILER == GE_COMPILER_MSVC ||                                        \
-    GE_COMPILER == GE_COMPILER_INTEL ||                                       \
-    GE_COMPILER == GE_COMPILER_GNUC
-# define _NOEXCEPT noexcept
+#if USING(GE_COMPILER_MSVC) || USING(GE_COMPILER_INTEL) || USING(GE_COMPILER_GNUC)
+#   if USING(GE_CPP11_OR_LATER)
+#     define _NOEXCEPT noexcept
+#   else
+#     define _NOEXCEPT
+#   endif
 #else
-# define _NOEXCEPT
+#   define _NOEXCEPT
 #endif
 
 /*****************************************************************************/
@@ -192,13 +321,15 @@
  */
 /*****************************************************************************/
 #if !defined(GE_NODISCARD) && defined(__has_cpp_attribute)
-# if __has_cpp_attribute(nodiscard)
-#   define GE_NODISCARD [[nodiscard]]
-# endif
+#   if USING(GE_CPP17_OR_LATER)
+#     if __has_cpp_attribute(nodiscard)
+#       define GE_NODISCARD [[nodiscard]]
+#     endif
+#   endif
 #endif
 
 #ifndef GE_NODISCARD
-# define GE_NODISCARD
+#   define GE_NODISCARD
 #endif
 
 /*****************************************************************************/
@@ -207,9 +338,11 @@
  */
 /*****************************************************************************/
 #if !defined(GE_NORETURN) && defined(__has_cpp_attribute)
-# if __has_cpp_attribute(noreturn)
-#   define GE_NORETURN [[noreturn]]
-# endif
+#   if USING(GE_CPP11_OR_LATER)
+#     if __has_cpp_attribute(noreturn)
+#       define GE_NORETURN [[noreturn]]
+#     endif
+#   endif
 #endif
 
 #ifndef GE_NORETURN
@@ -221,106 +354,86 @@
  * Library export specifics
  */
 /*****************************************************************************/
-#if GE_PLATFORM == GE_PLATFORM_WIN32
-# if GE_COMPILER == GE_COMPILER_MSVC
-#   if defined( GE_STATIC_LIB )
-#     define GE_UTILITIES_EXPORT
-#   else
-#     if defined( GE_UTILITIES_EXPORTS )
-#       define GE_UTILITIES_EXPORT __declspec( dllexport )
+#if USING(GE_PLATFORM_WINDOWS) || USING(GE_PLATFORM_XBOX)
+#   if USING(GE_COMPILER_MSVC)
+#     if defined( GE_STATIC_LIB )
+#       define GE_UTILITIES_EXPORT
 #     else
-#       define GE_UTILITIES_EXPORT __declspec( dllimport )
+#       if defined( GE_UTILITIES_EXPORTS )
+#         define GE_UTILITIES_EXPORT __declspec( dllexport )
+#       else
+#         define GE_UTILITIES_EXPORT __declspec( dllimport )
+#       endif
+#     endif
+#   else  //Any other Compiler
+#     if defined( GE_STATIC_LIB )
+#       define GE_UTILITIES_EXPORT
+#     else
+#       if defined( GE_UTILITIES_EXPORTS )
+#         define GE_UTILITIES_EXPORT __attribute__ ((dllexport))
+#       else
+#         define GE_UTILITIES_EXPORT __attribute__ ((dllimport))
+#       endif
 #     endif
 #   endif
-# else  //Any other Compiler
-#   if defined( GE_STATIC_LIB )
+#   define GE_UTILITIES_HIDDEN
+#elif USING(GE_PLATFORM_LINUX) || USING(GE_PLATFORM_OSX) ||\
+      USING(GE_PLATFORM_PS4) || USING(GE_PLATFORM_PS5) ||\
+      USING(GE_PLATFORM_ANDROID) || USING(GE_PLATFORM_IOS)
+    //Unix-like systems (Linux, macOS, PS4, PS5, Android, IOS)
+#   if defined(GE_STATIC_LIB)
 #     define GE_UTILITIES_EXPORT
 #   else
-#     if defined( GE_UTILITIES_EXPORTS )
-#       define GE_UTILITIES_EXPORT __attribute__ ((dllexport))
-#     else
-#       define GE_UTILITIES_EXPORT __attribute__ ((dllimport))
-#     endif
+#     define GE_UTILITIES_EXPORT __attribute__((visibility("default")))
 #   endif
-# endif
-# define GE_UTILITIES_HIDDEN
-#else //Linux/Mac settings
-# define GE_UTILITIES_EXPORT __attribute__ ((visibility ("default")))
-# define GE_UTILITIES_HIDDEN __attribute__ ((visibility ("hidden")))
+#   define GE_UTILITIES_HIDDEN __attribute__((visibility("hidden")))
+#else
+#   error "Unsupported platform detected for GE_UTILITIES_EXPORT."
 #endif
 
 //DLL export for plug ins
-#if GE_PLATFORM == GE_PLATFORM_WIN32
-# if GE_COMPILER == GE_COMPILER_MSVC
-#   define GE_PLUGIN_EXPORT __declspec(dllexport)
-# else
-#   define GE_PLUGIN_EXPORT __attribute__ ((dllexport))
-# endif
-#else //Linux/Mac settings
-# define GE_PLUGIN_EXPORT __attribute__ ((visibility ("default")))
+#if USING(GE_PLATFORM_WINDOWS) || USING(GE_PLATFORM_XBOX)
+#   if USING(GE_COMPILER_MSVC)
+#     define GE_PLUGIN_EXPORT __declspec(dllexport)
+#   else
+#     define GE_PLUGIN_EXPORT __attribute__ ((dllexport))
+#   endif
+#elif USING(GE_PLATFORM_LINUX) || USING(GE_PLATFORM_OSX) ||\
+      USING(GE_PLATFORM_PS4) || USING(GE_PLATFORM_PS5) ||\
+      USING(GE_PLATFORM_ANDROID) || USING(GE_PLATFORM_IOS)
+    //Unix-like systems (Linux, macOS, PS4, PS5, Android, IOS)
+#   define GE_PLUGIN_EXPORT __attribute__ ((visibility ("default")))
+#endif
+
+// Determine debug mode across all platforms
+#if defined(_DEBUG) || defined(DEBUG)
+#   define GE_DEBUG_MODE IN_USE      //Specifies that we are in a DEBUG build
+#else
+#   define GE_DEBUG_MODE NOT_IN_USE  //Specifies that we are NOT in a DEBUG build
 #endif
 
 /*****************************************************************************/
 /**
- * Windows specific Settings
+ * Unix-like systems specific Settings
  */
 /*****************************************************************************/
-//Win32 compilers use _DEBUG for specifying debug builds. For MinGW, we set DEBUG
-#if GE_PLATFORM == GE_PLATFORM_WIN32
-# if defined(_DEBUG) || defined(DEBUG)
-#   define GE_DEBUG_MODE 1                    //Specifies that we are on a DEBUG build
-# else
-#   define GE_DEBUG_MODE 0                    //We are not on a DEBUG build
-# endif
-# if GE_COMPILER == GE_COMPILER_INTEL
-#   define GE_THREADLOCAL __declspec(thread)  //Set the local thread for the Intel compiler
-# endif
-#endif  //GE_PLATFORM == GE_PLATFORM_WIN32
-
-/*****************************************************************************/
-/**
- * Linux/Apple specific Settings
- */
-/*****************************************************************************/
-#if GE_PLATFORM == GE_PLATFORM_LINUX || GE_PLATFORM == GE_PLATFORM_OSX
-# define stricmp strcasecmp
-
-//If we are on a DEBUG build
-# if defined(_DEBUG) || defined(DEBUG)
-#   define GE_DEBUG_MODE 1                  //Specifies that we are on a DEBUG build
-# else
-#   define GE_DEBUG_MODE 0                  //We are not on a DEBUG build
-# endif
-# if GE_COMPILER == GE_COMPILER_INTEL
-#   define GE_THREADLOCAL __thread          //Set the local thread for the Intel compiler
-# endif
-#endif	//GE_PLATFORM == GE_PLATFORM_LINUX || GE_PLATFORM == GE_PLATFORM_OSX
-
-/*****************************************************************************/
-/**
- * PS4 specific Settings
- */
-/*****************************************************************************/
-#if GE_PLATFORM == GE_PLATFORM_PS4
-//If we are on a DEBUG build
-# if defined(_DEBUG) || defined(DEBUG)
-#   define GE_DEBUG_MODE 1                  //Specifies that we are on a DEBUG build
-# else
-#   define GE_DEBUG_MODE 0                  //We are not on a DEBUG build
-# endif
-#endif	//GE_PLATFORM == GE_PLATFORM_LINUX || GE_PLATFORM == GE_PLATFORM_OSX
+#if USING(GE_PLATFORM_LINUX) || USING(GE_PLATFORM_OSX) ||\
+    USING(GE_PLATFORM_PS4) || USING(GE_PLATFORM_PS5) ||\
+    USING(GE_PLATFORM_ANDROID) || USING(GE_PLATFORM_IOS)
+#   define stricmp strcasecmp
+#endif
 
 /*****************************************************************************/
 /**
  * Definition of Debug macros
  */
 /*****************************************************************************/
-#if GE_DEBUG_MODE
-# define GE_DEBUG_ONLY(x) x
-# define GE_ASSERT(x) assert(x)
+#if USING(GE_DEBUG_MODE)
+#   define GE_DEBUG_ONLY(x) x
+#   define GE_ASSERT(x) assert(x)
 #else
-# define GE_DEBUG_ONLY(x)
-# define GE_ASSERT(x)
+#   define GE_DEBUG_ONLY(x)
+#   define GE_ASSERT(x)
 #endif
 
 /*****************************************************************************/
@@ -337,7 +450,7 @@
 /*****************************************************************************/
 
 //If we are compiling with Visual Studio
-#if GE_COMPILER == GE_COMPILER_MSVC
+#if USING(GE_COMPILER_MSVC)
   /**
    * TODO:  This is not deactivated anywhere, therefore it applies to any file
    * that includes this header. Right now I don't have an easier way to apply

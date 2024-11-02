@@ -114,7 +114,7 @@ namespace geEngineSDK {
   template<class ElemType>
   uint32
   rttiGetElementSize(const ElemType& data) {
-#if GE_COMPILER == GE_COMPILER_MSVC
+#if USING(GE_COMPILER_MSVC)
 #	pragma warning( disable : 4127 )
 #endif
     if (RTTIPlainType<ElemType>::kHasDynamicSize == 1) {
@@ -122,7 +122,7 @@ namespace geEngineSDK {
     }
 
     return static_cast<uint32>(sizeof(ElemType));
-#if GE_COMPILER == GE_COMPILER_MSVC
+#if USING(GE_COMPILER_MSVC)
 #	pragma warning( default: 4127 )
 #endif
   }

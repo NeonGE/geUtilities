@@ -28,7 +28,7 @@
 #include <cstdint>
 #include <utility>
 
-#if GE_PLATFORM == GE_PLATFORM_LINUX
+#if USING(GE_PLATFORM_LINUX) || USING(GE_PLATFORM_ANDROID)
 # include <malloc.h>
 #endif
 
@@ -39,7 +39,7 @@ namespace geEngineSDK {
 
   class MemoryAllocatorBase;
 
-#if GE_PLATFORM == GE_PLATFORM_WIN32
+#if USING(GE_PLATFORM_WINDOWS)
   inline void*
   platformAlignedAlloc16(size_t size) {
     return _aligned_malloc(size, 16);
@@ -59,7 +59,7 @@ namespace geEngineSDK {
   platformAlignedFree(void* ptr) {
     _aligned_free(ptr);
   }
-#elif GE_PLATFORM == GE_PLATFORM_LINUX || GE_PLATFORM == GE_PLATFORM_ANDROID
+#elif USING(GE_PLATFORM_LINUX) || USING(GE_PLATFORM_ANDROID)
   inline void*
   platformAlignedAlloc16(size_t size) {
     return ::memalign(16, size);

@@ -462,7 +462,7 @@ namespace geEngineSDK {
 
    public:
 
-#if GE_DEBUG_MODE
+#if USING(GE_DEBUG_MODE)
     FORCEINLINE void
     diagnosticCheckNaN() const {
       if (containsNaN()) {

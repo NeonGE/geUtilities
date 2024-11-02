@@ -138,7 +138,7 @@ namespace geEngineSDK {
   g_debug();
 
 #ifndef GE_LOG_VERBOSITY
-# if GE_DEBUG_MODE
+# if USING(GE_DEBUG_MODE)
 #   define GE_LOG_VERBOSITY LogVerbosity::kLog
 # else
 #   define GE_LOG_VERBOSITY LogVerbosity::kWarning

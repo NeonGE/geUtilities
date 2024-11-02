@@ -387,7 +387,7 @@ namespace geEngineSDK {
     void
     findBestAxisVectors3(Vector4& Axis1, Vector4& Axis2) const;
 
-# if GE_DEBUG_MODE
+# if USING(GE_DEBUG_MODE)
     FORCEINLINE void
     diagnosticCheckNaN() {
       if (containsNaN()) {

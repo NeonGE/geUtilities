@@ -23,7 +23,7 @@
 namespace geEngineSDK {
   BoxSphereBounds
     BoxSphereBounds::transformBy(const Matrix4& M) const {
-# if GE_DEBUG_MODE
+# if USING(GE_DEBUG_MODE)
     if (M.containsNaN()) {
       GE_LOG(kError, Generic, "Input Matrix contains NaN/Inf!");
       (const_cast<Matrix4*>(&M))->setIdentity();

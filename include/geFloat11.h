@@ -136,10 +136,10 @@ namespace geEngineSDK {
       uint32 encoded;
       struct
       {
-#if GE_ENDIAN == GE_ENDIAN_LITTLE
+#if USING(GE_ENDIAN_LITTLE)
         uint32 mantissa : 6;
         uint32 exponent : 5;
-#else
+#elif USING(GE_ENDIAN_BIG)
         uint32 exponent : 5;
         uint32 mantissa : 6;
 #endif

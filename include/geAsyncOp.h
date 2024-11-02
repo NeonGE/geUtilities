@@ -93,7 +93,7 @@ namespace geEngineSDK {
     template<typename T>
     T
     getReturnValue() const {
-#if GE_DEBUG_MODE
+#if USING(GE_DEBUG_MODE)
       if (!hasCompleted()) {
         GE_EXCEPT(InternalErrorException,
                   "Trying to get AsyncOp return value but the operation hasn't completed.");

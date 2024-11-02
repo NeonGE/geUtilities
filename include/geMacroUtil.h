@@ -17,7 +17,7 @@
  * Macro utilities
  */
 /*****************************************************************************/
-#if GE_COMPILER == GE_COMPILER_MSVC
+#if USING(GE_COMPILER_MSVC)
 # define MULTI_LINE_MACRO_BEGIN do {
 # define MULTI_LINE_MACRO_END         \
     __pragma(warning(push))           \
@@ -37,6 +37,15 @@
 /*****************************************************************************/
 #ifndef GE_UNREFERENCED_PARAMETER
 # define GE_UNREFERENCED_PARAMETER(P) (void)P
+#endif
+
+/*****************************************************************************/
+/**
+ * Safe release of a pointer
+ */
+/*****************************************************************************/
+#ifndef SAFE_RELEASE
+# define SAFE_RELEASE(x) if(x) { x->Release(); x = nullptr; }
 #endif
 
 /*****************************************************************************/

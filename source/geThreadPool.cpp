@@ -21,9 +21,9 @@
 #include "geDebug.h"
 #include "geMath.h"
 
-#if GE_PLATFORM == GE_PLATFORM_WIN32
+#if USING(GE_PLATFORM_WINDOWS)
 # include "Win32/geMinWindows.h"
-# if GE_COMPILER == GE_COMPILER_MSVC
+# if USING(GE_COMPILER_MSVC)
   //disable: nonstandard extension used: 'X' uses SEH and 'Y' has destructor
   //We don't care about this as any exception is meant to crash the program.
 #   pragma warning(disable: 4509)
@@ -140,7 +140,7 @@ namespace geEngineSDK {
 
   void
   PooledThread::workingMethodRun(const function<void()>& worker) {
-#if GE_PLATFORM == GE_PLATFORM_WIN32
+#if USING(GE_PLATFORM_WINDOWS)
     __try {
       worker();
     }

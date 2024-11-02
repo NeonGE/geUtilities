@@ -74,7 +74,7 @@ namespace geEngineSDK {
         GE_ASSERT((&m_data[m_freePtr]) == data && 
                   "Out of order stack deallocation detected. Deallocations need"
                   "to happen in order opposite of allocations.");
-#if !GE_DEBUG_MODE
+#if USING(GE_DEBUG_MODE)
         GE_UNREFERENCED_PARAMETER(data);
 #endif
       }

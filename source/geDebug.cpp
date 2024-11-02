@@ -26,7 +26,7 @@
 using std::cout;
 using std::endl;
 
-#if GE_PLATFORM == GE_PLATFORM_WIN32 && GE_COMPILER == GE_COMPILER_MSVC
+#if USING(GE_PLATFORM_WINDOWS) && USING(GE_COMPILER_MSVC)
 #	include <Win32/geMinWindows.h>
 #	include <iostream>
 

@@ -18,15 +18,8 @@
 #include "geColor.h"
 #include "geVector2.h"
 #include "geVector3.h"
-//#include "geVector4.h"
-//#include "geRotator.h"
-//#include "geQuaternion.h"
-//#include "geRay.h"
-//#include "geSphere.h"
-//#include "geAABox.h"
-//#include "gePlane.h"
 
-#if GE_PLATFORM == GE_PLATFORM_WIN32
+#if USING(GE_PLATFORM_WINDOWS)
 # include <intrin.h>
 #endif
 
@@ -104,7 +97,7 @@ namespace geEngineSDK {
     return Radian(-HALF_PI);
   }
 
-#if GE_PLATFORM == GE_PLATFORM_WIN32
+#if USING(GE_PLATFORM_WINDOWS)
   uint32
   Math::floorLog2(uint32 Value) {
     //Use BSR to return the log2 of the integer
@@ -128,7 +121,7 @@ namespace geEngineSDK {
   }
 #endif
 
-#if GE_PLATFORM == GE_PLATFORM_WIN32
+#if USING(GE_PLATFORM_WINDOWS)
   uint32
   Math::countLeadingZeros(uint32 Value) {
     //Use BSR to return the log2 of the integer
@@ -148,7 +141,7 @@ namespace geEngineSDK {
   }
 #endif
 
-#if GE_PLATFORM == GE_PLATFORM_WIN32
+#if USING(GE_PLATFORM_WINDOWS)
   uint32
   Math::countTrailingZeros(uint32 Value) {
     if (0 == Value ) {

@@ -19,29 +19,31 @@
 /*****************************************************************************/
 #include "gePrerequisitesUtilities.h"
 
-#if GE_PLATFORM == GE_PLATFORM_WIN32
+#if USING(GE_PLATFORM_WINDOWS)
   struct HINSTANCE__;
   using hInstance = struct HINSTANCE__*;
 #endif
 
-#if GE_PLATFORM == GE_PLATFORM_WIN32
+#if USING(GE_PLATFORM_WINDOWS)
 # define DYNLIB_HANDLE hInstance
 # define DYNLIB_LOAD(a) LoadLibraryEx(a, NULL, LOAD_WITH_ALTERED_SEARCH_PATH)
 # define DYNLIB_GETSYM(a, b) GetProcAddress(a, b)
 # define DYNLIB_UNLOAD(a) !FreeLibrary(a)
 
-#elif GE_PLATFORM == GE_PLATFORM_LINUX || GE_PLATFORM == GE_PLATFORM_OSX
+#elif USING(GE_PLATFORM_LINUX) || USING(GE_PLATFORM_OSX)
 # define DYNLIB_HANDLE void*
 # define DYNLIB_LOAD(a) dlopen(a, RTLD_LAZY | RTLD_GLOBAL)
 # define DYNLIB_GETSYM(a, b) dlsym(a, b)
 # define DYNLIB_UNLOAD(a) dlclose(a)
 
-#elif GE_PLATFORM == GE_PLATFORM_PS4
+#elif USING(GE_PLATFORM_PS4)
 # define DYNLIB_HANDLE SceKernelModule
 # define DYNLIB_LOAD(a, b, c, d, e, f) sceKernelLoadStartModule(a, b, c, d, e, f)
 # define DYNLIB_GETSYM(a, b, c) sceKernelDlsym(a, b, c)
 # define DYNLIB_UNLOAD(a, b, c, d, e, f) sceKernelStopUnloadModule(a, b, c, d, e, f)
 
+#else
+# error "No dynamic library loading functions defined for this platform."
 #endif
 
 namespace geEngineSDK {
@@ -51,20 +53,20 @@ namespace geEngineSDK {
   class GE_UTILITIES_EXPORT DynLib final
   {
    public:
-#if GE_PLATFORM == GE_PLATFORM_LINUX
+#if USING(GE_PLATFORM_LINUX)
     static CONSTEXPR const char* EXTENSION = "so";
     static CONSTEXPR const char* PREFIX = "lib";
-#elif GE_PLATFORM == GE_PLATFORM_OSX
+#elif USING(GE_PLATFORM_OSX)
     static CONSTEXPR const char* EXTENSION = "dylib";
     static CONSTEXPR const char* PREFIX = "lib";
-#elif GE_PLATFORM == GE_PLATFORM_WIN32
+#elif USING(GE_PLATFORM_WINDOWS)
     static CONSTEXPR const char* EXTENSION = "dll";
     static CONSTEXPR const char* PREFIX = nullptr;
-#elif GE_PLATFORM == GE_PLATFORM_PS4
+#elif USING(GE_PLATFORM_PS4)
     static CONSTEXPR const char* EXTENSION = "prx";
     static CONSTEXPR const char* PREFIX = "a";
 #else
-#  error Unhandled platform
+# error "No dynamic library loading functions defined for this platform."
 #endif
 
     /**

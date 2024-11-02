@@ -20,7 +20,7 @@
 /*****************************************************************************/
 #include <cstdint>
 #include <cstddef>
-#if GE_PLATFORM == GE_PLATFORM_PS4
+#if USING(GE_PLATFORM_PS4)
 # include <scebase.h>
 #endif
 
@@ -105,11 +105,7 @@ namespace geEngineSDK {
    * Character types
    */
   /***************************************************************************/
-#if GE_COMPILER == GE_COMPILER_MSVC || GE_PLATFORM == GE_PLATFORM_PS4
-  using WCHAR = wchar_t;            //Wide Character (used by Visual Studio)
-#else
-  using WCHAR = wchar_t;     //Wide Character (Any other compiler)
-#endif
+  using WCHAR = wchar_t;  //Wide Character (used by Visual Studio)
   using ANSICHAR = char;  //ANSI character type
   using UNICHAR = WCHAR;  //UNICODE character type
 
@@ -129,3 +125,5 @@ namespace geEngineSDK {
   /***************************************************************************/
   using SIZE_T = size_t;
 }
+
+
