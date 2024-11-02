@@ -102,22 +102,15 @@
  */
 /*****************************************************************************/
 #if USING(GE_COMPILER_MSVC)
-    //MSVC 1900 (Visual Studio 2015) and later fully support C++11
-#   define GE_CPP11_OR_LATER    USE_IF(_MSC_VER >= 1900)
-
-    //Visual Studio 2015 and later (C++14 features mostly available)
-#   define GE_CPP14_OR_LATER    USE_IF(_MSC_VER >= 1900)
-    
-    //Visual Studio 2017 and later (C++17 features mostly available)
-#   define GE_CPP17_OR_LATER    USE_IF(_MSC_VER >= 1910)
-
-    //Visual Studio 2019 version 16.7 and later (C++20 mostly available)
-#   define GE_CPP20_OR_LATER    USE_IF(_MSC_VER >= 1927)
+#   define GE_CPP11_OR_LATER    USE_IF(_MSVC_LANG >= 201103L)
+#   define GE_CPP14_OR_LATER    USE_IF(_MSVC_LANG >= 201402L)
+#   define GE_CPP17_OR_LATER    USE_IF(_MSVC_LANG >= 201703L)
+#   define GE_CPP20_OR_LATER    USE_IF(_MSVC_LANG >= 202002L)
 #else
-#   define GE_CPP11_OR_LATER    USE_IF(__cplusplus >= 201103L) //C++11 or later
-#   define GE_CPP14_OR_LATER    USE_IF(__cplusplus >= 201402L) //C++14 or later
-#   define GE_CPP17_OR_LATER    USE_IF(__cplusplus >= 201703L) //C++17 or later
-#   define GE_CPP20_OR_LATER    USE_IF(__cplusplus >= 202002L) //C++20 or later
+#   define GE_CPP11_OR_LATER    USE_IF(__cplusplus >= 201103L)
+#   define GE_CPP14_OR_LATER    USE_IF(__cplusplus >= 201402L)
+#   define GE_CPP17_OR_LATER    USE_IF(__cplusplus >= 201703L)
+#   define GE_CPP20_OR_LATER    USE_IF(__cplusplus >= 202002L)
 #endif
 
 //#define GE_ARCHITECTURE_x86_32 1              //Intel x86 32 bits
@@ -297,6 +290,12 @@
 #   else
 #     define CONSTEXPR
 #   endif
+#endif
+
+#if USING(GE_CPP17_OR_LATER)
+#   define IF_CONSTEXPR if constexpr
+#else
+#   define IF_CONSTEXPR if
 #endif
 
 /*****************************************************************************/
@@ -491,5 +490,9 @@
 #	pragma warning(disable: 4530)
 
 #	pragma warning(disable: 4577)
+
+#if USING(GE_CPP14_OR_LATER)
+#   pragma warning(disable: 4127)
+#endif
 
 #endif

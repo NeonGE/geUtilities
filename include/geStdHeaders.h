@@ -59,8 +59,11 @@
 #include <queue>
 #include <bitset>
 #include <array>
-#include <variant>
-#include <optional>
+
+#if USING(GE_CPP17_OR_LATER)
+#   include <variant>
+#   include <optional>
+#endif
 
 #include <unordered_map>
 #include <unordered_set>
@@ -297,6 +300,7 @@ namespace geEngineSDK {
   template<size_t N>
   using Bitset = std::bitset<N>;
 
+#if USING(GE_CPP17_OR_LATER)
   /**
    * @brief Optional object that may or may not contain a value.
    */
@@ -308,6 +312,7 @@ namespace geEngineSDK {
    */
   template<class... T>
   using Variant = std::variant<T...>;
+#endif
 
   /***************************************************************************/
   /**

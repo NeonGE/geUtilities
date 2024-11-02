@@ -50,7 +50,7 @@ namespace geEngineSDK {
       filename.append(extension);
     }
 
-    if CONSTEXPR (nullptr != DynLib::PREFIX) {
+    IF_CONSTEXPR (nullptr != DynLib::PREFIX) {
       filename.insert(0, DynLib::PREFIX);
     }
 

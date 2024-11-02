@@ -26,14 +26,12 @@
 #define SIMDPP_ARCH_X86_SSE4_1
 
 #if USING(GE_COMPILER_MSVC)
-# pragma warning(disable: 4127)
 # pragma warning(disable: 4244)
 #endif
 
 # include "Externals/simdpp/simd.h"
 
 #if USING(GE_COMPILER_MSVC)
-# pragma warning(default: 4127)
 # pragma warning(default: 4244)
 #endif
 

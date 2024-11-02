@@ -36,7 +36,12 @@ namespace geEngineSDK {
   using std::int16_t;
   using std::int32_t;
   using std::int64_t;
+
+#if USING(GE_CPP17_OR_LATER)
   using std::byte;
+#else
+  using byte = uint8_t;
+#endif
 
   /***************************************************************************/
   /**
