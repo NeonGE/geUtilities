@@ -146,14 +146,6 @@
   #endif
 #endif
 
-#define GE_VERSION_MAJOR 0                    //Engine version mayor value
-#define GE_VERSION_MINOR 5                    //Engine version minor value
-#define GE_VERSION_PATCH 0                    //Engine version patch value
-#define GE_EDITOR_BUILD 1                     //This is an Editor Build
-
-//Define if on a crash we want to report warnings on unknown symbols
-#define GE_DEBUG_DETAILED_SYMBOLS IN_USE
-
 /*****************************************************************************/
 /**
  *Compiler type and version.
@@ -496,3 +488,22 @@
 #endif
 
 #endif
+
+/*****************************************************************************/
+/**
+ * Engine version
+ */
+/*****************************************************************************/
+#define GE_VERSION_MAJOR 0                    //Engine version mayor value
+#define GE_VERSION_MINOR 5                    //Engine version minor value
+#define GE_VERSION_PATCH 0                    //Engine version patch value
+#define GE_EDITOR_BUILD 1                     //This is an Editor Build
+
+//Define if on a crash we want to report warnings on unknown symbols
+#define GE_DEBUG_DETAILED_SYMBOLS IN_USE
+
+//Features implementations
+#define GE_FEATURE_THREADING IN_USE
+
+#define GE_USE_GENERIC_FILESYSTEM     USE_IF(!USING(GE_PLATFORM_WINDOWS) && USING(GE_CPP17_OR_LATER))
+/*****************************************************************************/

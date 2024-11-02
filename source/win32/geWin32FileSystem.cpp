@@ -17,6 +17,9 @@
  */
 /*****************************************************************************/
 #include "geFileSystem.h"
+
+#if !USING(GE_USE_GENERIC_FILESYSTEM)
+
 #include "geException.h"
 #include "geDataStream.h"
 #include "geDebug.h"
@@ -201,23 +204,6 @@ namespace geEngineSDK {
   }
 
   bool
-  win32_createFile(const WString& path) {
-    HANDLE hFile = CreateFileW(path.c_str(), GENERIC_WRITE, 0, 0, CREATE_NEW, 0, 0);
-    if (INVALID_HANDLE_VALUE != hFile) {
-      CloseHandle(hFile);
-      return true;
-    }
-    else if (ERROR_FILE_EXISTS == GetLastError()) {
-      return false;
-    }
-    else {
-      win32_handleError(GetLastError(), path);
-    }
-
-    return false;
-  }
-
-  bool
   win32_createDirectory(const WString& path) {
     if (win32_pathExists(path) && win32_isDirectory(path)) {
       return false;
@@ -277,10 +263,7 @@ namespace geEngineSDK {
     return ge_shared_ptr_new<FileDataStream>(fullPath, accessMode, true);
   }
 
-  SPtr<DataStream>
-  FileSystem::createAndOpenFile(const Path& fullPath) {
-    return ge_shared_ptr_new<FileDataStream>(fullPath, ACCESS_MODE::kWRITE, true);
-  }
+  
 
   uint64
   FileSystem::getFileSize(const Path& fullPath) {
@@ -495,3 +478,5 @@ namespace geEngineSDK {
     }
   }
 }
+
+#endif  // !USING(GE_USE_GENERIC_FILESYSTEM)
