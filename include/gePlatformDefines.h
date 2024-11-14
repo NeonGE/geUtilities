@@ -66,7 +66,7 @@
 #   define GE_PLATFORM_PS5       NOT_IN_USE
 #endif
 
-#if defined(_GAMING_XBOX)
+#if defined(_DURANGO) || defined(_XBOX_ONE) || defined(_GAMING_XBOX)
 #   define GE_PLATFORM_XBOX      IN_USE
 #else
 #   define GE_PLATFORM_XBOX      NOT_IN_USE
@@ -113,18 +113,13 @@
 #   define GE_CPP20_OR_LATER    USE_IF(__cplusplus >= 202002L)
 #endif
 
-//#define GE_ARCHITECTURE_x86_32 1              //Intel x86 32 bits
-//#define GE_ARCHITECTURE_x86_64 2              //Intel x86 64 bits
-//#define GE_ARCHITECTURE_ARM_32 3              //ARM 32 bits
-//#define GE_ARCHITECTURE_ARM_64 4              //ARM 64 bits
-
 #if defined(__BYTE_ORDER__) && __BYTE_ORDER__ == __ORDER_LITTLE_ENDIAN__
 #   define GE_ENDIAN_LITTLE    IN_USE
 #   define GE_ENDIAN_BIG       NOT_IN_USE
 #elif defined(__BYTE_ORDER__) && __BYTE_ORDER__ == __ORDER_BIG_ENDIAN__
 #   define GE_ENDIAN_LITTLE    NOT_IN_USE
 #   define GE_ENDIAN_BIG       IN_USE
-#elif USING(GE_PLATFORM_WINDOWS)
+#elif USING(GE_PLATFORM_WINDOWS) || USING(GE_PLATFORM_XBOX)
 #   define GE_ENDIAN_LITTLE    IN_USE
 #   define GE_ENDIAN_BIG       NOT_IN_USE
 #else
@@ -231,10 +226,39 @@
  * Find the architecture type
  */
 /*****************************************************************************/
-#if defined(__x86_64__) || defined(_M_X64)    //If this is a x64 compile
-# define GE_ARCH_TYPE GE_ARCHITECTURE_x86_64
-#else                                         //If it's a x86 compile
-# define GE_ARCH_TYPE GE_ARCHITECTURE_x86_32
+#define GE_ARCHITECTURE_x86_32 NOT_IN_USE  // Intel x86 32-bit
+#define GE_ARCHITECTURE_x86_64 NOT_IN_USE  // Intel x86 64-bit
+#define GE_ARCHITECTURE_ARM_32 NOT_IN_USE  // ARM 32-bit
+#define GE_ARCHITECTURE_ARM_64 NOT_IN_USE  // ARM 64-bit
+
+//Detect x86 64-bit (Windows, macOS, PS4, PS5, and Xbox)
+#if defined(_M_X64) || defined(__x86_64__) || defined(__amd64__) ||           \
+    USING(GE_PLATFORM_PS4) || USING(GE_PLATFORM_PS5) ||                       \
+    USING(GE_PLATFORM_XBOX)
+#   undef GE_ARCHITECTURE_x86_64
+#   define GE_ARCHITECTURE_x86_64 IN_USE
+
+//Detect x86 32-bit (for older systems or emulators)
+#elif defined(_M_IX86) || defined(__i386__)
+#   undef GE_ARCHITECTURE_x86_32
+#   define GE_ARCHITECTURE_x86_32 IN_USE
+
+//Detect ARM 64-bit (iOS, Android, macOS on Apple Silicon)
+#elif defined(_M_ARM64) || defined(__aarch64__) ||                            \
+      (defined(__APPLE__) && defined(TARGET_OS_MAC) && defined(__aarch64__))
+#   undef GE_ARCHITECTURE_ARM_64
+#   define GE_ARCHITECTURE_ARM_64 IN_USE
+
+//Detect ARM 32-bit (for older ARM devices or Android emulators)
+#elif defined(_M_ARM) || defined(__arm__)
+#   undef GE_ARCHITECTURE_ARM_32
+#   define GE_ARCHITECTURE_ARM_32 IN_USE
+#endif
+
+//Verify configurations (optional)
+#if (USING(GE_ARCHITECTURE_x86_32) + USING(GE_ARCHITECTURE_x86_64) +          \
+     USING(GE_ARCHITECTURE_ARM_32) + USING(GE_ARCHITECTURE_ARM_64)) != 1
+#error "No Architecture or Multiple defined simultaneously."
 #endif
 
 /*****************************************************************************/

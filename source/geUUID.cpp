@@ -158,8 +158,8 @@ namespace geEngineSDK {
     //Hash the file path
     hash<String> hashFn;
     String filePathStr = filePath.toString();
-    SIZE_T hashValue1 = hashFn(filePathStr);
-    SIZE_T hashValue2 = hashFn(filePathStr + saltStream.str());
+    uint64 hashValue1 = static_cast<uint64>(hashFn(filePathStr));
+    uint64 hashValue2 = static_cast<uint64>(hashFn(filePathStr + saltStream.str()));
 
     //Convert hash value to hex string (UUID-like format)
     StringStream ss;

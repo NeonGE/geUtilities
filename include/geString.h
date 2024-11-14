@@ -989,8 +989,8 @@ namespace geEngineSDK {
 
     template <class T>
     static bool
-    matchInternal(const BasicString<T>& str, 
-                  const BasicString<T>& pattern, 
+    matchInternal(const BasicString<T>& str,
+                  const BasicString<T>& pattern,
                   bool caseSensitive) {
       BasicString<T> tmpStr = str;
       BasicString<T> tmpPattern = pattern;
@@ -1002,51 +1002,39 @@ namespace geEngineSDK {
       typename BasicString<T>::const_iterator strIt = tmpStr.begin();
       typename BasicString<T>::const_iterator patIt = tmpPattern.begin();
       typename BasicString<T>::const_iterator lastWildCardIt = tmpPattern.end();
-      while (strIt != tmpStr.end() && patIt != tmpPattern.end()) {
-        if (*patIt == '*') {
-          lastWildCardIt = patIt;
+      typename BasicString<T>::const_iterator strCheckpoint = tmpStr.end();
 
-          //Skip over looking for next character
+      while (strIt != tmpStr.end()) {
+        if (patIt != tmpPattern.end() && *patIt == '*') {
+          //Record position of wildcard
+          lastWildCardIt = patIt;
           ++patIt;
-          if (patIt == tmpPattern.end()) {
-            // Skip right to the end since * matches the entire rest of the string
-            strIt = tmpStr.end();
-          }
-          else {
-            // scan until we find next pattern character
-            while (strIt != tmpStr.end() && *strIt != *patIt) {
-              ++strIt;
-            }
-          }
+          strCheckpoint = strIt;  //Save position to retry if needed
+        }
+        else if (patIt != tmpPattern.end() && (*patIt == *strIt)) {
+          //Characters match, move to the next one
+          ++patIt;
+          ++strIt;
+        }
+        else if (lastWildCardIt != tmpPattern.end()) {
+          //If there was a previous '*', backtrack
+          patIt = lastWildCardIt + 1;
+          ++strCheckpoint;
+          strIt = strCheckpoint;
         }
         else {
-          if (*patIt != *strIt) {
-            if (lastWildCardIt != tmpPattern.end()) {
-              //The last wildcard can match this incorrect sequence
-              //rewind pattern to wildcard and keep searching
-              patIt = lastWildCardIt;
-              lastWildCardIt = tmpPattern.end();
-            }
-            else {
-              //No wildcards left
-              return false;
-            }
-          }
-          else {
-            ++patIt;
-            ++strIt;
-          }
+          //No match and no wildcard to backtrack to
+          return false;
         }
-
       }
 
-      // If we reached the end of both the pattern and the string, we succeeded
-      if (patIt == tmpPattern.end() && strIt == tmpStr.end()) {
-        return true;
+      //If remaining pattern is only '*', skip over it
+      while (patIt != tmpPattern.end() && *patIt == '*') {
+        ++patIt;
       }
-      else {
-        return false;
-      }
+
+      //If we have exhausted the pattern, we have a match
+      return patIt == tmpPattern.end();
     }
 
     template <class T>

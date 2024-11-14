@@ -59,7 +59,7 @@ namespace geEngineSDK {
     stackFrame.AddrStack.Mode = AddrModeFlat;
     stackFrame.AddrFrame.Mode = AddrModeFlat;
 
-#if GE_ARCH_TYPE == GE_ARCHITECTURE_x86_64
+#if USING(GE_ARCHITECTURE_x86_64)
     stackFrame.AddrPC.Offset = context.Rip;
     stackFrame.AddrStack.Offset = context.Rsp;
     stackFrame.AddrFrame.Offset = context.Rbp;

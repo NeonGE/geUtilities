@@ -118,7 +118,7 @@ namespace geEngineSDK {
     GlobalMemoryStatusEx(&statex);
     output.memoryAmountMb = static_cast<uint32>(statex.ullTotalPhys / (1024 * 1024));
 
-#if GE_ARCH_TYPE == GE_ARCHITECTURE_x86_64
+#if USING(GE_ARCHITECTURE_x86_64)
       output.osIs64Bit = true;
 #else
       HANDLE process = GetCurrentProcess();

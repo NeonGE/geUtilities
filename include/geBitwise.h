@@ -112,7 +112,7 @@ namespace geEngineSDK {
 #endif
     }
 
-#if GE_ARCH_TYPE == GE_ARCHITECTURE_x86_64
+#if USING(GE_ARCHITECTURE_x86_64)
     /**
      * @brief Finds the most-significant non-zero bit in the provided value and
      *        returns the index of that bit.
