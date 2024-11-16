@@ -126,17 +126,18 @@ namespace geEngineSDK {
 
     GE_NODISCARD static FORCEINLINE int32
     round(float F) {
-      return floor(F + 0.5f);
+      return trunc(std::round(F));
     }
 
     GE_NODISCARD static FORCEINLINE float
     roundFloat(float F) {
-      return floorFloat(F + 0.5f);
+      return std::round(F);
     }
 
     GE_NODISCARD static FORCEINLINE double
     roundDouble(double F) {
-      return floorDouble(F + 0.5);
+      // /fixme optimize and consider that it needs to reurn a double
+      return std::round(F);
     }
     
     GE_NODISCARD static FORCEINLINE int32
@@ -209,6 +210,17 @@ namespace geEngineSDK {
       return 1.0f / std::sqrt(F);
     }
 
+    //Implement reverse of carmack's fast inv sqrt
+    GE_NODISCARD static FORCEINLINE float
+    carmackInvSqrt(float F) {
+      float Half = 0.5f * F;
+      int32 I = *reinterpret_cast<int32*>(&F);
+      I = 0x5f3759df - (I >> 1);
+      F = *reinterpret_cast<float*>(&I);
+      F = F * (1.5f - Half * F * F);
+      return F;
+    }
+
     GE_NODISCARD static FORCEINLINE float
     invSqrtEst(float F) {
       return invSqrt(F);
@@ -216,7 +228,8 @@ namespace geEngineSDK {
 
     static FORCEINLINE bool
     isNaN(float A) {
-      return ((*reinterpret_cast<uint32*>(&A)) & 0x7FFFFFFF) > 0x7F800000;
+      return ((*reinterpret_cast<uint32*>(&A)) & 0x7F800000) == 0x7F800000 &&
+             ((*reinterpret_cast<uint32*>(&A)) & 0x007FFFFF) != 0;
     }
 
     static FORCEINLINE bool
