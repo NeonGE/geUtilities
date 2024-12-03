@@ -194,8 +194,14 @@
  */
 /*****************************************************************************/
 #if USING(GE_COMPILER_MSVC)                   //If compiling on Visual Studio
+#   undef FORCEINLINE
 #   if GE_COMP_VER >= 1200                    //Visual Studio 6 or higher
 #     define FORCEINLINE __forceinline        //Use __forceinline
+#     ifndef RESTRICT
+#       define RESTRICT __restrict            //No alias hint
+#     endif
+#   else
+#     define FORCEINLINE __inline             //Use __inline
 #     ifndef RESTRICT
 #       define RESTRICT __restrict            //No alias hint
 #     endif
