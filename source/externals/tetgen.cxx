@@ -19054,7 +19054,6 @@ int tetgenmesh::add_steinerpt_in_segment(face* misseg, int searchlevel)
   enum interresult dir;
   REAL P[3], Q[3], tp, tq;
   REAL len, smlen = 0, split = 0, split_q = 0;
-  int success;
   int i;
 
   startpt = sorg(*misseg);
@@ -19077,11 +19076,17 @@ int tetgenmesh::add_steinerpt_in_segment(face* misseg, int searchlevel)
 
   if (dir == ACROSSFACE) {
     // A face is intersected with the segment. Try to flip it.
-    success = removefacebyflips(&searchtet, &fc);
+#ifndef NDEBUG
+    int success =
+#endif
+    removefacebyflips(&searchtet, &fc);
     assert(success == 0);
   } else if (dir == ACROSSEDGE) {
     // An edge is intersected with the segment. Try to flip it.
-    success = removeedgebyflips(&searchtet, &fc);
+#ifndef NDEBUG
+    int success =
+#endif
+    removeedgebyflips(&searchtet, &fc);
     assert(success != 2);
   } else {
     terminatetetgen(this, 3); // It may be a PLC problem.
@@ -27888,7 +27893,7 @@ void tetgenmesh::qualitystatistics()
   REAL smallestratio, biggestratio;
   REAL smallestdiangle, biggestdiangle;
   REAL smallestfaangle, biggestfaangle;
-  REAL total_tet_vol, total_tetprism_vol;
+  //REAL total_tet_vol, total_tetprism_vol;
   REAL tetvol, minaltitude;
   REAL cirradius, minheightinv; // insradius;
   REAL shortlen, longlen;
@@ -27909,8 +27914,8 @@ void tetgenmesh::qualitystatistics()
 
   shortlen = longlen = 0.0;
   smalldiangle = bigdiangle = 0.0;
-  total_tet_vol = 0.0;
-  total_tetprism_vol = 0.0;
+  //total_tet_vol = 0.0;
+  //total_tetprism_vol = 0.0;
 
   radiusratiotable[0]  =    0.707;    radiusratiotable[1]  =     1.0;
   radiusratiotable[2]  =      1.1;    radiusratiotable[3]  =     1.2;
@@ -27963,8 +27968,8 @@ void tetgenmesh::qualitystatistics()
 
     // Get the tet volume.
     tetvol = orient3dfast(p[1], p[0], p[2], p[3]) / 6.0;
-    total_tet_vol += tetvol;
-    total_tetprism_vol += tetprismvol(p[0], p[1], p[2], p[3]);
+    //total_tet_vol += tetvol;
+    //total_tetprism_vol += tetprismvol(p[0], p[1], p[2], p[3]);
 
     // Calculate the largest and smallest volume.
     if (tetvol < smallestvolume) {
@@ -28460,7 +28465,7 @@ void tetgenmesh::jettisonnodes()
   point pointloop;
   bool jetflag;
   int oldidx, newidx;
-  int remcount;
+  //int remcount;
 
   if (!b->quiet) {
     printf("Jettisoning redundant points.\n");
@@ -28469,14 +28474,14 @@ void tetgenmesh::jettisonnodes()
   points->traversalinit();
   pointloop = pointtraverse();
   oldidx = newidx = 0; // in->firstnumber;
-  remcount = 0;
+  //remcount = 0;
   while (pointloop != (point) NULL) {
     jetflag = (pointtype(pointloop) == DUPLICATEDVERTEX) || 
       (pointtype(pointloop) == UNUSEDVERTEX);
     if (jetflag) {
       // It is a duplicated or unused point, delete it.
       pointdealloc(pointloop);
-      remcount++;
+      //remcount++;
     } else {
       // Re-index it.
       setpointmark(pointloop, newidx + in->firstnumber);

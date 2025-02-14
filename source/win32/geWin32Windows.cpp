@@ -240,7 +240,8 @@ namespace geEngineSDK {
       HDC hdcMem = CreateCompatibleDC(hdcScreen);
       auto hOldBitmap = static_cast<HBITMAP>(SelectObject(hdcMem, backgroundBitmap));
 
-      BLENDFUNCTION blend = {0};
+      BLENDFUNCTION blend;
+      ge_zero_out(blend);
       blend.BlendOp = AC_SRC_OVER;
       blend.SourceConstantAlpha = 255;
       blend.AlphaFormat = AC_SRC_ALPHA;
@@ -253,7 +254,7 @@ namespace geEngineSDK {
       size.cx = m_windowData->width;
       size.cy = m_windowData->height;
 
-      POINT zero = {0};
+      POINT zero = {0, 0};
 
       ::UpdateLayeredWindow(m_windowData->hWnd,
                             hdcScreen,

@@ -19,7 +19,7 @@
 #include "geCompression.h"
 #include "geDataStream.h"
 #include "geDebug.h"
-#include "Externals/lz4.h"
+#include "externals/lz4.h"
 
 namespace geEngineSDK {
   using std::static_pointer_cast;
@@ -116,7 +116,7 @@ namespace geEngineSDK {
       return nullptr;
     }
     
-    if (decompSize != originalDataSize) { //This should never happen
+    if (decompSize != static_cast<int32>(originalDataSize)) { //This should never happen
       if (reportProgress) {
         reportProgress(1.0f);
       }

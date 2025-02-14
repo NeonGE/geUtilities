@@ -464,8 +464,8 @@ namespace geEngineSDK {
      */
     void
     to3x4MatrixTranspose(float* Out) const {
-      const float* RESTRICT Src = &_m[0];
-      float* RESTRICT Dest = Out;
+      const float* Src = &_m[0];
+      float* Dest = Out;
 
       Dest[0] = Src[0];   // [0][0]
       Dest[1] = Src[4];   // [1][0]
@@ -485,15 +485,15 @@ namespace geEngineSDK {
 
    public:
     union {
-      MS_ALIGN(16) float m[4][4] GCC_ALIGN(16);
-      MS_ALIGN(16) float _m[16] GCC_ALIGN(16);
+      float ALIGN_AS(16) m[4][4];
+      float ALIGN_AS(16)_m[16];
     };
 
     /**
      * @brief Constants for Matrix with Zero values and Identity values
      */
-    MS_ALIGN(16) static GE_UTILITIES_EXPORT const Matrix4 ZERO GCC_ALIGN(16);
-    MS_ALIGN(16) static GE_UTILITIES_EXPORT const Matrix4 IDENTITY GCC_ALIGN(16);
+    static GE_UTILITIES_EXPORT const Matrix4 ALIGN_AS(16) ZERO;
+    static GE_UTILITIES_EXPORT const Matrix4 ALIGN_AS(16) IDENTITY;
   };
 
   /**
@@ -508,7 +508,7 @@ namespace geEngineSDK {
      * Variables
      */
     /*************************************************************************/
-    MS_ALIGN(16) float m[NumRows][NumColumns] GCC_ALIGN(16);
+    float ALIGN_AS(16) m[NumRows][NumColumns];
 
     /**
      * @brief Empty constructor
@@ -1311,9 +1311,9 @@ namespace geEngineSDK {
   Matrix4::concatTranslation(const Vector3& Translation) const {
     Matrix4 Result;
 
-    float* RESTRICT Dest = &Result.m[0][0];
-    const float* RESTRICT Src = &m[0][0];
-    const float* RESTRICT Trans = &Translation.x;
+    float* Dest = &Result.m[0][0];
+    const float* Src = &m[0][0];
+    const float* Trans = &Translation.x;
 
     Dest[0] = Src[0];
     Dest[1] = Src[1];

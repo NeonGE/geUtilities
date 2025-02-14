@@ -24,7 +24,7 @@
 #include "geVector4.h"
 
 namespace geEngineSDK {
-  MS_ALIGN(16) class Plane : public Vector3
+  class ALIGN_AS(16) Plane : public Vector3
   {
    public:
     /**
@@ -235,7 +235,7 @@ namespace geEngineSDK {
      * @brief The w-component.
      */
     float w;
-  }GCC_ALIGN(16);
+  };
 }
 
 namespace geEngineSDK {

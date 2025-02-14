@@ -34,8 +34,8 @@ namespace geEngineSDK {
     : m_name(name),
       m_priority(priority),
       m_taskId(0),
-      m_taskWorker(move(taskWorker)),
-      m_taskDependency(move(dependency)),
+      m_taskWorker(std::move(taskWorker)),
+      m_taskDependency(std::move(dependency)),
       m_state(0),
       m_parent(nullptr) {}
 
@@ -46,9 +46,9 @@ namespace geEngineSDK {
                SPtr<Task> dependency) {
     return ge_shared_ptr_new<Task>(PrivatelyConstruct(),
                                    name,
-                                   move(taskWorker),
+                                   std::move(taskWorker),
                                    priority,
-                                   move(dependency));
+                                   std::move(dependency));
   }
 
   bool
@@ -79,11 +79,11 @@ namespace geEngineSDK {
                        uint32 count,
                        TASKPRIORITY::E priority,
                        SPtr<Task> dependency)
-    : m_name(move(name)),
+    : m_name(std::move(name)),
       m_count(count),
       m_priority(priority),
-      m_taskWorker(move(taskWorker)),
-      m_taskDependency(move(dependency))
+      m_taskWorker(std::move(taskWorker)),
+      m_taskDependency(std::move(dependency))
   {}
 
   SPtr<TaskGroup>
@@ -93,10 +93,10 @@ namespace geEngineSDK {
                     TASKPRIORITY::E priority,
                     SPtr<Task> dependency) {
     return ge_shared_ptr_new<TaskGroup>(PrivatelyConstruct(),
-                                        move(name),
-                                        move(taskWorker),
+                                        std::move(name),
+                                        std::move(taskWorker),
                                         count, priority,
-                                        move(dependency));
+                                        std::move(dependency));
   }
 
   bool
@@ -184,7 +184,7 @@ namespace geEngineSDK {
       task->m_state.store(0); //Reset state in case the task is getting re-queued
 
       m_checkTasks = true;
-      m_taskQueue.insert(move(task));
+      m_taskQueue.insert(std::move(task));
     }
 
     taskGroup->m_parent = this;

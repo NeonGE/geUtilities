@@ -81,7 +81,7 @@ namespace geEngineSDK {
       //Create an array to store the parameters and fill it with the parameters sent
       ParamData<T> parameters[MAX_PARAMS];
       memset(parameters, 0, sizeof(parameters));
-      getParams(parameters, 0U, forward<Args>(args)...);
+      getParams(parameters, 0U, std::forward<Args>(args)...);
 
       //Brackets characters plus NULL terminator
       T bracketChars[MAX_IDENTIFIER_SIZE + 1];
@@ -253,7 +253,7 @@ namespace geEngineSDK {
      */
     template<class T>
     static String
-    toString(T* param) {
+    toString(T* /*param*/) {
       static_assert(!is_same<T, T>::value, "Invalid pointer type.");
       return "";
     }
@@ -302,7 +302,7 @@ namespace geEngineSDK {
      * @brief Helper method that converts a wide character array to a wide string.
      */
     template<class T>
-    static WString toWString(T* param) {
+    static WString toWString(T* /*param*/) {
       static_assert(!is_same<T, T>::value, "Invalid pointer type.");
       return L"";
     }
@@ -345,7 +345,7 @@ namespace geEngineSDK {
                                                                     * sizeof(char)));
       parameters[idx].m_size = sourceParam.size();
       sourceParam.copy(parameters[idx].m_buffer, parameters[idx].m_size, 0);
-      getParams(parameters, idx + 1, forward<Args>(args)...);
+      getParams(parameters, idx + 1, std::forward<Args>(args)...);
     }
 
     /**

@@ -42,9 +42,15 @@ namespace geEngineSDK {
     m_outputStream.open(fileLocation.toPlatformString().c_str(),
                         ios::out | ios::binary);
     if (m_outputStream.fail()) {
-      GE_LOG(kWarning, FileSystem, "Failed to save file: \"{0}\". Error: {1}.",
-             fileLocation, strerror(errno));
+      char errorBuffer[256];
+      strerror_s(errorBuffer, sizeof(errorBuffer), errno);
+      GE_LOG(kWarning,
+             FileSystem,
+             "Failed to save file: \"{0}\". Error: {1}.",
+             fileLocation,
+             errorBuffer);
     }
+
   }
 
   FileEncoder::~FileEncoder() {

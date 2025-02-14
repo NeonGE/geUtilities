@@ -150,7 +150,7 @@ namespace geEngineSDK {
       TextureAtlasLayout& curLayout = layouts.back();
 
       //Find largest unassigned element that fits
-      uint32 sizeLimit = NumLimit::MAX_UINT32;
+      //uint32 sizeLimit = NumLimit::MAX_UINT32;
       while (true) {
         uint32 largestId = NumLimit::MAX_UINT32;
 
@@ -186,9 +186,9 @@ namespace geEngineSDK {
           element.output.page = static_cast<uint32>(layouts.size() - 1);
           --remainingCount;
         }
-        else {
-          sizeLimit = element.input.width * element.input.height;
-        }
+        //else {
+        //  sizeLimit = element.input.width * element.input.height;
+        //}
       }
     }
 

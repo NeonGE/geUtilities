@@ -324,7 +324,9 @@ namespace geEngineSDK {
      *        polymorphism with smart points (if they use the same allocator).
      */
     template<class T2, std::enable_if_t<std::is_convertible<T2*, T*>::value, int> = 0>
-    CONSTEXPR Deleter(const Deleter<T2, Alloc>& other) _NOEXCEPT {}
+    CONSTEXPR Deleter(const Deleter<T2, Alloc>& other) _NOEXCEPT {
+      GE_UNREFERENCED_PARAMETER(other);
+    }
 
     void
     operator()(T* ptr) const {
@@ -413,7 +415,7 @@ namespace geEngineSDK {
   template<class T, class... Args>
   T*
   ge_new(Args &&...args) {
-    return new (ge_alloc<T, GenAlloc>()) T(forward<Args>(args)...);
+    return new (ge_alloc<T, GenAlloc>()) T(std::forward<Args>(args)...);
   }
 
   /**
@@ -547,7 +549,7 @@ namespace geEngineSDK {
     template<class... Args>
     static void
     construct(pointer p, Args&& ...args) {
-      new(p) T(forward<Args>(args)...);
+      new(p) T(std::forward<Args>(args)...);
     }
   };
 }

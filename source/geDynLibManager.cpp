@@ -59,7 +59,7 @@ namespace geEngineSDK {
       return iterFind->get();
     }
 
-    auto newLib = ge_new<DynLib>(move(filename));
+    auto newLib = ge_new<DynLib>(std::move(filename));
     m_loadedLibraries.emplace_hint(iterFind, newLib);
     return newLib;
   }

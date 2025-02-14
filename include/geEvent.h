@@ -351,7 +351,7 @@ namespace geEngineSDK {
         ConnectionData* next = static_cast<ConnectionData*>(conn->m_next);
 
         if (nullptr != conn->m_func) {
-          conn->m_func(forward<Args>(args)...);
+          conn->m_func(std::forward<Args>(args)...);
         }
 
         conn = next;

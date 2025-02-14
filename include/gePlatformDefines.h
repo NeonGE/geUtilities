@@ -72,7 +72,7 @@
 #   define GE_PLATFORM_XBOX      NOT_IN_USE
 #endif
 
-#if defined(_MSC_VER)
+#if defined(_MSC_VER) && !defined(__clang__)
 #   define GE_COMPILER_MSVC      IN_USE
 #else
 #   define GE_COMPILER_MSVC      NOT_IN_USE
@@ -272,38 +272,10 @@
  * Memory Alignment macros
  */
 /*****************************************************************************/
-#if USING(GE_COMPILER_MSVC)   // If compiling on Visual Studio (Windows)
-#   define MS_ALIGN(n)  __declspec(align(n))
-#   ifndef GCC_PACK
-#     define GCC_PACK(n)
-#   endif
-#   ifndef GCC_ALIGN
-#     define GCC_ALIGN(n)
-#   endif
-
+#if USING(GE_COMPILER_MSVC)
+#   define ALIGN_AS(n)  __declspec(align(n))
 #elif USING(GE_COMPILER_GNUC) || USING(GE_COMPILER_CLANG)
-#   if GE_PLATFORM_PS4 == IN_USE || GE_PLATFORM_PS5 == IN_USE
-      //PlayStation platforms
-#     define MS_ALIGN(n)
-#     define GCC_PACK(n)
-#     define GCC_ALIGN(n) __attribute__((__aligned__(n)))
-
-#   elif USING(GE_PLATFORM_XBOX) || USING(GE_PLATFORM_OSX) ||\
-         USING(GE_PLATFORM_LINUX) || USING(GE_PLATFORM_ANDROID) ||\
-         USING(GE_PLATFORM_IOS)
-      //macOS, Xbox, Linux, and Android (Unix-like systems)
-#     define MS_ALIGN(n)
-#     define GCC_PACK(n)  __attribute__((packed, aligned(n)))
-#     define GCC_ALIGN(n) __attribute__((aligned(n)))
-
-    #else
-      // Any other Unix-like system (default Unix configuration)
-#     define MS_ALIGN(n)
-#     define GCC_PACK(n)  __attribute__((packed, aligned(n)))
-#     define GCC_ALIGN(n) __attribute__((aligned(n)))
-#   endif
-#else
-#   error "Unsupported compiler or platform detected."
+#   define ALIGN_AS(n) __attribute__((aligned(n)))
 #endif
 
 #ifndef CONSTEXPR

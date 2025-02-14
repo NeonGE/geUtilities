@@ -17,7 +17,7 @@
  */
 /*****************************************************************************/
 #include "gePrerequisitesUtilities.h"
-#include "Externals/md5.h"
+#include "externals/md5.h"
 
 namespace geEngineSDK {
   String

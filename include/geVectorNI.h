@@ -37,6 +37,18 @@ namespace geEngineSDK {
       memcpy(v, val, sizeof(v));
     }
 
+    VectorNI(const VectorNI& rhs) {
+      memcpy(v, rhs.v, sizeof(v));
+    }
+
+    VectorNI&
+    operator=(const VectorNI& rhs) {
+      if (this != &rhs) {
+        memcpy(v, rhs.v, sizeof(v));
+      }
+      return *this;
+    }
+
     int32
     operator[](SIZE_T i) const {
       GE_ASSERT(i < N);
@@ -50,14 +62,9 @@ namespace geEngineSDK {
     }
 
     VectorNI&
-    operator=(const VectorNI& rhs) {
-      memcpy(v, rhs.v, sizeof(v));
-      return *this;
-    }
-
-    VectorNI&
     operator=(int32 val[N]) {
       memcpy(v, val, sizeof(v));
+      return *this;
     }
 
     bool

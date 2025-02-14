@@ -746,12 +746,14 @@ namespace geEngineSDK {
       }
     }
 
+    tm timeinfo;
     if (isUTC) {
-      strftime(out, sizeof(out), formatInput.c_str(), gmtime(&time));
+      gmtime_s(&timeinfo, &time);
     }
     else {
-      strftime(out, sizeof(out), formatInput.c_str(), localtime(&time));
+      localtime_s(&timeinfo, &time);
     }
+    strftime(out, sizeof(out), formatInput.c_str(), &timeinfo);
 
     return String(out);
   }

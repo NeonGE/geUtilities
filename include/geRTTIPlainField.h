@@ -187,7 +187,7 @@ namespace geEngineSDK {
       m_valueGetter = getter;
       m_valueSetter = setter;
 
-      init(move(name),
+      init(std::move(name),
            uniqueId,
            false,
            SERIALIZABLE_FIELD_TYPE::kPlain,
@@ -232,7 +232,7 @@ namespace geEngineSDK {
       m_arraySizeGetter = getSize;
       m_arraySizeSetter = setSize;
 
-      init(move(name),
+      init(std::move(name),
            uniqueId,
            true,
            SERIALIZABLE_FIELD_TYPE::kPlain,

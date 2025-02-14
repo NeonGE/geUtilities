@@ -69,7 +69,7 @@ namespace geEngineSDK {
    * @brief   128 bits variable type
    */
   /***************************************************************************/
-  MS_ALIGN(16) class QWord
+  class ALIGN_AS(16) QWord
   {
     /**
      * Constructor
@@ -100,7 +100,7 @@ namespace geEngineSDK {
    public:
     uint64 m_lower; //The lower 64 bits of the 128 bit integer.
     int64	m_upper;  //The upper 64 bits of the 128 bit integer.
-  }GCC_ALIGN(16);
+  };
 	
   using int128 = QWord;   //Signed 128 bit integer.
   using uint128 = QWord;  //Unsigned 128 bit integer.

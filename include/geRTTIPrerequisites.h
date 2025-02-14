@@ -54,7 +54,7 @@ namespace geEngineSDK {
   template<class T>
   struct RTTIPlainType
   {
-    static_assert(std::is_pod<T>::value,
+    static_assert(std::is_trivially_copyable<T>::value,
                   "Provided type isn't plain-old-data. You need to specialize RTTIPlainType" \
                   "template in order to serialize this type."                                \
                   "(Or call GE_ALLOW_MEMCPY_SERIALIZATION(type) macro if you are sure the"   \
@@ -712,8 +712,9 @@ namespace geEngineSDK {
       memory += firstSize;
 
       uint32 secondSize = RTTIPlainType<B>::fromMemory(data.second, memory);
+      memory += secondSize;
 
-      return size;
+      return size + secondSize;
     }
 
     /**

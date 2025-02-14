@@ -1487,8 +1487,8 @@ namespace geEngineSDK {
     template<typename T>
     GE_NODISCARD static T
     rombergIntegration(T a, T b, int32 order, const std::function<T(T)> integrand) {
-      T h[order + 1];
-      T r[order + 1][order + 1];
+      Vector<T> h(order + 1);
+      Vector<Vector<T>> r(order + 1, Vector<T>(order + 1));
 
       for (int32 i = 1; i < order + 1; ++i) {
         h[i] = (b - a) / Math::pow(2, i - 1);

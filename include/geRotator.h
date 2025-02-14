@@ -646,6 +646,10 @@ namespace geEngineSDK {
         return yaw;//pitch;
       case AXIS::kZ:
         return roll;// yaw;
+      case AXIS::kNone:
+      default: {
+        GE_LOG(kWarning, Generic, "Invalid Axis.");
+      }
     }
 
     return 0.f;
@@ -667,6 +671,10 @@ namespace geEngineSDK {
         //yaw = Component;
         roll = Component;
         break;
+      case AXIS::kNone:
+      default: {
+        GE_LOG(kWarning, Generic, "Invalid Axis.");
+      }
     }
   }
 

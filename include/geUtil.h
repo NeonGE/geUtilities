@@ -114,7 +114,7 @@ namespace geEngineSDK {
    */
   template <class T, SIZE_T N>
   CONSTEXPR SIZE_T
-  ge_size(const T(&array)[N]) {
+  ge_size(const T(&)[N]) {
     return N;
   }
 

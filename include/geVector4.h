@@ -32,7 +32,7 @@ namespace geEngineSDK {
   /**
   * 
   */
-  MS_ALIGN(16) class Vector4
+  class ALIGN_AS(16) Vector4
   {
    public:
     /**
@@ -422,7 +422,7 @@ namespace geEngineSDK {
      * @brief The vector's W-component.
      */
     float w;
-  } GCC_ALIGN(16);
+  };
 
   /***************************************************************************/
   /**

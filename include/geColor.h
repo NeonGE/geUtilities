@@ -603,7 +603,7 @@ namespace geEngineSDK {
 #   pragma warning( pop )
 # else
     //Linux x86, etc
-    uint8 b GCC_ALIGN(4);
+    uint8 b ALIGN_AS(4);
     uint8 g, r, a;
 # endif
 #else

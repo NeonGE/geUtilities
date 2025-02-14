@@ -30,7 +30,7 @@
 # pragma warning(disable: 4244)
 #endif
 
-# include "Externals/simdpp/simd.h"
+# include "externals/simdpp/simd.h"
 
 #if USING(GE_COMPILER_MSVC)
 # pragma warning(default: 4127)

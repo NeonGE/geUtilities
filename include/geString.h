@@ -825,7 +825,7 @@ namespace geEngineSDK {
     template<class T, class... Args>
     static BasicString<T>
     format(const BasicString<T>& source, Args&&... args) {
-      return StringFormat::format(source.c_str(), forward<Args>(args)...);
+      return StringFormat::format(source.c_str(), std::forward<Args>(args)...);
     }
 
     /**
@@ -834,7 +834,7 @@ namespace geEngineSDK {
     template<class T, class... Args>
     static BasicString<T>
     format(const T* source, Args&&... args) {
-      return StringFormat::format(source, forward<Args>(args)...);
+      return StringFormat::format(source, std::forward<Args>(args)...);
     }
 
     /**

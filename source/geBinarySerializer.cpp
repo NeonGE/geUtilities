@@ -281,7 +281,7 @@ m_totalBytesRead -= size;                                                     \
     GE_ASSERT(m_totalBytesRead == m_totalBytesToRead);
 
     //Don't set report callback until we actually do the reads
-    m_reportProgress = move(progress);
+    m_reportProgress = std::move(progress);
     m_totalBytesRead = 0;
 
     //Now go through all of the objects and actually decode them

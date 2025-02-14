@@ -349,6 +349,8 @@ R"(<!DOCTYPE HTML PUBLIC '-//W3C//DTD HTML 4.0 Transitional//EN'>
         case LogVerbosity::kVeryVerbose:
           builtMsg.append("[VERY_VERBOSE]");
           break;
+        case LogVerbosity::kAny:
+          break;
       }
 
       String categoryName;

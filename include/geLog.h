@@ -89,7 +89,7 @@ namespace geEngineSDK {
    public:
     LogEntry() = default;
     LogEntry(String msg, LogVerbosity verbosity, uint32 category)
-      : m_msg(move(msg)),
+      : m_msg(std::move(msg)),
         m_verbosity(verbosity),
         m_category(category),
         m_localTime(time(nullptr))

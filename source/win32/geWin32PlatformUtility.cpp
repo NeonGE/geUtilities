@@ -42,7 +42,8 @@ namespace geEngineSDK {
       auto rtlGetVersionFunc = reinterpret_cast<RtlGetVersionPtr>(
                                  GetProcAddress(handle, "RtlGetVersion"));
       if (nullptr != rtlGetVersionFunc) {
-        RTL_OSVERSIONINFOW rovi = { 0 };
+        RTL_OSVERSIONINFOW rovi;
+        ge_zero_out(rovi);
         rovi.dwOSVersionInfoSize = sizeof(rovi);
         if (0 == rtlGetVersionFunc(&rovi)) {
           return rovi;
@@ -50,7 +51,8 @@ namespace geEngineSDK {
       }
     }
 
-    RTL_OSVERSIONINFOW rovi = { 0 };
+    RTL_OSVERSIONINFOW rovi;
+    ge_zero_out(rovi);
     return rovi;
   }
 
@@ -138,7 +140,7 @@ namespace geEngineSDK {
   }
 
   void
-  PlatformUtility::terminate(bool force) {
+    PlatformUtility::terminate(bool force) {
     if (!force) {
       PostQuitMessage(0);
     }

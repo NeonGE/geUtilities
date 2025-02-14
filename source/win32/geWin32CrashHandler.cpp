@@ -207,16 +207,16 @@ namespace geEngineSDK {
     }
 
     g_PSAPILib = ge_new<DynLib>("PSAPI.dll");
-    g_enumProcessModules = static_cast<EnumProcessModulesType>
+    g_enumProcessModules = reinterpret_cast<EnumProcessModulesType>
                             (g_PSAPILib->getSymbol("EnumProcessModules"));
 
-    g_getModuleBaseName = static_cast<GetModuleBaseNameType>
+    g_getModuleBaseName = reinterpret_cast<GetModuleBaseNameType>
                             (g_PSAPILib->getSymbol("GetModuleFileNameExA"));
 
-    g_getModuleFileNameEx = static_cast<GetModuleFileNameExType>
+    g_getModuleFileNameEx = reinterpret_cast<GetModuleFileNameExType>
                               (g_PSAPILib->getSymbol("GetModuleBaseNameA"));
 
-    g_getModuleInformation = static_cast<GetModuleInformationType>
+    g_getModuleInformation = reinterpret_cast<GetModuleInformationType>
                                 (g_PSAPILib->getSymbol("GetModuleInformation"));
   }
 

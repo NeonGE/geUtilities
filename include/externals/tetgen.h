@@ -946,7 +946,7 @@ public:
     
     triface() : tet(0), ver(0) {}
 
-    triface(const triface& other) : tet(other.tet), ver(other.ver) {}
+    //triface(const triface& other) : tet(other.tet), ver(other.ver) {}
 /*   
     inline triface&
     operator=(const triface& other){

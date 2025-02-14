@@ -24,8 +24,6 @@ namespace geEngineSDK {
   using std::time;
   using std::time_t;
   using std::strftime;
-  using std::gmtime;
-  using std::localtime;
   using std::memory_order_relaxed;
 
   CONSTEXPR uint32 Time::MAX_ACCUM_FIXED_UPDATES;
@@ -122,12 +120,14 @@ namespace geEngineSDK {
   Time::getCurrentDateTimeString(bool isUTC) {
     time_t t = time(nullptr);
     char out[100];
+    tm timeinfo;
     if (isUTC) {
-      strftime(out, sizeof(out), "%A, %B %d, %Y %T", gmtime(&t));
+      gmtime_s(&timeinfo, &t);
     }
     else {
-      strftime(out, sizeof(out), "%A, %B %d, %Y %T", localtime(&t));
+      localtime_s(&timeinfo, &t);
     }
+    strftime(out, sizeof(out), "%A, %B %d, %Y %T", &timeinfo);
 
     return String(out);
   }
@@ -136,12 +136,14 @@ namespace geEngineSDK {
   Time::getCurrentTimeString(bool isUTC) {
     time_t t = time(nullptr);
     char out[15];
+    tm timeinfo;
     if (isUTC) {
-      strftime(out, sizeof(out), "%T", std::gmtime(&t));
+      gmtime_s(&timeinfo, &t);
     }
     else {
-      strftime(out, sizeof(out), "%T", std::localtime(&t));
+      localtime_s(&timeinfo, &t);
     }
+    strftime(out, sizeof(out), "%T", &timeinfo);
 
     return String(out);
   }
@@ -149,12 +151,14 @@ namespace geEngineSDK {
   String
   Time::getAppStartUpDateString(bool isUTC) {
     char out[100];
+    tm timeinfo;
     if (isUTC) {
-      strftime(out, sizeof(out), "%A, %B %d, %Y %T", gmtime(&m_appStartUpDate));
+      gmtime_s(&timeinfo, &m_appStartUpDate);
     }
     else {
-      strftime(out, sizeof(out), "%A, %B %d, %Y %T", localtime(&m_appStartUpDate));
+      localtime_s(&timeinfo, &m_appStartUpDate);
     }
+    strftime(out, sizeof(out), "%A, %B %d, %Y %T", &timeinfo);
 
     return String(out);
   }

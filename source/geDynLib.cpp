@@ -31,7 +31,7 @@ namespace geEngineSDK {
   using std::move;
 
   DynLib::DynLib(String name)
-    : m_name(move(name)),
+    : m_name(std::move(name)),
 #if USING(GE_PLATFORM_PS4)
     m_hInst(0)
 #else
@@ -119,7 +119,9 @@ namespace geEngineSDK {
     DYNLIB_GETSYM(m_hInst, strName.c_str(), &pAddressPtr);
     return pAddressPtr;
 #else
-    return static_cast<void*>(DYNLIB_GETSYM(m_hInst, strName.c_str()));
+    typedef void (*FuncPtr)();
+    FuncPtr funcPtr = reinterpret_cast<FuncPtr>(DYNLIB_GETSYM(m_hInst, strName.c_str()));
+    return reinterpret_cast<void*>(funcPtr);
 #endif
   }
 
