@@ -20,7 +20,7 @@
 /*****************************************************************************/
 #include <cstdint>
 #include <cstddef>
-#if USING(GE_PLATFORM_PS4)
+#if USING(GE_PLATFORM_PS4) || USING(GE_PLATFORM_PS5)
 # include <scebase.h>
 #endif
 

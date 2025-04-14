@@ -304,7 +304,9 @@
 #     define _NOEXCEPT
 #   endif
 #else
-#   define _NOEXCEPT
+#   ifndef _NOEXCEPT
+#     define _NOEXCEPT
+#   endif
 #endif
 
 /*****************************************************************************/

@@ -36,7 +36,7 @@
 # define DYNLIB_GETSYM(a, b) dlsym(a, b)
 # define DYNLIB_UNLOAD(a) dlclose(a)
 
-#elif USING(GE_PLATFORM_PS4)
+#elif USING(GE_PLATFORM_PS4) || USING(GE_PLATFORM_PS5)
 # define DYNLIB_HANDLE SceKernelModule
 # define DYNLIB_LOAD(a, b, c, d, e, f) sceKernelLoadStartModule(a, b, c, d, e, f)
 # define DYNLIB_GETSYM(a, b, c) sceKernelDlsym(a, b, c)
@@ -62,7 +62,7 @@ namespace geEngineSDK {
 #elif USING(GE_PLATFORM_WINDOWS)
     static CONSTEXPR const char* EXTENSION = "dll";
     static CONSTEXPR const char* PREFIX = nullptr;
-#elif USING(GE_PLATFORM_PS4)
+#elif USING(GE_PLATFORM_PS4) || USING(GE_PLATFORM_PS5)
     static CONSTEXPR const char* EXTENSION = "prx";
     static CONSTEXPR const char* PREFIX = "a";
 #else
@@ -116,6 +116,6 @@ namespace geEngineSDK {
 
    protected:
     const String m_name;
-    DYNLIB_HANDLE m_hInst = nullptr;  //Handle to the loaded library.
+    DYNLIB_HANDLE m_hInst = 0;  //Handle to the loaded library.
   };
 }

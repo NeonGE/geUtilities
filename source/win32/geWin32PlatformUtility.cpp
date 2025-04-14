@@ -10,7 +10,7 @@
  * @bug	    No known bugs.
  */
 /*****************************************************************************/
-
+#ifdef _WIN32
 /*****************************************************************************/
 /**
  * Includes
@@ -137,16 +137,6 @@ namespace geEngineSDK {
     output.gpuInfo = s_gpuInfo;
 
     return output;
-  }
-
-  void
-    PlatformUtility::terminate(bool force) {
-    if (!force) {
-      PostQuitMessage(0);
-    }
-    else {
-      TerminateProcess(GetCurrentProcess(), 0);
-    }
   }
 
   WString
@@ -324,3 +314,5 @@ namespace geEngineSDK {
     return hBitmap;
   }
 }
+
+#endif

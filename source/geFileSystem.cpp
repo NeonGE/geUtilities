@@ -60,8 +60,8 @@ namespace geEngineSDK {
     return p.has_parent_path() &&
            (p.parent_path() == L"/dev" || p.parent_path() == L"/dev/block");
 
-#elif USING(GE_PLATFORM_LINUX || USING(GE_PLATFORM_OSX) || USING(GE_PLATFORM_IOS) || \
-      USING(GE_PLATFORM_PS4) || USING(GE_PLATFORM_PS5))
+#elif USING(GE_PLATFORM_LINUX) || USING(GE_PLATFORM_OSX) || USING(GE_PLATFORM_IOS) || \
+      USING(GE_PLATFORM_PS4) || USING(GE_PLATFORM_PS5)
     //General UNIX-based check for Linux, macOS, iOS, PS4, PS5
     fileSys::path p = path;
     return p.has_parent_path() && p.parent_path() == L"/dev";

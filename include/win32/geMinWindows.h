@@ -13,6 +13,8 @@
 /*****************************************************************************/
 #pragma once
 
+#ifdef _WIN32
+
 /*****************************************************************************/
 /**
  * Includes
@@ -87,3 +89,5 @@
 #include <Windows.h>
 #include <windowsx.h>
 #include <shellapi.h> //Support for HDROP
+
+#endif // WIN32

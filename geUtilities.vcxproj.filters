@@ -630,5 +630,8 @@
     <ClCompile Include="source\externals\catch_amalgamated.cpp">
       <Filter>Source Files\Externals\Catch2</Filter>
     </ClCompile>
+    <ClCompile Include="source\gePlatformUtility.cpp">
+      <Filter>Source Files\Utilities</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

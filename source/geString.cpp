@@ -716,6 +716,19 @@ namespace geEngineSDK {
     }
   }
 
+#include <ctime>
+#if USING(GE_COMPILER_MSVC)
+# include <time.h>
+#endif
+
+#if USING(GE_COMPILER_MSVC)
+# define LOCALTIME(tm, t) localtime_s(tm, t)
+# define GMTIME(tm, t) gmtime_s(tm, t)
+#else
+# define LOCALTIME(tm, t) (*(tm) = *localtime(t))
+# define GMTIME(tm, t) (*(tm) = *gmtime(t))
+#endif
+
   String
   toString(time_t time,
            bool isUTC,
@@ -748,10 +761,10 @@ namespace geEngineSDK {
 
     tm timeinfo;
     if (isUTC) {
-      gmtime_s(&timeinfo, &time);
+      GMTIME(&timeinfo, &time);
     }
     else {
-      localtime_s(&timeinfo, &time);
+      LOCALTIME(&timeinfo, &time);
     }
     strftime(out, sizeof(out), formatInput.c_str(), &timeinfo);
 

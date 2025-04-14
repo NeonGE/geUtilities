@@ -146,7 +146,7 @@ extern "C" {
  * PS4 specifics
  */
 /*****************************************************************************/
-#if USING(GE_PLATFORM_PS4)
+#if USING(GE_PLATFORM_PS4) || USING(GE_PLATFORM_PS5)
   extern "C" {
 #   include <unistd.h>
 #   include <sys/param.h>

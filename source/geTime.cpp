@@ -20,11 +20,24 @@
 #include "geTimer.h"
 #include "geMath.h"
 
+#include <ctime>
+#if USING(GE_COMPILER_MSVC)
+# include <time.h>
+#endif
+
 namespace geEngineSDK {
   using std::time;
   using std::time_t;
   using std::strftime;
   using std::memory_order_relaxed;
+
+#if USING(GE_COMPILER_MSVC)
+# define LOCALTIME(tm, t) localtime_s(tm, t)
+# define GMTIME(tm, t) gmtime_s(tm, t)
+#else
+# define LOCALTIME(tm, t) (*(tm) = *localtime(t))
+# define GMTIME(tm, t) (*(tm) = *gmtime(t))
+#endif
 
   CONSTEXPR uint32 Time::MAX_ACCUM_FIXED_UPDATES;
   CONSTEXPR uint32 Time::NEW_FIXED_UPDATES_PER_FRAME;
@@ -122,10 +135,10 @@ namespace geEngineSDK {
     char out[100];
     tm timeinfo;
     if (isUTC) {
-      gmtime_s(&timeinfo, &t);
+      GMTIME(&timeinfo, &t);
     }
     else {
-      localtime_s(&timeinfo, &t);
+      LOCALTIME(&timeinfo, &t);
     }
     strftime(out, sizeof(out), "%A, %B %d, %Y %T", &timeinfo);
 
@@ -138,10 +151,10 @@ namespace geEngineSDK {
     char out[15];
     tm timeinfo;
     if (isUTC) {
-      gmtime_s(&timeinfo, &t);
+      GMTIME(&timeinfo, &t);
     }
     else {
-      localtime_s(&timeinfo, &t);
+      LOCALTIME(&timeinfo, &t);
     }
     strftime(out, sizeof(out), "%T", &timeinfo);
 
@@ -153,10 +166,10 @@ namespace geEngineSDK {
     char out[100];
     tm timeinfo;
     if (isUTC) {
-      gmtime_s(&timeinfo, &m_appStartUpDate);
+      GMTIME(&timeinfo, &m_appStartUpDate);
     }
     else {
-      localtime_s(&timeinfo, &m_appStartUpDate);
+      LOCALTIME(&timeinfo, &m_appStartUpDate);
     }
     strftime(out, sizeof(out), "%A, %B %d, %Y %T", &timeinfo);
 

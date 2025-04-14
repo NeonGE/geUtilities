@@ -104,13 +104,8 @@ namespace geEngineSDK {
     void
     disconnect(BaseConnectionData* conn) {
       RecursiveLock lock(m_mutex);
-
       conn->deactivate();
-      --conn->m_handleLinks;
-
-      if (0 == conn->m_handleLinks) {
-        free(conn);
-      }
+      tryFree(conn);
     }
 
     /**
@@ -144,11 +139,7 @@ namespace geEngineSDK {
     void
     freeHandle(BaseConnectionData* conn) {
       RecursiveLock lock(m_mutex);
-
-      --conn->m_handleLinks;
-      if (0 == conn->m_handleLinks&& !conn->m_isActive) {
-        free(conn);
-      }
+      tryFree(conn);
     }
 
     /**
@@ -183,6 +174,16 @@ namespace geEngineSDK {
       m_freeConnections->~BaseConnectionData();
     }
 
+   private:
+    void
+    tryFree(BaseConnectionData* conn) {
+      --conn->m_handleLinks;
+      if (0 == conn->m_handleLinks && !conn->m_isActive) {
+        free(conn);
+      }
+    }
+
+   public:
     BaseConnectionData* m_connections = nullptr;
     BaseConnectionData* m_freeConnections = nullptr;
     BaseConnectionData* m_lastConnection = nullptr;
@@ -209,6 +210,26 @@ namespace geEngineSDK {
       : m_connection(connection),
         m_eventData(std::move(eventData)) {
       ++connection->m_handleLinks;
+    }
+
+    HEvent(HEvent&& other) _NOEXCEPT
+      : m_connection(other.m_connection),
+        m_eventData(std::move(other.m_eventData)) {
+      other.m_connection = nullptr;
+    }
+
+    HEvent&
+    operator=(HEvent&& other) _NOEXCEPT {
+      if (this != &other) {
+        if (m_connection) {
+          m_eventData->freeHandle(m_connection);
+        }
+
+        m_connection = other.m_connection;
+        m_eventData = std::move(other.m_eventData);
+        other.m_connection = nullptr;
+      }
+      return *this;
     }
 
     ~HEvent() {
@@ -245,6 +266,10 @@ namespace geEngineSDK {
     }
 
     HEvent& operator=(const HEvent& rhs) {
+      if (this == &rhs) {
+        return *this;
+      }
+
       m_connection = rhs.m_connection;
       m_eventData = rhs.m_eventData;
 
@@ -291,6 +316,8 @@ namespace geEngineSDK {
 
     /**
      * @brief Register a new callback that will get notified once the event is triggered.
+     * @param  func Callback method to be called when the event is triggered.
+     * @return Handle to the event. This handle can be used to disconnect from the event.
      */
     HEvent
     connect(function<RetType(Args...)> func) {

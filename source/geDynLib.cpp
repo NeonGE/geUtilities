@@ -32,7 +32,7 @@ namespace geEngineSDK {
 
   DynLib::DynLib(String name)
     : m_name(std::move(name)),
-#if USING(GE_PLATFORM_PS4)
+#if USING(GE_PLATFORM_PS4) || USING(GE_PLATFORM_PS5)
     m_hInst(0)
 #else
     m_hInst(nullptr)
@@ -51,7 +51,7 @@ namespace geEngineSDK {
       return;
     }
 
-#if USING(GE_PLATFORM_PS4)
+#if USING(GE_PLATFORM_PS4) || USING(GE_PLATFORM_PS5)
     int startResult = 0;
     m_hInst = static_cast<DYNLIB_HANDLE>(DYNLIB_LOAD( m_name.c_str(),
                                                       0,
@@ -88,7 +88,7 @@ namespace geEngineSDK {
       return;
     }
 
-#if USING(GE_PLATFORM_PS4)
+#if USING(GE_PLATFORM_PS4) || USING(GE_PLATFORM_PS5)
     if (DYNLIB_UNLOAD(m_hInst, 0, NULL, 0, NULL, NULL) != SCE_OK) {
       GE_EXCEPT(InternalErrorException,
                 "Could not unload dynamic library " +
@@ -114,7 +114,7 @@ namespace geEngineSDK {
     if (!m_hInst) {
       return nullptr;
     }
-#if USING(GE_PLATFORM_PS4)
+#if USING(GE_PLATFORM_PS4) || USING(GE_PLATFORM_PS5)
     void* pAddressPtr = nullptr;
     DYNLIB_GETSYM(m_hInst, strName.c_str(), &pAddressPtr);
     return pAddressPtr;

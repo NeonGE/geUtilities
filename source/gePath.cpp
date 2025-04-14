@@ -95,7 +95,8 @@ namespace geEngineSDK {
       default:
 #if USING(GE_PLATFORM_WINDOWS)
         parseWindows(pathStr, numChars);
-#elif USING(GE_PLATFORM_OSX) || USING(GE_PLATFORM_LINUX) || USING(GE_PLATFORM_PS4)
+#elif USING(GE_PLATFORM_OSX) || USING(GE_PLATFORM_LINUX) || \
+      USING(GE_PLATFORM_PS4) || USING(GE_PLATFORM_PS5)
         //TODO: Test parsing with PS4
         parseUnix(pathStr, numChars);
 #else
@@ -124,7 +125,7 @@ namespace geEngineSDK {
       default:
 #if USING(GE_PLATFORM_WINDOWS)
         return buildWindows();
-#elif USING(GE_PLATFORM_OSX) || USING(GE_PLATFORM_LINUX) || USING(GE_PLATFORM_PS4)
+#elif USING(GE_PLATFORM_OSX) || USING(GE_PLATFORM_LINUX) || USING(GE_PLATFORM_PS4) || USING(GE_PLATFORM_PS5)
         return buildUnix();
 #else
         static_assert(false, "Unsupported platform for path.");
