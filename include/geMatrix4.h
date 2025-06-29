@@ -233,6 +233,12 @@ namespace geEngineSDK {
     getTransposed() const;
 
     /**
+     * @brief Transpose this matrix.
+     */
+    FORCEINLINE void
+    transpose();
+
+    /**
      * @return Determinant of this matrix.
      */
     inline float
@@ -940,6 +946,12 @@ namespace geEngineSDK {
     Result.m[3][3] = m[3][3];
 
     return Result;
+  }
+
+  FORCEINLINE void
+  Matrix4::transpose() {
+    Matrix4 Result = getTransposed();
+    *this = Result;
   }
 
   inline float
