@@ -25,6 +25,9 @@
 #include "geDebug.h"
 
 namespace geEngineSDK {
+
+  using std::nullptr_t;
+
   /**
    * @brief Class capable of storing any general type, and safely extracting
    *        the proper type from the internal data.
@@ -44,7 +47,7 @@ namespace geEngineSDK {
     class Data : public DataBase
     {
      public:
-       explicit Data(const ValueType& value) : m_value(value) {}
+      explicit Data(const ValueType& value) : m_value(value) {}
 
       DataBase*
       clone() const override {
@@ -59,7 +62,7 @@ namespace geEngineSDK {
 
     template<typename ValueType>
     explicit Any(const ValueType& value) : m_data(ge_new<Data<ValueType>>(value)) {}
-    explicit Any(std::nullptr_t) : m_data(nullptr) {}
+    explicit Any(nullptr_t) : m_data(nullptr) {}
     Any(const Any& other) 
       : m_data(nullptr != other.m_data ? other.m_data->clone() : nullptr) {}
 

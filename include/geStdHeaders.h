@@ -307,6 +307,8 @@ namespace geEngineSDK {
   template<typename T>
   using Optional = std::optional<T>;
 
+  inline constexpr std::nullopt_t NullOpt{ std::nullopt_t::_Tag{} };
+
   /**
    * @brief Variant object that may hold any of the specified
    */

@@ -182,4 +182,5 @@ bool LogCategory##name::s_registered = Log::_registerCategory(LogCategory##name:
   GE_LOG_CATEGORY(Generic, 3);
   GE_LOG_CATEGORY(Platform, 4);
   GE_LOG_CATEGORY(Serialization, 5);
+  GE_LOG_CATEGORY(RenderAPI, 6);
 }
