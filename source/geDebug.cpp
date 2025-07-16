@@ -62,6 +62,7 @@ namespace geEngineSDK {
   GE_LOG_CATEGORY_IMPL(RTTI);
   GE_LOG_CATEGORY_IMPL(Generic);
   GE_LOG_CATEGORY_IMPL(Platform);
+  GE_LOG_CATEGORY_IMPL(Serialization);
 
   void
   Debug::log(const String& message, LogVerbosity verbosity, uint32 category) {

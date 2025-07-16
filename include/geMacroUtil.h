@@ -41,19 +41,11 @@
 
 /*****************************************************************************/
 /**
- * Safe release of a pointer
- */
-/*****************************************************************************/
-#ifndef SAFE_RELEASE
-# define SAFE_RELEASE(x) if(x) { x->Release(); x = nullptr; }
-#endif
-
-/*****************************************************************************/
-/**
  * Offset of a member in a struct
  * @param member Member to get the offset of
  * @return Offset of the member in the struct
  */
+/*****************************************************************************/
 template<typename T, typename U>
 size_t
 offsetOf(U T::* member) {
@@ -61,3 +53,16 @@ offsetOf(U T::* member) {
 }
 
 /*****************************************************************************/
+/**
+ * Safe release of a COM pointer.
+ * @param ptr Pointer to the COM object to release
+ */
+ /*****************************************************************************/
+template<typename T>
+void
+safeRelease(T*& ptr) {
+  if (ptr) {
+    ptr->Release();
+    ptr = nullptr;
+  }
+}

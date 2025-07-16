@@ -1525,21 +1525,21 @@ namespace geEngineSDK {
     GE_NODISCARD static T
     gaussianQuadrature(T a,
                        T b,
-                       T* roots,
-                       T* coefficients,
-                       const std::function <T(T)>& integrand) {
-      const auto half = static_cast<T>(0.5);
+                       const T* roots,
+                       const T* coefficients,
+                       size_t count,
+                       const std::function<T(T)>& integrand) {
+      const T half = static_cast<T>(0.5);
       const T radius = half * (b - a);
       const T center = half * (b + a);
-      auto res = static_cast<T>(0);
+      T res = static_cast<T>(0);
 
-      for (uint32 i = 0; i < sizeof(roots) / sizeof(*roots); ++i) {
+      for (size_t i = 0; i < count; ++i)
+      {
         res += coefficients[i] * integrand(radius * roots[i] + center);
       }
 
-      res *= radius;
-
-      return res;
+      return res * radius;
     }
 
     /**
