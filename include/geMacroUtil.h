@@ -66,3 +66,15 @@ safeRelease(T*& ptr) {
     ptr = nullptr;
   }
 }
+
+namespace cast {
+  template<typename To, typename From>
+  FORCEINLINE To re(From&& from) {
+    return reinterpret_cast<To>(from);
+  }
+
+  template<typename To, typename From>
+  FORCEINLINE To st(From&& from) {
+    return static_cast<To>(from);
+  }
+}
