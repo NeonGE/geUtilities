@@ -24,9 +24,27 @@
 
 #if USING(GE_USE_GENERIC_FILESYSTEM)
 #   include <filesystem>
-  namespace fileSys = std::filesystem;
+#include "geFileSystem.h"
+namespace fileSys = std::filesystem;
   using std::visit;
   using std::error_code;
+#endif
+
+#if USING(GE_PLATFORM_WINDOWS)
+#include <Win32/geMinWindows.h>
+#include <shlobj.h>
+#elif USING(GE_PLATFORM_OSX)
+#include <cstdlib>
+#include <sys/types.h>
+#include <pwd.h>
+#include <unistd.h>
+#elif USING(GE_PLATFORM_LINUX)
+#include <cstdlib>
+#include <sys/types.h>
+#include <pwd.h>
+#include <unistd.h>
+#include "geFileSystem.h"
+#include "geFileSystem.h"
 #endif
 
 namespace geEngineSDK {
@@ -428,4 +446,70 @@ namespace geEngineSDK {
   FileSystem::createAndOpenFile(const Path& fullPath) {
     return ge_shared_ptr_new<FileDataStream>(fullPath, ACCESS_MODE::kWRITE, true);
   }
+  
+  Path
+  FileSystem::getUserDataDirectoryPath() {
+#if USING(GE_PLATFORM_WINDOWS)
+    ANSICHAR path[MAX_PATH];
+    if (SUCCEEDED(SHGetFolderPathA(nullptr, CSIDL_LOCAL_APPDATA, nullptr, 0, path))) {
+      Path retPath(path);
+      return retPath;
+    }
+    return Path::BLANK;
+
+#elif USING(GE_PLATFORM_OSX) || USING(GE_PLATFORM_LINUX)
+    const char* homeDir = getenv("HOME");
+    if (!homeDir) {
+      homeDir = getpwuid(getuid())->pw_dir;
+    }
+
+    Path baseDir;
+#if USING(GE_PLATFORM_OSX)
+    baseDir.append(String(homeDir) + "/Library/Application Support/");
+#else
+    baseDir.append(String(homeDir) + "/.config/");
+#endif
+    return baseDir;
+#else
+    return Path::BLANK;
+#endif
+  }
+
+  static Path s_enginePath;
+  static Path s_pluginsPath;
+  static Path s_appPath;
+
+  void
+  FileSystem::setEnginePath(const Path& path) {
+    s_enginePath = path;
+  }
+
+  Path
+  FileSystem::getEnginePath() {
+    GE_ASSERT(!s_enginePath.isEmpty());
+    return s_enginePath;
+  }
+
+  void
+  FileSystem::setPluginsPath(const Path& path) {
+    s_pluginsPath = path;
+  }
+
+  Path
+  FileSystem::getPluginsPath() {
+    GE_ASSERT(!s_pluginsPath.isEmpty());
+    return s_pluginsPath;
+  }
+
+  void
+  FileSystem::setAppPath(const Path& path) {
+    s_appPath = path;
+  }
+
+  Path
+  FileSystem::getAppPath() {
+    GE_ASSERT(!s_appPath.isEmpty());
+    return s_appPath;
+  }
+
 }

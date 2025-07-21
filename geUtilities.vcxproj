@@ -141,7 +141,7 @@
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <ImportLibrary>$(GE_ENGINE_SDK)lib/$(PlatformShortName)/$(TargetName).lib</ImportLibrary>
-      <AdditionalDependencies>DbgHelp.lib;IPHLPAPI.lib;Rpcrt4.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Shell32.lib;DbgHelp.lib;IPHLPAPI.lib;Rpcrt4.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <ProjectReference>
       <LinkLibraryDependencies>false</LinkLibraryDependencies>
@@ -166,7 +166,7 @@
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <ImportLibrary>$(GE_ENGINE_SDK)lib/$(PlatformShortName)/$(TargetName).lib</ImportLibrary>
-      <AdditionalDependencies>DbgHelp.lib;IPHLPAPI.lib;Rpcrt4.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Shell32.lib;DbgHelp.lib;IPHLPAPI.lib;Rpcrt4.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <ProjectReference>
       <LinkLibraryDependencies>false</LinkLibraryDependencies>
@@ -219,7 +219,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <ImportLibrary>$(GE_ENGINE_SDK)lib/$(PlatformShortName)/$(TargetName).lib</ImportLibrary>
-      <AdditionalDependencies>DbgHelp.lib;IPHLPAPI.lib;Rpcrt4.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Shell32.lib;DbgHelp.lib;IPHLPAPI.lib;Rpcrt4.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <ProjectReference>
       <LinkLibraryDependencies>false</LinkLibraryDependencies>
@@ -244,7 +244,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <ImportLibrary>$(GE_ENGINE_SDK)lib/$(PlatformShortName)/$(TargetName).lib</ImportLibrary>
-      <AdditionalDependencies>DbgHelp.lib;IPHLPAPI.lib;Rpcrt4.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Shell32.lib;DbgHelp.lib;IPHLPAPI.lib;Rpcrt4.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <ProjectReference>
       <LinkLibraryDependencies>false</LinkLibraryDependencies>

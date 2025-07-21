@@ -25,7 +25,7 @@
  * GE_PROFILING_ENABLED - Enabled/Disable Profiling
  */
 /*****************************************************************************/
-#define GE_PROFILING_ENABLED	1
+#define GE_PROFILING_ENABLED	0
 
 /*****************************************************************************/
 /**

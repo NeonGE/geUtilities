@@ -161,6 +161,57 @@ namespace geEngineSDK {
     static Path
     getTempDirectoryPath();
 
+    /**
+     * @brief Returns the path to a directory where user data may be stored.
+     */
+    static Path
+    getUserDataDirectoryPath();
+
+    /**
+     * @brief Sets the path to the engine's data directory.
+     *        This is where the engine will look for its resources.
+     * @param path The new path to the engine's data directory.
+     */
+    static void
+    setEnginePath(const Path& path);
+
+    /**
+     * @brief Returns the path to the engine's data directory.
+     *        This is where the engine will look for its resources.
+     */
+    static Path
+    getEnginePath();
+
+    /**
+     * @brief Sets the path to the engine's plugins directory.
+     *        This is where the engine will look for its plugins.
+     * @param path The new path to the engine's plugins directory.
+     */
+    static void
+    setPluginsPath(const Path& path);
+
+    /**
+     * @brief Returns the path to the engine's plugins directory.
+     *        This is where the engine will look for its plugins.
+     */
+    static Path
+    getPluginsPath();
+
+    /**
+     * @brief Sets the path to the application data directory.
+     *        This is where the application will look for its resources.
+     * @param path The new path to the application data directory.
+     */
+    static void
+    setAppPath(const Path& path);
+
+    /**
+     * @brief Returns the path to the application data directory.
+     *        This is where the application will look for its resources.
+     */
+    static Path
+    getAppPath();
+
    private:
     /**
      * @brief Copy a single file. Internal function used by copy().
