@@ -400,7 +400,8 @@ namespace geEngineSDK {
     /**
      * @brief @copydoc DataStream::close
      */
-    void close() override;
+    void
+    close() override;
 
     /**
      * @brief Returns the path of the file opened by the stream.

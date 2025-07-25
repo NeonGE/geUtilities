@@ -27,7 +27,6 @@
 #include "geUnicode.h"
 
 namespace geEngineSDK {
-  using std::stringstream;
 
   const uint32 DataStream::streamTempSize = 128;
 
@@ -168,9 +167,9 @@ namespace geEngineSDK {
     
     //TODO: Change this to use the stack allocator, however right now we
     //haven't initialized the stack yet on the engine
-    auto* tempBuffer = static_cast<stringstream::char_type*>(ge_alloc(bufSize));
+    auto* tempBuffer = static_cast<StringStream::char_type*>(ge_alloc(bufSize));
 
-    stringstream result;
+    StringStream result;
     while (!isEOF()) {
       SIZE_T numReadBytes = read(tempBuffer, bufSize);
       result.write(tempBuffer, numReadBytes);
@@ -180,7 +179,7 @@ namespace geEngineSDK {
     //haven't initialized the stack yet on the engine
     free(tempBuffer);
 
-    std::string string = result.str();
+    String string = result.str();
 
     switch (dataOffset)
     {
